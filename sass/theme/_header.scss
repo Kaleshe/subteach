@@ -1,0 +1,15 @@
+.site-header {
+    padding: calc(#{$space} / 2) $space;
+    border-bottom: 1px solid #e3eaef;
+    margin-bottom: calc(#{$space} * 2);
+}
+
+.site-header .container, .site-branding {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-logo {
+    margin-right: calc(#{$space} / 3);
+}

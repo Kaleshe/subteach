@@ -1,0 +1,37 @@
+.grid {
+    display: grid;
+}
+
+.gap-space {
+    grid-gap: $space;
+}
+
+.gap-y-space {
+    grid-row-gap: $space;
+}
+
+.gap-x-space {
+    grid-column-gap: $space;
+}
+
+.gap-y-space-half {
+    grid-row-gap: calc(#{$space} / 2);
+}
+
+.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: $md) {
+    .md\:cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .md\:gap-y-space-2 {
+        grid-column-gap: calc(#{$space} * 2);
+    }
+}
