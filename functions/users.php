@@ -58,8 +58,7 @@ function update_school_cpt( $user_id, $old_user_data ) {
     $user_info = get_userdata( $user_id );
 
     // Get corresponding school ID
-    $school_id = get_user_meta( $user_id );
-    die(print_r($school_id, true));
+    $school_id = maybe_unserialize( get_user_meta( $user_id, 'school_id', true )[0] );
 
     $school_post = array(
         'ID'           => $school_id,
