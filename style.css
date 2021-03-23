@@ -917,7 +917,7 @@ form div > * {
 }
 
 .user-profile-info {
-	max-width: 400px;
+	max-width: 350px;
 }
 
 .user-profile-info > *:not(:last-of-type) {
@@ -925,7 +925,7 @@ form div > * {
 }
 
 .user-profile-info .description {
-	max-width: 250px;
+	max-width: 330px;
 }
 
 .card {

@@ -11,13 +11,13 @@
 }
 
 .user-profile-info {
-    max-width: 400px;
+    max-width: 350px;
     
     & > *:not(:last-of-type) {
         margin-bottom: calc(#{$space} / 3);
     }
 
     .description {
-        max-width: 250px;
+        max-width: 330px;
     }
 }

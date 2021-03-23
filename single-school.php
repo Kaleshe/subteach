@@ -12,7 +12,7 @@ $telephone = $meta['school_telephone'][0];
 $city = $meta['school_city'][0];
 $postcode = $meta['school_postcode'][0];
 $address = $meta['school_address'][0];
-$description = 'Description';
+$description = get_the_content();
 $signup_date = get_the_date();
 
 $url = get_bloginfo('url');
