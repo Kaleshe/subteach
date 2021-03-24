@@ -2,6 +2,10 @@
     font-size: .9rem;
 }
 
+.text-md {
+    font-size: 1.25rem;
+}
+
 .text-lg {
     font-size: 1.5rem;
 }
@@ -43,12 +47,20 @@
 }
 
 @media (min-width: $md) {
+    .md\:text-2xl {
+        font-size: 2.5rem;
+    }
+
     .md\:text-3xl {
         font-size: 3rem;
     }
 
     .md\:text-4xl {
         font-size: 3.5rem;
+    }
+
+    .md\:text-5xl {
+        font-size: 4rem;
     }
 
     .md\:text-center {

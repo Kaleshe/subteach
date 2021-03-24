@@ -2,6 +2,10 @@
     margin-bottom: calc(#{$space} / 2);
 }
 
+.mt-space-half {
+    margin-top: calc(#{$space} / 2);
+}
+
 .mx-auto {
     margin-left: auto;
     margin-right: auto;

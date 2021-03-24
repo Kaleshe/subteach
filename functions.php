@@ -3,7 +3,7 @@ $roots_includes = array(
   '/functions/theme.php',
   '/functions/school.php',
   '/functions/logic.php',
-  '/functions/components/card.php',
+  '/functions/components/dataCard.php',
   '/functions/components/create-event.php'
 );
 

@@ -11,5 +11,9 @@
 ;?>
 
 <div class="school-dashboard">
-    
+    <div class="cards">
+        <?php
+            echo dataCard( esc_html( 'Number of Placements' ), 10 );
+        ?>
+    </div>
 </div>

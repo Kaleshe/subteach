@@ -13,7 +13,7 @@
 .main-navigation {
 	display: flex;
 	align-items: center;
-	@extend .font-medium;
+	@extend .font-bold;
 
 	ul {
 		display: none;
