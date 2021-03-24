@@ -2,7 +2,7 @@
 
 function card( $text, $value ) {  
     return '
-    <div class="card">
+    <div class="card text-center py-space">
         <div class="cardValue">
             ' . $value . '
         </div>

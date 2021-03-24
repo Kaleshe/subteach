@@ -4,7 +4,7 @@
 $servername = 'localhost';
 $username = 'root';
 $password = 'root';
-$dbname = 'subteach';
+$dbname = 'local';
 
 // Create connection
 $mysqli = new mysqli($servername, $username, $password, $dbname);

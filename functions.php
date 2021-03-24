@@ -1,10 +1,10 @@
 <?php
 $roots_includes = array(
   '/functions/theme.php',
-  '/functions/admin.php',
   '/functions/school.php',
-  '/functions/users.php',
-  '/functions/components/card.php'
+  '/functions/logic.php',
+  '/functions/components/card.php',
+  '/functions/components/create-event.php'
 );
 
 foreach($roots_includes as $file){

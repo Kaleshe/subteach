@@ -47,36 +47,38 @@ if( isset($_POST['update']) ) {
 ;?>
 
 <div class="admin-form">
-    <form class="grid gap-y-space-half" method="post" action="<?php $_PHP_SELF; ?>">
-        <h1>Contact Information</h1>
+    <h2 class="mb-space-half">Contact Information</h2>
+    <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
         <div>
-            <label for="telephone">Telephone:</label>
+            <label for="telephone">Telephone</label>
             <input type="tel" name="telephone" id="telephone" value="<?php esc_attr_e( $telephone, 'subteach') ;?>">
         </div>
 
         <div>
-            <label for="email">Email:</label>
+            <label for="email">Email</label>
             <input type="email" name="email" id="email" value="<?php esc_attr_e( $email, 'subteach') ;?>">
         </div>
         
         <div>
-            <label for="city">City:</label>
+            <label for="city">City</label>
             <input type="text" name="city" id="city" value="<?php esc_attr_e( $city, 'subteach') ;?>">
         </div>
 
         <div>
-            <label for="postcode">Postcode:</label>
+            <label for="postcode">Postcode</label>
             <input type="text" name="postcode" id="postcode" value="<?php esc_attr_e( $postcode, 'subteach') ;?>">
         </div>
         
         <div>
-            <label for="street_address">Street Address:</label>
+            <label for="street_address">Street Address</label>
             <input type="text" name="street_address" id="street_address" value="<?php esc_attr_e( $street_address, 'subteach') ;?>">
         </div>
 
-        <!-- <h2 class="mt-space">Pricing</h2> -->
+        <h2 class="mt-space">Pricing</h2>
 
-        <input type="submit" value="Update" name="update" id="update">
+        <h2 class="mt-space">FAQ</h2>
+
+        <input class="justify-self-start" type="submit" value="Update" name="update" id="update">
 
     </form>
 </div>

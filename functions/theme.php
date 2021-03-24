@@ -149,6 +149,14 @@ function subteach_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+	
+	if ( is_school() ) {
+		wp_enqueue_script( 'micromodal', 'https://unpkg.com/micromodal/dist/micromodal.min.js', array(), _S_VERSION, true );
+
+		add_action( 'wp_footer', function() {
+			echo '<script>MicroModal.init();</script>';
+		}, 100);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'subteach_scripts' );
 

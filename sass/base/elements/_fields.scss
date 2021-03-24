@@ -17,11 +17,15 @@ textarea {
 	color: $color__text-input;
 	border: 1px solid $color__border-input;
 	border-radius: 3px;
-	padding: 3px;
+	padding: 7px .75rem;
 
 	&:focus {
 		color: $color__text-input-focus;
 	}
+}
+
+input[type="submit"] {
+	padding: .75rem 2rem;
 }
 
 select {

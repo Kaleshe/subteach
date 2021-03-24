@@ -1,5 +1,5 @@
 .card {
-    @extend .text-center, .py-space-2;
+    @extend .py-space-half;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
     border-radius: 10px;
     background-color: #FFF;

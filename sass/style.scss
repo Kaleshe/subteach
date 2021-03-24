@@ -103,6 +103,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 @import "theme/profile/profile";
 @import "theme/components/card";
 @import "theme/fonts";
+@import "theme/components/modal";
 
 /*--------------------------------------------------------------
 # Plugins
@@ -135,3 +136,11 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /* Space
 --------------------------------------------- */
 @import "utilities/space";
+
+/* Width
+--------------------------------------------- */
+@import "utilities/width";
+
+/* Display
+--------------------------------------------- */
+@import "utilities/display";

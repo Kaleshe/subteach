@@ -1,4 +1,5 @@
 button,
+.modal__btn,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
@@ -8,7 +9,8 @@ input[type="submit"] {
 	background: $color__background-button;
 	color: #FFF;
 	line-height: 1;
-	padding: 0.6em 1em 0.4em;
+	padding: .75rem 2rem;
+	@extend .font-bold;
 
 	&:hover {
 		border-color: $color__border-button-hover;
@@ -17,5 +19,21 @@ input[type="submit"] {
 	&:active,
 	&:focus {
 		border-color: $color__border-button-focus;
+	}
+}
+
+button, 
+input[type="submit"] {
+	will-change: auto;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	transition: -webkit-transform .25s ease-out;
+	transition: transform .25s ease-out;
+	transition: transform .25s ease-out,-webkit-transform .25s ease-out;
+
+	&:hover {
+		-webkit-transform: scale(1.05);
+		transform: scale(1.05);
+		cursor: pointer;
 	}
 }
