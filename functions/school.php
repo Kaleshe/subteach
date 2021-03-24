@@ -29,3 +29,7 @@ function is_school() {
         return false;
     }
 }
+
+/**
+ * Create categories using subjects
+ */
