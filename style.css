@@ -1497,4 +1497,10 @@ h6 {
 	align-items: center;
 }
 
+/* Other
+--------------------------------------------- */
+.radius-full {
+	border-radius: 100%;
+}
+
 /*# sourceMappingURL=style.css.map */

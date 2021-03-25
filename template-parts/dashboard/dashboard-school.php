@@ -24,7 +24,7 @@ $school_id = get_the_ID();
             </div>
         </div>
         <div class="card p-space text-center">
-            <img class="user-profile-photo" src="<?= esc_url( get_avatar_url($school_id, array('size' => 150) ) ); ?>">
+            <img class="user-profile-photo radius-full" src="<?= esc_url( get_avatar_url($school_id, array('size' => 150) ) ); ?>">
             <p>Last Booked Profile</p>
         </div>
     </div>
