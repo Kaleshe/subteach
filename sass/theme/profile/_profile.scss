@@ -1,23 +1,11 @@
-.user-profile .container {
-    display: grid;
-    
-    @media (min-width: $md) {
-        grid-template-columns: max-content 1fr;
-    }
-}
-
-.user-profile-photo {
-    border-radius: 100%;
-}
-
 .user-profile-info {
-    max-width: 350px;
+    max-width: 375px;
     
     & > *:not(:last-of-type) {
-        margin-bottom: calc(#{$space} / 3);
+        margin-bottom: calc(#{$space} / 4);
     }
 
     .description {
-        max-width: 330px;
+        max-width: 300px;
     }
 }

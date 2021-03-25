@@ -27,32 +27,32 @@ get_header();
 
             if ( is_user_logged_in() ): ?>
 
-            <section class="user-profile">
-                <div class="container gap-space md:gap-y-space-2">
-
-                    <img class="user-profile-photo" src="<?= esc_url( get_avatar_url($school_id, array('size' => 250) ) ); ?>">
+            <section class="user-profile grid md:cols-2">
                     
                     <div class="user-profile-info">
-                        <p class="font-bold text-lg"><?php the_title(); ?></p>
-                        <p class="description | mb-space-half text-sm"><?= $description ? $description : esc_html('No Description'); ?></p>
-                        <div class="grid cols-2 gap-x-space gap-y-space-half">
-                            <p class="email | font-medium">Email</p> <p><?= $email ? $email : esc_html('-'); ?></p>
-                            <p class="telephone | font-medium">Telephone</p> <p><?= $telephone ? $telephone : esc_html('-'); ?></p>
-                            <p class="city | font-medium">City</p> <p><?= $city ? $city : esc_html('-'); ?></p>
-                            <p class="postcode | font-medium">Postcode</p> <p><?= $postcode ? $postcode : esc_html('-'); ?></p>
-                            <p class="address | font-medium">Address</p> <p><?= $address ? $address : esc_html('-'); ?></p>
-                            <p class="signup-date | font-medium">Sign Up Date</p> <p><?= $signup_date; ?></p>
+                        <div class="card text-sm">
+                            <img class="user-profile-photo w-full" src="<?= esc_url( get_avatar_url($school_id, array('size' => 250) ) ); ?>">
+                            
+                            <div class="px-space py-space">
+                                <p class="font-black text-md">Bio</p>
+                                <p class="description | mb-space"><?= $description ? $description : esc_html('No Description'); ?></p>
+
+                                <div class="grid cols-2 gap">
+                                    <p class="email">Email</p> <p class="font-medium"><?= $email ? $email : esc_html('-'); ?></p>
+                                    <p class="telephone">Telephone</p> <p class="font-medium"><?= $telephone ? $telephone : esc_html('-'); ?></p>
+                                    <p class="city">City</p> <p class="font-medium"><?= $city ? $city : esc_html('-'); ?></p>
+                                    <p class="postcode">Postcode</p> <p class="font-medium"><?= $postcode ? $postcode : esc_html('-'); ?></p>
+                                    <p class="address">Address</p> <p class="font-medium"><?= $address ? $address : esc_html('-'); ?></p>
+                                    <p class="signup-date">Sign Up Date</p> <p class="font-medium"><?= $signup_date; ?></p>
+                                </div>
+                            </div>
                         </div>
-                        <?php
-                            if (current_user_can('delete_posts')){
-                                echo '<a class="mt-space" href="';
-                                echo wp_nonce_url("$url/wp-admin/post.php?post=$school_id&action=delete", 'delete-post_' . $school_id);
-                                echo '">Delete your listing</a>';
-                            }
-                            ;?>
                     </div>
 
-                </div>
+                    <div>
+                        <p class="font-black text-xl"><?php the_title(); ?></p>
+                    </div>
+
             </section>
 
             <?php else: ?>

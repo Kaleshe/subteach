@@ -11,8 +11,9 @@
 
 ?>
 
-	<footer id="colophon" class="site-footer">
+	<footer id="colophon" class="site-footer mt-space-2 text-sm mb-space">
 		<div class="container">
+			<?php esc_html_e( 'Substeach - Streitgasse 20, 4051 Basel - +41 61 511 08 65 - hello@substeach.ch', 'subteach' ) ;?>
 		</div>
 		<div class="site-info">
 		</div><!-- .site-info -->

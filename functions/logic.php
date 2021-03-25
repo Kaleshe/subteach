@@ -53,3 +53,7 @@
  function get_total_teachers() {
      return get_total_app_users('teacher');
  }
+
+ function last_booked_profile() {
+     
+ }

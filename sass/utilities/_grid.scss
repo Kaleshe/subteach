@@ -22,8 +22,8 @@
     grid-gap: calc(#{$space} / 2);
 }
 
-.justify-self-start {
-    justify-self: flex-start;
+.gap {
+     grid-gap: calc(#{$space} / 3);
 }
 
 .cols-2 {
@@ -36,6 +36,12 @@
 
 .col-start-1 {
     grid-column-start: 1;
+}
+
+@media (min-width: $sm) {
+    .sm\:cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (min-width: $md) {

@@ -40,45 +40,70 @@ if( isset($_POST['update']) ) {
     }
 }
 
-// hello@educampus.ch	+41 61 511 08 65	Streitgasse 20	4051	Schweiz	
-// TODO:
-// Set the value for the inputs as its current database value
-
 ;?>
 
-<div class="admin-form">
-    <h2 class="mb-space-half">Contact Information</h2>
-    <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
-        <div>
-            <label for="telephone">Telephone</label>
-            <input type="tel" name="telephone" id="telephone" value="<?php esc_attr_e( $telephone, 'subteach') ;?>">
-        </div>
+<div class="grid gap-space-half w-max-theme mx-auto">
+    <div class="admin-form | card px-space py-space">
 
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="<?php esc_attr_e( $email, 'subteach') ;?>">
-        </div>
-        
-        <div>
-            <label for="city">City</label>
-            <input type="text" name="city" id="city" value="<?php esc_attr_e( $city, 'subteach') ;?>">
-        </div>
+        <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
+            <h2 class="mb-space-half">Contact Information</h2>
+            <div>
+                <label for="telephone">Telephone</label>
+                <input type="tel" name="telephone" id="telephone" value="<?php esc_attr_e( $telephone, 'subteach') ;?>">
+            </div>
 
-        <div>
-            <label for="postcode">Postcode</label>
-            <input type="text" name="postcode" id="postcode" value="<?php esc_attr_e( $postcode, 'subteach') ;?>">
-        </div>
-        
-        <div>
-            <label for="street_address">Street Address</label>
-            <input type="text" name="street_address" id="street_address" value="<?php esc_attr_e( $street_address, 'subteach') ;?>">
-        </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="<?php esc_attr_e( $email, 'subteach') ;?>">
+            </div>
+            
+            <div>
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" value="<?php esc_attr_e( $city, 'subteach') ;?>">
+            </div>
 
-        <h2 class="mt-space">Pricing</h2>
+            <div>
+                <label for="postcode">Postcode</label>
+                <input type="text" name="postcode" id="postcode" value="<?php esc_attr_e( $postcode, 'subteach') ;?>">
+            </div>
+            
+            <div>
+                <label for="street_address">Street Address</label>
+                <input type="text" name="street_address" id="street_address" value="<?php esc_attr_e( $street_address, 'subteach') ;?>">
+            </div>
 
-        <h2 class="mt-space">FAQ</h2>
+            <input class="justify-self-start" type="submit" value="Update" name="update" id="update">
 
-        <input class="justify-self-start" type="submit" value="Update" name="update" id="update">
+        </form>
+    </div>
 
-    </form>
+    <div class="admin-form | card px-space py-space mt-space">
+
+        <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
+            <h2 class="mb-space-half">Pricing</h2>
+            <div>
+                <label for="telephone">Teachers</label>
+                <input type="tel" name="telephone" id="telephone" value="">
+            </div>
+
+            <div>
+                <label for="month">Month</label>
+                <input type="number" name="month" id="month" value="">
+            </div>
+
+            <div>
+                <label for="annual">Annual</label>
+                <input type="number" name="annual" id="annual" value="">
+            </div>
+
+            <div>
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" value="">
+            </div>
+
+            <input class="justify-self-start" type="submit" value="Update" name="update_pricing" id="update_pricing">
+
+        </form>
+    </div>
 </div>
+

@@ -15,6 +15,10 @@
     margin-top: $space;
 }
 
+.mt-space-2 {
+    margin-top: calc(#{$space} * 2);
+}
+
 .mb-space {
     margin-bottom: $space;
 }
@@ -37,4 +41,8 @@
 .py-space-2 {
     padding-top: calc(#{$space} * 2);
     padding-bottom: calc(#{$space} * 2);
+}
+
+.p-space {
+    padding: $space;
 }

@@ -9,6 +9,10 @@
     ;
     border-radius: 10px;
     background-color: #FFF;
+
+    a {
+        text-decoration: none
+    }
 }
 
 .cardData {
@@ -22,4 +26,14 @@
     padding: calc(#{$space} / 4 ) $space;
     color: #FFF;
     @extend .capitalize, .text-sm, .font-bold;
+}
+
+.card-blue {
+    background-color: $color__brand;
+    
+    color: #FFF;
+
+    a {
+        color: currentColor
+    }
 }

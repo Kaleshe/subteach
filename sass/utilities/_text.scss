@@ -47,6 +47,10 @@
 }
 
 @media (min-width: $md) {
+    .md\:text-md {
+        font-size: 1.25rem;
+    }
+
     .md\:text-2xl {
         font-size: 2.5rem;
     }

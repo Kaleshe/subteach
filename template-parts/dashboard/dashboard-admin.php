@@ -11,7 +11,7 @@
 ;?>
 
 <div class="admin-dashboard">
-    <div class="cards grid gap-space md:cols-3">
+    <div class="cards grid gap-space sm:cols-2 md:cols-3">
         <?php 
             echo dataCard( esc_html( 'Total Schools' ), get_total_schools() );
             echo dataCard( esc_html( 'Total Teachers' ), get_total_teachers() );

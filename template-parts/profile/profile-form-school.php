@@ -42,9 +42,9 @@ if( isset($_POST['update']) ) {
 
 ;?>
 
-<div class="admin-form">
-    <h2 class="mb-space-half">Contact Information</h2>
+<div class="school-form | card px-space py-space w-max-theme mx-auto">
     <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
+        <h2 class="mb-space-half">Contact Information</h2>
         <div>
             <label for="telephone">Telephone</label>
             <input type="tel" name="telephone" id="telephone" value="<?php esc_attr_e( $telephone, 'subteach') ;?>">

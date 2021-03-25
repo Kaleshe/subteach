@@ -35,7 +35,7 @@ $user = get_current_user_id();
 				
 				if ( $user ): ?>
 
-					 <p><?php esc_html_e( 'Welcome, ' . get_userdata($user)->first_name , 'subteach' ); ?></p>
+					 <p class="font-medium"><?php esc_html_e( 'Welcome, ' . get_userdata($user)->first_name , 'subteach' ); ?></p>
 
 				<?php endif; ?>
 
