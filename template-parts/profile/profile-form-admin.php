@@ -14,8 +14,6 @@ $city = '';
 $postcode = '';
 $street_address = '';
 
-print_r($_POST['update']);
-
 if( isset($_POST['update']) ) {
 
     // Prepare and bind

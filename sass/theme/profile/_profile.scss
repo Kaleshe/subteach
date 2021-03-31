@@ -1,11 +1,16 @@
 .user-profile-info {
-    max-width: 375px;
+
+    img {
+        border-radius: 100%;
+    }
     
     & > *:not(:last-of-type) {
         margin-bottom: calc(#{$space} / 4);
     }
 
-    .description {
-        max-width: 300px;
+    @media (min-width: $md) {
+        .description {
+            max-width: 300px;
+        }
     }
 }

@@ -1,10 +1,10 @@
-<?php 
-  $wpdb->insert('events', array(
-    'name' => 'Kumkum',
-    'email' => 'kumkum@gmail.com',
-    'phone' => '3456734567', // ... and so on
-));
+<?php
+$subjects = get_subjects();
 
+if ( isset($_POST['submit'] ) ) {
+  create_event();
+  echo 'event added';
+}
 
 ?>
 
@@ -19,22 +19,28 @@
       </header>
       <main class="modal__content" id="modal-1-content">
       <div id="modal-1-content">
-          <form action="" class="create-event-form">
+          <form action="" class="create-event-form" method="post" action="<?php $_PHP_SELF; ?>">
               <label for="subject">Subject</label>
-              <input type="text" placeholder="Subject" class="w-full">
+              <input list="subjects" placeholder="Subject" class="w-full" name="subject">
+              <datalist id="subjects">
+                <?php foreach ( $subjects as $subject ) {
+                  echo '<option>' . $subject['title'] . '</option>';
+                }
+                ?>
+              </datalist>
               <label for="date">Date</label>
               <input type="date" name="date" id="date" required>
               <label for="time">Time</label>
               <input type="time" id="time" name="time" required>
               <label for="note">Note</label>
               <textarea name="note" id="note" cols="20" rows="5"></textarea>
-              
+              <footer class="modal__footer">
+                <input type="submit" name="submit" value="Create Event">
+                <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Cancel</button>
+            </footer>
           </form>
       </main>
-      <footer class="modal__footer">
-          <input type="submit" value="Create Event">
-        <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Cancel</button>
-      </footer>
+
     </div>
   </div>
 </div>

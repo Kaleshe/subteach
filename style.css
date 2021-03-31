@@ -921,8 +921,8 @@ form label {
 	justify-content: space-between;
 }
 
-.custom-logo {
-	margin-right: calc(2rem / 3);
+.custom-logo-link {
+	margin-right: 1rem;
 }
 
 .site-main {
@@ -930,16 +930,18 @@ form label {
 	padding-right: 2rem;
 }
 
-.user-profile-info {
-	max-width: 375px;
+.user-profile-info img {
+	border-radius: 100%;
 }
 
 .user-profile-info > *:not(:last-of-type) {
 	margin-bottom: calc(2rem / 4);
 }
 
-.user-profile-info .description {
-	max-width: 300px;
+@media (min-width: 48em) {
+	.user-profile-info .description {
+		max-width: 300px;
+	}
 }
 
 .card {
@@ -1371,6 +1373,10 @@ h6 {
 	grid-gap: calc(2rem / 3);
 }
 
+.cols-profile {
+	grid-template-columns: 375px 1fr;
+}
+
 .cols-2 {
 	grid-template-columns: repeat(2, 1fr);
 }
@@ -1390,6 +1396,9 @@ h6 {
 }
 
 @media (min-width: 48em) {
+	.md\:cols-profile {
+		grid-template-columns: 400px 1fr;
+	}
 	.md\:cols-2 {
 		grid-template-columns: repeat(2, 1fr);
 	}

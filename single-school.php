@@ -17,6 +17,8 @@ $signup_date = get_the_date();
 
 $url = get_bloginfo('url');
 
+print_r(wp_unique_id());
+
 get_header();
 ?>
 
@@ -27,14 +29,13 @@ get_header();
 
             if ( is_user_logged_in() ): ?>
 
-            <section class="user-profile grid md:cols-2">
+            <section class="user-profile grid md:cols-profile gap-space">
                     
                     <div class="user-profile-info">
-                        <div class="card text-sm">
-                            <img class="user-profile-photo w-full" src="<?= esc_url( get_avatar_url($school_id, array('size' => 250) ) ); ?>">
-                            
+                    <img class="user-profile-photo mx-auto block mb-space" src="<?= esc_url( get_avatar_url($school_id, array('size' => 250) ) ); ?>">
+                        <div class="card text-sm">                            
                             <div class="px-space py-space">
-                                <p class="font-black text-md">Bio</p>
+                                <p class="font-black text-lg mb-space-half"><?php the_title(); ?></p>
                                 <p class="description | mb-space"><?= $description ? $description : esc_html('No Description'); ?></p>
 
                                 <div class="grid cols-2 gap">
@@ -50,7 +51,12 @@ get_header();
                     </div>
 
                     <div>
-                        <p class="font-black text-xl"><?php the_title(); ?></p>
+                        <?php
+                            echo dataCard( esc_html( 'Number of Placements' ), 10 );
+                        ?>
+                        <?php
+                            echo dataCard( esc_html( 'Documents' ), 10 );
+                        ?>
                     </div>
 
             </section>

@@ -5,8 +5,11 @@
 }
 
 .site-header .container, .site-branding {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.custom-logo-link {
+    margin-right: 1rem;
 }

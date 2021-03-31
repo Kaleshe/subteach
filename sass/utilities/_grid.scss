@@ -26,6 +26,10 @@
      grid-gap: calc(#{$space} / 3);
 }
 
+.cols-profile {
+    grid-template-columns: 375px 1fr;
+}
+
 .cols-2 {
     grid-template-columns: repeat(2, 1fr);
 }
@@ -45,6 +49,10 @@
 }
 
 @media (min-width: $md) {
+    .md\:cols-profile {
+        grid-template-columns: 400px 1fr;
+    }
+
     .md\:cols-2 {
         grid-template-columns: repeat(2, 1fr);
     }
