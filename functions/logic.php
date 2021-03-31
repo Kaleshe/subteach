@@ -100,8 +100,8 @@ function create_event() {
     $school_id = maybe_unserialize( get_user_meta( $user_id, 'school_id', true )[0] );
 
     $wpdb->insert('events', array(
-    'subjectID'      => get_subject_id( $_POST['subject'] ),
-    'subjectLiteral' => $_POST['subject'],
+    'subjectID'      => $_POST['subjectID'],
+    'subjectLiteral' => get_subject( $_POST['subjectID'] ),
     'schoolID'       => $school_id,
     'note'           => $_POST['note'],
     'timestamp'      => $_POST['date'] . ' ' . $_POST['time']

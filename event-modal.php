@@ -3,7 +3,6 @@ $subjects = get_subjects();
 
 if ( isset($_POST['submit'] ) ) {
   create_event();
-  echo 'event added';
 }
 
 ?>
@@ -21,13 +20,18 @@ if ( isset($_POST['submit'] ) ) {
       <div id="modal-1-content">
           <form action="" class="create-event-form" method="post" action="<?php $_PHP_SELF; ?>">
               <label for="subject">Subject</label>
-              <input list="subjects" placeholder="Subject" class="w-full" name="subject">
+              <input id="subjectsList" list="subjects" placeholder="Subject" class="w-full" name="subject">
               <datalist id="subjects">
                 <?php foreach ( $subjects as $subject ) {
-                  echo '<option>' . $subject['title'] . '</option>';
+                  echo '<option data-subject-id="'. $subject['id'] .'" value="' . $subject['title']; 
+                  if ( $subject['levelID'] > 0 ) {
+                    echo ' - Level ' .  $subject['levelID'];
+                  }
+                  echo '" />';
                 }
                 ?>
               </datalist>
+              <input type="text" name="subjectID" hidden>
               <label for="date">Date</label>
               <input type="date" name="date" id="date" required>
               <label for="time">Time</label>
