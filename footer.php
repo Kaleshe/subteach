@@ -22,7 +22,7 @@
 
 <?php if ( is_school() ): ?>
 	<button data-micromodal-trigger="modal-1">New Event</button>
-	<?php echo create_event(); ?>
+	<?php include( get_template_directory() . '/create-event.php' ); ?>
 <?php endif; ?>
  
 <?php wp_footer(); ?>

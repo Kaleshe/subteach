@@ -4,7 +4,7 @@ $roots_includes = array(
   '/functions/school.php',
   '/functions/logic.php',
   '/functions/components/dataCard.php',
-  '/functions/components/create-event.php'
+  '/functions/login.php'
 );
 
 foreach($roots_includes as $file){

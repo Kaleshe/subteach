@@ -14,6 +14,8 @@ $city = '';
 $postcode = '';
 $street_address = '';
 
+print_r($_POST['update']);
+
 if( isset($_POST['update']) ) {
 
     // Prepare and bind
@@ -82,8 +84,13 @@ if( isset($_POST['update']) ) {
         <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
             <h2 class="mb-space-half">Pricing</h2>
             <div>
-                <label for="telephone">Teachers</label>
-                <input type="tel" name="telephone" id="telephone" value="">
+            <?php get_subjects(); ?>
+                <label for="teachers">Teachers</label>
+                <select id="teachers" name="teachers">
+                    <option value="teachers_1">bis 50 Lehrpersonen</option>
+                    <option value="teachers_2">ab 50 Lehrpersonen</option>
+                    <option value="teachers_3">ab 100 Lehrpersonen</option>
+                </select>
             </div>
 
             <div>

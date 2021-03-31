@@ -19,14 +19,16 @@ function update_school_roles() {
 add_action( 'init', 'update_school_roles' );
 
 function is_school() {
-    $user_id = get_current_user_id();
-    $user_meta = get_userdata($user_id);
-    $user_roles = $user_meta->roles;
-
-    if (in_array( 'school', $user_roles )) {
-        return true;
-    } else {
-        return false;
+    if (  is_user_logged_in() ) {
+        $user_id = get_current_user_id();
+        $user_meta = get_userdata($user_id);
+        $user_roles = $user_meta->roles;
+    
+        if (in_array( 'school', $user_roles )) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
