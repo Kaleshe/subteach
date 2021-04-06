@@ -11,7 +11,7 @@ get_header();
 	<main id="primary" class="site-main">
         <div class="container">
 
-          <?php the_title('<h1 class="mb-space-half text mb-space">', '</h1>'); ?>
+          <?php the_title('<h1 class="mb-space-half text-center mb-space">', '</h1>'); ?>
 
             <?php
             

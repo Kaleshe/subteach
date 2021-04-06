@@ -22,77 +22,18 @@ Normalizing styles have been helped along thanks to the fine work of
 Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 */
 
-/*--------------------------------------------------------------
->>> TABLE OF CONTENTS:
-----------------------------------------------------------------
-# Generic
-	- Normalize
-	- Box sizing
-# Base
-	- Typography
-	- Elements
-	- Links
-	- Forms
-## Layouts
-# Components
-	- Navigation
-	- Posts and pages
-	- Comments
-	- Widgets
-	- Media
-	- Captions
-	- Galleries
-# Dashboard
-	- Dashboard
-# Theme
-	- Header
-	- Footer
-	- Profile
-	- Card
-	- Fonts
-# plugins
-	- Jetpack infinite scroll
-# Utilities
-	- Accessibility
-	- Alignments
-
---------------------------------------------------------------*/
-
 // Import variables and mixins.
 @import "abstracts/abstracts";
 
 /*--------------------------------------------------------------
-# Generic
+# Utilities
 --------------------------------------------------------------*/
-
-/* Normalize
---------------------------------------------- */
-@import "generic/normalize";
-
-/* Box sizing
---------------------------------------------- */
-@import "generic/box-sizing";
+@import "utilities";
 
 /*--------------------------------------------------------------
 # Base
 --------------------------------------------------------------*/
 @import "base/base";
-
-/*--------------------------------------------------------------
-# Layouts
---------------------------------------------------------------*/
-// @import "layouts/content-sidebar"; // Uncomment this line for a sidebar on right side of your content.
-// @import "layouts/sidebar-content"; // Uncomment this line for a sidebar on left side of your content.
-
-/*--------------------------------------------------------------
-# Components
---------------------------------------------------------------*/
-@import "components/components";
-
-/*--------------------------------------------------------------
-# Dashboard
---------------------------------------------------------------*/
-@import "dashboard/dashboard";
 
 /*--------------------------------------------------------------
 # Theme
@@ -104,47 +45,9 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 @import "theme/components/card";
 @import "theme/fonts";
 @import "theme/components/modal";
+@import "theme/components/accordion";
 
 /*--------------------------------------------------------------
-# Plugins
+# Navigation
 --------------------------------------------------------------*/
-
-/* Jetpack infinite scroll
---------------------------------------------- */
-@import "plugins/jetpack/infinite-scroll";
-
-/*--------------------------------------------------------------
-# Utilities
---------------------------------------------------------------*/
-
-/* Accessibility
---------------------------------------------- */
-@import "utilities/accessibility";
-
-/* Alignments
---------------------------------------------- */
-@import "utilities/alignments";
-
-/* Text
---------------------------------------------- */
-@import "utilities/text";
-
-/* Grid
---------------------------------------------- */
-@import "utilities/grid";
-
-/* Space
---------------------------------------------- */
-@import "utilities/space";
-
-/* Width
---------------------------------------------- */
-@import "utilities/width";
-
-/* Display
---------------------------------------------- */
-@import "utilities/display";
-
-/* Other
---------------------------------------------- */
-@import "utilities/other";
+@import "navigation";

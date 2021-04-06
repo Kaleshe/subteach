@@ -151,7 +151,7 @@ function subteach_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 	
-	if ( is_school() && is_page(8) ) {
+	if ( is_page('dashboard') || is_school() && ( is_page(8) || is_front_page() ) ) {
 		wp_enqueue_script( 'micromodal', 'https://unpkg.com/micromodal/dist/micromodal.min.js', array(), _S_VERSION, true );
 
 		add_action( 'wp_footer', function() {

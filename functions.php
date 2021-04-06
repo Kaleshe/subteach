@@ -4,6 +4,7 @@ $roots_includes = array(
   '/functions/school.php',
   '/functions/logic.php',
   '/functions/components/dataCard.php',
+  '/functions/components/profileCard.php',
   '/functions/login.php'
 );
 

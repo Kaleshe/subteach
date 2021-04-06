@@ -5,6 +5,8 @@
  * @package Subteach
  */
 
+include( get_template_directory() . '/profile-modal.php' );
+
 get_header();
 ?>
 

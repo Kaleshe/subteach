@@ -13,7 +13,7 @@
 
 	<footer id="colophon" class="site-footer mt-space-2 text-sm mb-space">
 		<div class="container">
-			<?php esc_html_e( 'Substeach - Streitgasse 20, 4051 Basel - +41 61 511 08 65 - hello@substeach.ch', 'subteach' ) ;?>
+			<!-- <?php esc_html_e( 'Substeach - Streitgasse 20, 4051 Basel - +41 61 511 08 65 - hello@substeach.ch', 'subteach' ) ;?> -->
 		</div>
 		<div class="site-info">
 		</div><!-- .site-info -->
@@ -22,7 +22,7 @@
  
 <?php 
 
-	if ( is_school() && is_page(8) ) {
+	if ( is_school() && ( is_page(8) || is_front_page() ) ) {
 		include( get_template_directory() . '/event-modal.php' );
 		echo '<button data-micromodal-trigger="modal-1">New Event</button>';
 	}

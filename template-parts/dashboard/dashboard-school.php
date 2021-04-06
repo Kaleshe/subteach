@@ -8,23 +8,23 @@
  * @package Subteach
  */
 
-$school_id = get_the_ID();
+$school_id = 88;
 
 ;?>
 
 <div class="school-dashboard">
     <div class="cards grid md:cols-3 gap-space">
         <?php
-            echo dataCard( esc_html( 'Number of Placements' ), 10 );
+            echo dataCard( esc_html( 'Number of Placements' ), 0 );
         ?>
         <div class="card card-blue p-space text-center flex justify-center items-center">
             <div>
                 <p class="text-lg font-bold">Last Search</p>
-                <a href="">Duplicate</a>
+                <a href="" class="border-rounded">Duplicate</a>
             </div>
         </div>
-        <div class="card p-space text-center">
-            <img class="user-profile-photo radius-full" src="<?= esc_url( get_avatar_url($school_id, array('size' => 150) ) ); ?>">
+        <div class="card p-space text-center flex-center">
+            <img class="user-profile-photo radius-full self-center" src="<?= esc_url( get_avatar_url($school_id, array('size' => 150) ) ); ?>">
             <p>Last Booked Profile</p>
         </div>
     </div>

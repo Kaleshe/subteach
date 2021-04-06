@@ -40,3 +40,7 @@ textarea {
 label {
 	@extend .font-medium;
 }
+
+form input:not(:last-of-type), form textarea {
+	margin-bottom: .5rem !important;
+}

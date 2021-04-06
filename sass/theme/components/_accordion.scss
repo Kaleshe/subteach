@@ -1,0 +1,44 @@
+.accordion {
+  &.is-closed {
+
+    .question button {
+      transform: rotate(90deg);
+    }
+  }
+
+  &.is-open {
+    .answer {
+      max-height: 100px;
+      opacity: 1;
+      margin-top: .5rem;
+    }
+    
+    .question button {
+      transform: rotate(270deg);
+    }
+  }
+  
+  .answer {
+    transition: ease-in-out .3s all;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+
+    p {
+      @extend .w-max-theme;
+    }
+  }
+
+  .question button {
+    padding: 0;
+    margin-left: $space;
+    border-style: none;
+    transform-origin: 50% 50%;
+    --size: 20px;
+    content: "";
+    height: var(--size);
+    width: var(--size);
+    background: url(./img/angle.svg) 50%/contain no-repeat;
+    transition: all .25s linear;
+  }
+}

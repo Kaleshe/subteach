@@ -15,9 +15,9 @@
         <?php 
             echo dataCard( esc_html( 'Total Schools' ), get_total_schools() );
             echo dataCard( esc_html( 'Total Teachers' ), get_total_teachers() );
-            echo dataCard( esc_html( 'Shool/Teacher Ratio' ), 'n/a' );
-            echo dataCard( esc_html( 'Most Recent (School)' ), 'n/a' );
-            echo dataCard( esc_html( 'Most Recent (Teacher)' ), 'n/a' );
+            echo dataCard( esc_html( 'Shool/Teacher Ratio' ), '2:1' ); 
+            echo profileCard( 'Most Recent (School)', 2 );
+            echo profileCard( 'Most Recent (Teacher)', 2 );
             echo dataCard( esc_html( 'Sign Up By Type' ), 'n/a' );
         ?>
     </div>
