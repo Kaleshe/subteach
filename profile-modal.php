@@ -7,7 +7,7 @@
 
  // Bio, Street Address, Postcode, City, Telephone, Email, Sign Up Date
 
-$user_id = 20;
+$user_id = 21;
 $meta = get_user_meta( $user_id );
 $data = get_userdata( $user_id )->data;
 $school_name = $meta['name'][0];
@@ -53,6 +53,7 @@ $url = get_bloginfo('url');
         </div>
         </div>
       </main>
+      <form action="user-activate.php"></form>
       <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Deactivate User</button>
     </div>
   </div>

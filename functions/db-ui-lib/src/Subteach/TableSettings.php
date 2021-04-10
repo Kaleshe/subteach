@@ -132,7 +132,7 @@ EOF
                     (int "id" :id ())
                     (int "typeID" :label "Type ID")
                     (string "question" :label "Question")
-                    (string "answer" :label "Question")
+                    (string "answer" :label "Answer")
                     )
                 (view-query
                     :columns ("id" "typeID" "question" "answer")
