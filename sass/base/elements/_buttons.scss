@@ -42,4 +42,8 @@ input[type="submit"] {
 	border: 3px solid $color__brand;
 	padding: .5rem;
 
+	&:hover {
+		border-color: #6b7075;
+		color: #6b7075 !important;
+	}
 }
