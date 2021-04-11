@@ -58,6 +58,7 @@ function get_user_total_placements( ) {
 
 }
 
+
 /**
  * Return subject level title using the level ID
  */

@@ -541,18 +541,15 @@ input[type="submit"]:focus {
 
 button,
 input[type="submit"] {
-	will-change: auto;
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0);
-	transition: -webkit-transform .25s ease-out;
-	transition: transform .25s ease-out;
-	transition: transform .25s ease-out,-webkit-transform .25s ease-out;
+	opacity: 1;
+	transition: -webkit-opacity .25s ease-out;
+	transition: opacity .25s ease-out;
+	transition: opacity .25s ease-out,-webkit-opacity .25s ease-out;
 }
 
 button:hover,
 input[type="submit"]:hover {
-	-webkit-transform: scale(1.05);
-	transform: scale(1.05);
+	opacity: .8;
 	cursor: pointer;
 }
 
