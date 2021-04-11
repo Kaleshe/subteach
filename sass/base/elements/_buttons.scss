@@ -34,3 +34,12 @@ input[type="submit"] {
 		cursor: pointer;
 	}
 }
+
+.profile-card button {
+	@extend .cardText;	
+	background: transparent !important;
+	color: $color__brand !important;
+	border: 3px solid $color__brand;
+	padding: .5rem;
+
+}

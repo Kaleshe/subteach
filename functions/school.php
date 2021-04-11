@@ -34,17 +34,3 @@ function is_school() {
         }
     }
 }
-
-function get_user_type_as_string(){
-    if ( is_school() ) {
-        return 'school';
-    } else {
-        return 'admin';
-    }
- }
-
-//  add_action( 'user_register', function ( $user_id ) {
-//     update_user_meta($user_id, 'is_active',true);
-// } );
-
-// print_r(get_user_meta( 21, 'is_active'));

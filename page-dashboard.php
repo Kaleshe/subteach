@@ -5,8 +5,6 @@
  * @package Subteach
  */
 
-include( get_template_directory() . '/profile-modal.php' );
-
 get_header();
 ?>
 
@@ -34,5 +32,4 @@ get_header();
 	</main><!-- #main -->
 
 <?php
-get_sidebar();
 get_footer();

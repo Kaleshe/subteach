@@ -6,7 +6,8 @@ $roots_includes = array(
   '/functions/components/dataCard.php',
   '/functions/components/profileCard.php',
   '/functions/login.php',
-  '/functions/db-ui-lib/db-ui-lib.php'
+  '/functions/db-ui-lib/db-ui-lib.php',
+  'functions/profile.php'
 );
 
 foreach($roots_includes as $file){

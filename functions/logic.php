@@ -1,22 +1,46 @@
 <?php
 /**
- * Subteach admin functions
+ * Subteach general admin and get functions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @package Subteach
  */
 
-function get_most_recent($user_type){
+function get_user($user_id){
     global $wpdb;
 
-    $user_id = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type ) );
+    // TODO: Check the wp_users table 
+    $user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM user WHERE ID = %d", $user_id ) );
     
-    return $user_id;
+    return $user;
 }
 
 /**
- * Return total value of app and wp users
+ * Returns most reent user based on $user_type
+ */
+function get_most_recent_user($user_type){
+    global $wpdb;
+
+    // TODO: Check the wp_users table 
+    $user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type ) );
+    
+    return $user;
+}
+
+/**
+ * Returns the current user type as a string
+ */
+function get_user_type_as_string(){
+    if ( is_school() ) {
+        return 'school';
+    } else {
+        return 'admin';
+    }
+ }
+
+/**
+ * Returns total value of app and wp users
  */
 function get_total_app_users($user_type) {
     global $wpdb;
@@ -39,6 +63,9 @@ return count($app_users);
 
 }
 
+/**
+ * Returns total schools
+ */
 function get_total_schools() {
     $wp_school_total = count( get_users( array( 'role' => 'school' ) ) );
     $app_school_total = get_total_app_users('school');
@@ -46,21 +73,22 @@ function get_total_schools() {
     return $app_school_total + $wp_school_total;
 }
 
+/**
+ * Returns total teachers
+ */
 function get_total_teachers() {
     return get_total_app_users('teacher');
 }
 
-function get_last_booked_profile() {
-    
-}
-
-function get_user_total_placements( ) {
-
-}
-
+/**
+ * Adds the is_active meta data to registered users
+ */
+add_action( 'user_register', function ( $user_id ) {
+    update_user_meta($user_id, 'is_active',true);
+} );
 
 /**
- * Return subject level title using the level ID
+ * Returns subject level title using the level ID
  */
 function get_subject_level_title($subject_level) {
     global $wpdb;
@@ -110,7 +138,7 @@ function get_subject_id( $subject_title, $subject_level ) {
 }
 
 /**
- * Create an event
+ * Adds a new event to the database
 */
 function create_event() {
     global $wpdb;
@@ -125,4 +153,12 @@ function create_event() {
     'note'           => $_POST['note'],
     'timestamp'      => $_POST['date'] . ' ' . $_POST['time']
     ));
+}
+
+function get_last_booked_profile() {
+    
+}
+
+function get_user_total_placements( ) {
+
 }

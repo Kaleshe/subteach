@@ -58,7 +58,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /**
 * Text
 */
-.text-sm, .cardText {
+.text-sm, .cardText, .profile-card button {
 	font-size: .9rem;
 }
 
@@ -94,7 +94,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 .modal__btn,
 input[type="button"],
 input[type="reset"],
-input[type="submit"], .cardData, .cardText, .main-navigation {
+input[type="submit"], .cardData, .cardText, .profile-card button, .main-navigation {
 	font-weight: 700;
 }
 
@@ -107,7 +107,7 @@ h6 {
 	font-weight: 900;
 }
 
-.capitalize, .cardText {
+.capitalize, .cardText, .profile-card button {
 	text-transform: capitalize;
 }
 
@@ -426,61 +426,6 @@ body {
 	background: #f8f9fa;
 }
 
-hr {
-	background-color: #ccc;
-	border: 0;
-	height: 1px;
-	margin-bottom: 1.5em;
-}
-
-ul,
-ol {
-	margin: 0 0 1.5em 3em;
-}
-
-ul {
-	list-style: disc;
-}
-
-ol {
-	list-style: decimal;
-}
-
-li > ul,
-li > ol {
-	margin-bottom: 0;
-	margin-left: 1.5em;
-}
-
-dt {
-	font-weight: 700;
-}
-
-dd {
-	margin: 0 1.5em 1.5em;
-}
-
-/* Make sure embeds and iframes fit their containers. */
-embed,
-iframe,
-object {
-	max-width: 100%;
-}
-
-img {
-	height: auto;
-	max-width: 100%;
-}
-
-figure {
-	margin: 1em 0;
-}
-
-table {
-	margin: 0 0 1.5em;
-	width: 100%;
-}
-
 /* Links
 --------------------------------------------- */
 a {
@@ -551,6 +496,13 @@ button:hover,
 input[type="submit"]:hover {
 	opacity: .8;
 	cursor: pointer;
+}
+
+.profile-card button {
+	background: transparent !important;
+	color: #0076d6 !important;
+	border: 3px solid #0076d6;
+	padding: .5rem;
 }
 
 input[type="text"],
@@ -682,7 +634,7 @@ form label {
 	text-decoration: none;
 }
 
-.cardText {
+.cardText, .profile-card button {
 	display: inline-block;
 	border-radius: 20px;
 	background-color: #0076d6;
@@ -796,6 +748,7 @@ form label {
 .modal__close {
 	background: transparent;
 	border: 0;
+	color: #404040;
 }
 
 .modal__header .modal__close:before {

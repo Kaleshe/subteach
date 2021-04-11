@@ -158,6 +158,10 @@ function subteach_scripts() {
 			echo '<script>MicroModal.init();</script>';
 		}, 100);
 	}
+
+	wp_enqueue_script( 'load_user_profile_script', get_template_directory_uri() . '/js/load_user_profile.js', array('jquery') );
+	wp_localize_script( 'load_user_profile_script', 'load_user_profile_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
+
 }
 add_action( 'wp_enqueue_scripts', 'subteach_scripts' );
 
@@ -186,52 +190,4 @@ require get_template_directory() . '/inc/customizer.php';
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
-}
-
-/**
- * Add JavaScript to footer for the load user profile AJAX call
- */
-add_action( 'admin_footer', 'load_user_profile_js' );
-
-function load_user_profile_js() { ?>
-	<script type="text/javascript">
-	alert('hi');
-	jQuery(document).ready(function($) {
-
-		$user_id = $("div").data("user-id");
-
-		jQuery(".profile-card .button").click(function(){
-
-			var data = {
-				'action': 'load_user_profile',
-				'user_id' : $user_id
-			};
-
-			jQuery.post(ajaxurl, data, function(response) {
-				alert('Got this from the server: ' + response);
-			});
-		});
-
-	});
-	</script> <?php
-
-	wp_localize_script( 'custom-ajax-request', 'MyAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
-
-}
-
-/**
- * Handle AJAX request
- */
-add_action( 'wp_ajax_load_user_profile', 'load_user_profile' );
-
-function load_user_profile() {
-	global $wpdb; // this is how you get access to the database
-
-	$whatever = intval( $_POST['whatever'] );
-
-	$whatever += 10;
-
-        echo $whatever;
-
-	wp_die(); // this is required to terminate immediately and return a proper response
 }
