@@ -32,6 +32,10 @@
 /**
 * Text
 */
+.text-xs {
+  font-size: .8rem;
+}
+
 .text-sm {
   font-size: .9rem;
 }
@@ -124,6 +128,10 @@
 
 .mt-space {
   margin-top: $space;
+}
+
+.ml-space {
+  margin-left: $space;
 }
 
 .mt-space-2 {
@@ -259,6 +267,10 @@
 
 .justify-self-start {
   justify-self: flex-start;
+}
+
+.justify-self-end {
+  justify-self: flex-end;
 }
 
 .justify-center {

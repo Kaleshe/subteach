@@ -155,6 +155,9 @@ function create_event() {
     ));
 }
 
+/**
+ * Returns last booked profile by current user
+ */
 function get_last_booked_profile() {
     
 }

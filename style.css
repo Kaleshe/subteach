@@ -58,6 +58,10 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /**
 * Text
 */
+.text-xs {
+	font-size: .8rem;
+}
+
 .text-sm, .cardText, .profile-card button {
 	font-size: .9rem;
 }
@@ -86,7 +90,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 	font-size: 2.5rem;
 }
 
-.font-medium, label {
+.font-medium, .profile-card button, label {
 	font-weight: 500;
 }
 
@@ -154,6 +158,10 @@ h6 {
 
 .mt-space {
 	margin-top: 2rem;
+}
+
+.ml-space {
+	margin-left: 2rem;
 }
 
 .mt-space-2 {
@@ -285,6 +293,10 @@ h6 {
 
 .justify-self-start {
 	justify-self: flex-start;
+}
+
+.justify-self-end {
+	justify-self: flex-end;
 }
 
 .justify-center {
@@ -571,14 +583,15 @@ form label {
 	border-radius: 100%;
 }
 
-.user-profile-info > *:not(:last-of-type) {
-	margin-bottom: calc(2rem / 4);
-}
-
 @media (min-width: 48em) {
 	.user-profile-info .description {
 		max-width: 300px;
 	}
+}
+
+.user-profile-info .meta {
+	max-width: 350px;
+	margin-top: 2rem;
 }
 
 .card {
@@ -686,18 +699,17 @@ form label {
 	max-height: 100vh;
 	border-radius: 4px;
 	overflow-y: auto;
-	box-sizing: border-box;
 }
 
 .modal__header {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 }
 
 .modal__title {
 	margin-top: 0;
-	margin-bottom: 0;
+	margin-bottom: .25rem;
 	line-height: 1.25;
 	box-sizing: border-box;
 }
@@ -706,6 +718,7 @@ form label {
 	background: transparent;
 	border: 0;
 	color: #404040;
+	padding: 0;
 }
 
 .modal__header .modal__close:before {

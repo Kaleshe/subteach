@@ -1,6 +1,6 @@
 <?php
 /**
- * Subteach profile functions
+ * Subteach ajax actions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -8,17 +8,21 @@
  */
 
  /**
- * Handle AJAX request
+ * Get user ID to display user profile
  */
-add_action( 'wp_ajax_load_user_profile', 'load_user_profile' );
-add_action('wp_ajax_nopriv_load_user_profile', 'load_user_profile');
+add_action( 'wp_ajax_display_user_profile', 'display_user_profile' );
+add_action('wp_ajax_nopriv_display_user_profile', 'display_user_profile');
 
-function load_user_profile() {
-   // Bio, Street Address, Postcode, City, Telephone, Email, Sign Up Date
+function display_user_profile() {
+   // Expected data Bio, Street Address, Postcode, City, Telephone, Email, Sign Up Date
   $user_id = $_REQUEST['user_id'];
   echo json_encode( get_user( $user_id ) );
 	die();
 }
+
+/**
+ * 
+ */
 
 // // For wp_users
 // // $meta = get_user_meta( $user_id );

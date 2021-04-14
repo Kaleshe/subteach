@@ -159,8 +159,8 @@ function subteach_scripts() {
 		}, 100);
 	}
 
-	wp_enqueue_script( 'load_user_profile_script', get_template_directory_uri() . '/js/load_user_profile.js', array('jquery') );
-	wp_localize_script( 'load_user_profile_script', 'load_user_profile_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
+	wp_enqueue_script( 'display_user_profile_script', get_template_directory_uri() . '/js/display_user_profile.js', array('jquery') );
+	wp_localize_script( 'display_user_profile_script', 'display_user_profile_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
 
 }
 add_action( 'wp_enqueue_scripts', 'subteach_scripts' );

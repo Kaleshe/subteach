@@ -3,14 +3,15 @@
     img {
         border-radius: 100%;
     }
-    
-    & > *:not(:last-of-type) {
-        margin-bottom: calc(#{$space} / 4);
-    }
-
+        
     @media (min-width: $md) {
         .description {
             max-width: 300px;
         }
+    }
+
+    .meta {
+        max-width: 350px;
+        margin-top: 2rem;
     }
 }

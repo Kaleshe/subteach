@@ -23,9 +23,8 @@ $school_id = 88;
                 <a href="" class="border-rounded">Duplicate</a>
             </div>
         </div>
-        <div class="card p-space text-center flex-center">
-            <img class="user-profile-photo radius-full self-center" src="<?= esc_url( get_avatar_url($school_id, array('size' => 150) ) ); ?>">
-            <p>Last Booked Profile</p>
-        </div>
+        <?php
+            echo profileCard( 'Last booked profile', 2 );
+        ?>
     </div>
 </div>
