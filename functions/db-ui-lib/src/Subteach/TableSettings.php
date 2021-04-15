@@ -34,6 +34,21 @@ class TableSettings
         return $column_types;
     }
 
+    public function getInputTypeMap()
+    {
+        $column_info = $this->getColumnInfo();
+        $input_types = [];
+        foreach(array_keys($column_info) as $column) {
+            $current_column_info = $column_info[$column];
+            $current_column_type = 'string';
+            if(key_exists(':type', $current_column_info)) {
+                $current_column_type = $current_column_info[':type'];
+            }
+            $input_types[$column] = $current_column_type;
+        }
+        return $input_types;
+    }
+
     public function getColumnInfo()
     {
         /** @var Lisp $fields */
@@ -42,6 +57,7 @@ class TableSettings
         for ($ptr = $fields; !$ptr->isNil(); $ptr = $ptr->getRest()) {
             /** @var Lisp $field */
             $field = $ptr->getFirstLisp();
+            $info = [];
             $info['type'] = $field->getFirstLiteral();
 
             for ($each_param = $field->nth(2); !$each_param->isNil(); $each_param = $each_param->nth(2)) {
@@ -81,7 +97,7 @@ class TableSettings
         return LispReader::from(<<<EOF
             (table-admin "meta" :title "Contact Information"
                 (fields
-                    (int "id" :id () :hidden ())
+                    (int "id" :id () :type "hidden")
                     (string "telephone" :label "Telephone" :type "tel")
                     (string "email" :label "Email" :type "email")
                     (string "city" :label "City")
@@ -106,7 +122,7 @@ EOF
         return LispReader::from(<<<EOF
             (table-admin "price_levels" :title "Price Levels"
                 (fields
-                    (int "id" :id ())
+                    (int "id" :id () :type "hidden")
                     (int "month" :label "Month")
                     (string "teachers" :label "Teachers" :readonly () )
                     (int "annual" :label "Annual")
@@ -129,8 +145,8 @@ EOF
         return LispReader::from(<<<EOF
             (table-admin "questions" :title "Q&A"
                 (fields
-                    (int "id" :id ())
-                    (int "typeID" :label "Type ID")
+                    (int "id" :id () :type "hidden")
+                    (int "typeID" :label "Type ID" :type "hidden")
                     (string "question" :label "Question")
                     (string "answer" :label "Answer")
                     )
@@ -151,7 +167,7 @@ EOF
         return LispReader::from(<<<EOF
             (table-admin "distances" :title "Distances"
                 (fields
-                    (int "id" :id ())
+                    (int "id" :id () :type "hidden")
                     (string "title" :label "Title")
                     )
                 (view-query

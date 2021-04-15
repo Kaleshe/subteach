@@ -28,11 +28,12 @@ function showSchoolProfile(Lisp $settings, $search_id = null)
     $table = $settings->getLiteralAt(1);
     $title = $settings->getStringAt(3);
     $managed_settings = new TableSettings($settings);
-    $columnInfo = $managed_settings->getColumnInfo();
-    $columnsWithType = getColumnTypes($columnInfo);
+    $column_info = $managed_settings->getColumnInfo();
+    $columns_with_type = $managed_settings->getColumnTypeMap();
+    $input_types = $managed_settings->getInputTypeMap();
     $props = [];
     $bindings = [];
-    $query_builder = new ViewQueryBuilder($table, $columnsWithType, $props, $bindings);
+    $query_builder = new ViewQueryBuilder($table, $columns_with_type, $props, $bindings);
     $results = null;
     if ($search_id === null) {
         $query = $query_builder->buildWpdb();
@@ -50,9 +51,9 @@ function showSchoolProfile(Lisp $settings, $search_id = null)
         $input_group = [];
         foreach (array_keys($row) as $column) {
             $row_id = $id;
-            $info = $columnInfo[$column];
+            $info = $column_info[$column];
             $name = $column;
-            $type = $columnsWithType[$column];
+            $type = $input_types[$column];
             $value = $row[$column];
             $label = isset($info[':label']) ? $info[':label'] : $name;
 
