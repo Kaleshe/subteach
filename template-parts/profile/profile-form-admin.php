@@ -1,114 +1,149 @@
 <?php
+
+use Library\Lisp;
+use Subteach\FormBuilder;
+use Subteach\InputBuilder;
+use Subteach\TableSettings;
+use Subteach\UpdateQueryBuilder;
+use Subteach\ViewQueryBuilder;
+
 /**
- * Template part for displaying the admin profile form
- * 
+ * Template part for displaying the school profile form
+ *
  * @package Subteach
  */
 
-include( get_template_directory() . '/config/mysqli_connect.php' );
-
-$ID = 1;
-$telephone = '';
-$email = '';
-$city = '';
-$postcode = '';
-$street_address = '';
-
-if( isset($_POST['update']) ) {
-
-    // Prepare and bind
-    $stmt = $mysqli->prepare("UPDATE meta SET telephone=?, email=?, city=?, postcode=?, street_address=? WHERE id=?");
-    $stmt->bind_param("dssssi", $_POST['telephone'], $_POST['email'], $_POST['city'], $_POST['postcode'], $_POST['street_address'], $ID);
-    $stmt->execute();
-    $stmt->close();
-
-} else {
-
-    $stmt = $mysqli->prepare("SELECT * FROM meta WHERE id=?");
-    $stmt->bind_param("i", $ID);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if($result->num_rows === 0) exit('No rows');
-    while($row = $result->fetch_assoc()) {
-    $telephone = $row['telephone'];
-    $email = $row['email'];
-    $city = $row['city'];
-    $postcode = $row['postcode'];
-    $street_address = $row['street_address'];
-    $stmt->close();
-
+function getColumnTypes($columnInfo)
+{
+    $columnTypes = [];
+    foreach (array_keys($columnInfo) as $column) {
+        $columnTypes[$column] = $columnInfo[$column]['type'];
     }
+    return $columnTypes;
 }
 
-;?>
+function showSchoolProfile(Lisp $settings, $search_id = null)
+{
+    global $wpdb;
+    $table = $settings->getLiteralAt(1);
+    $title = $settings->getStringAt(3);
+    $managed_settings = new TableSettings($settings);
+    $columnInfo = $managed_settings->getColumnInfo();
+    $columnsWithType = getColumnTypes($columnInfo);
+    $props = [];
+    $bindings = [];
+    $query_builder = new ViewQueryBuilder($table, $columnsWithType, $props, $bindings);
+    $results = null;
+    if ($search_id === null) {
+        $query = $query_builder->buildWpdb();
+        $results = $wpdb->get_results($query, ARRAY_A);
+    } else {
 
-<div class="grid gap-space-half w-max-theme mx-auto">
-    <div class="admin-form | card px-space py-space">
+        $query = $query_builder->buildWpdb('id');
+        $results = $wpdb->get_results($wpdb->prepare($query, $search_id), ARRAY_A);
+    }
 
-        <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
-            <h2 class="mb-space-half">Contact Information</h2>
-            <div>
-                <label for="telephone">Telephone</label>
-                <input type="tel" name="telephone" id="telephone" value="<?php esc_attr_e( $telephone, 'subteach') ;?>">
-            </div>
+    $inputs = [];
 
-            <div>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" value="<?php esc_attr_e( $email, 'subteach') ;?>">
-            </div>
-            
-            <div>
-                <label for="city">City</label>
-                <input type="text" name="city" id="city" value="<?php esc_attr_e( $city, 'subteach') ;?>">
-            </div>
+    foreach ($results as $row) {
+        $id = $row['id'];
+        $input_group = [];
+        foreach (array_keys($row) as $column) {
+            $row_id = $id;
+            $info = $columnInfo[$column];
+            $name = $column;
+            $type = $columnsWithType[$column];
+            $value = $row[$column];
+            $label = isset($info[':label']) ? $info[':label'] : $name;
 
-            <div>
-                <label for="postcode">Postcode</label>
-                <input type="text" name="postcode" id="postcode" value="<?php esc_attr_e( $postcode, 'subteach') ;?>">
-            </div>
-            
-            <div>
-                <label for="street_address">Street Address</label>
-                <input type="text" name="street_address" id="street_address" value="<?php esc_attr_e( $street_address, 'subteach') ;?>">
-            </div>
+            $input_group [] = new InputBuilder($name, $type, $value, $label, $row_id);
+        }
+        $inputs [] = join("\n", $input_group);
+    }
+    echo new FormBuilder($title, "update,$table", 'Update', '', [join("<br>\n", $inputs)]);
+}
 
-            <input class="justify-self-start" type="submit" value="Update" name="update" id="update">
+function get_update_type($post)
+{
+    foreach (array_keys($post) as $post_key) {
+        $split_post = preg_split('/,/', $post_key);
+        if (count($split_post) === 2 && $split_post[0] === 'update') {
+            return $split_post[1];
 
-        </form>
-    </div>
+        }
+    }
+    return null;
+}
 
-    <div class="admin-form | card px-space py-space mt-space">
+function interpret_post($post)
+{
+    $update_table = get_update_type($post);
+    if ($update_table === null) {
+        return '<h1>No update table</h1>';
+    }
 
-        <form class="grid gap-space-half" method="post" action="<?php $_PHP_SELF; ?>">
-            <h2 class="mb-space-half">Pricing</h2>
-            <div>
-            <?php get_subjects(); ?>
-                <label for="teachers">Teachers</label>
-                <select id="teachers" name="teachers">
-                    <option value="teachers_1">bis 50 Lehrpersonen</option>
-                    <option value="teachers_2">ab 50 Lehrpersonen</option>
-                    <option value="teachers_3">ab 100 Lehrpersonen</option>
-                </select>
-            </div>
+    $all_settings = [TableSettings::adminProfile(), TableSettings::priceLevels(),
+        TableSettings::distanceTitles(), TableSettings::questions()];
 
-            <div>
-                <label for="month">Month</label>
-                <input type="number" name="month" id="month" value="">
-            </div>
+    $all_settings = array_map(function ($settings) {
+        return new TableSettings($settings);
+    }, $all_settings);
 
-            <div>
-                <label for="annual">Annual</label>
-                <input type="number" name="annual" id="annual" value="">
-            </div>
+    /** @var TableSettings $settings */
+    $settings = (function ($settings, $table) {
+        foreach ($settings as $setting) {
+            if ($setting->getTable() === $table) {
+                return $setting;
+            }
+        }
+        return null;
+    })($all_settings, $update_table);
 
-            <div>
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" value="">
-            </div>
+    if ($settings === null) {
+        return '<h1>No matching settings</h1>';
+    }
 
-            <input class="justify-self-start" type="submit" value="Update" name="update_pricing" id="update_pricing">
+    $update_rows = (function ($post) {
+        $rows = [];
+        foreach (array_keys($post) as $full_key) {
+            if (preg_match('/^__update__,/', $full_key) === 1) {
+                $filtered_entry = preg_replace('/^__update__,/', '', $full_key);
+                [$id, $column] = preg_split('/,/', $filtered_entry);
 
-        </form>
-    </div>
-</div>
+                if (!key_exists($id, $rows)) {
+                    $rows[$id] = [];
+                }
 
+                $rows[$id][$column] = $post[$full_key];
+            }
+        }
+        return $rows;
+    })($post);
+
+
+    $update_columns = $settings->getUpdateColumns();
+
+
+    foreach ($update_rows as $row) {
+        $update_query_builder = new UpdateQueryBuilder($settings->getTable(), $settings->getColumnTypeMap(), [], []);
+        $values = array_map(function ($each) use ($row) {
+            return $row[$each];
+        }, $update_columns);
+        $values [] = $row['id'];
+        $query = $update_query_builder->buildWpdb($update_columns, 'id');
+        global $wpdb;
+        $wpdb->query($wpdb->prepare($query, $values));
+    }
+    return '';
+
+}
+
+interpret_post($_POST);
+
+showSchoolProfile(TableSettings::adminProfile(), 1);
+echo '<br>';
+showSchoolProfile(TableSettings::priceLevels());
+echo '<br>';
+showSchoolProfile(TableSettings::distanceTitles());
+echo '<br>';
+showSchoolProfile(TableSettings::questions());

@@ -67,10 +67,7 @@ class QueryBuilder
             return '';
         }
 
-//        $type = $this->columnsWithType[$column];
-//        print("#Type=$type\n");
         $placeholder = $this->getColumnPlaceholder($column);
-//        print("#Placeholder=$placeholder\n");
         return "WHERE $column = $placeholder";
     }
 

@@ -1,150 +1,69 @@
 <?php
-
-use Library\Lisp;
-use Subteach\FormBuilder;
-use Subteach\InputBuilder;
-use Subteach\QueryBuilder;
-use Subteach\TableSettings;
-use Subteach\UpdateQueryBuilder;
-use Subteach\ViewQueryBuilder;
-
 /**
  * Template part for displaying the school profile form
  *
  * @package Subteach
  */
 
-function getColumnTypes($columnInfo)
-{
-    $columnTypes = [];
-    foreach (array_keys($columnInfo) as $column) {
-        $columnTypes[$column] = $columnInfo[$column]['type'];
-    }
-    return $columnTypes;
-}
+global $wpdb;
 
-function showSchoolProfile(Lisp $settings, $search_id = null)
-{
-    global $wpdb;
-    $table = $settings->getLiteralAt(1);
-    $title = $settings->getStringAt(3);
-    $managed_settings = new TableSettings($settings);
-    $columnInfo = $managed_settings->getColumnInfo();
-    $columnsWithType = getColumnTypes($columnInfo);
-    $props = [];
-    $bindings = [];
-    $query_builder = new ViewQueryBuilder($table, $columnsWithType, $props, $bindings);
-    $results = null;
-    if ($search_id === null) {
-        $query = $query_builder->buildWpdb();
-        $results = $wpdb->get_results($query, ARRAY_A);
-    } else {
+$ID = 1;
+$telephone = '';
+$email = '';
+$city = '';
+$postcode = '';
+$street_address = '';
 
-        $query = $query_builder->buildWpdb('id');
-        $results = $wpdb->get_results($wpdb->prepare($query, $search_id), ARRAY_A);
-    }
+if (isset($_POST['update'])) {
 
-    $inputs = [];
-
-    foreach ($results as $row) {
-        $id = $row['id'];
-        $input_group = [];
-        foreach (array_keys($row) as $column) {
-            $row_id = $id;
-            $info = $columnInfo[$column];
-            $name = $column;
-            $type = $columnsWithType[$column];
-            $value = $row[$column];
-            $label = isset($info[':label']) ? $info[':label'] : $name;
-
-            $input_group [] = new InputBuilder($name, $type, $value, $label, $row_id);
-        }
-        $inputs [] = join("\n", $input_group);
-    }
-    echo new FormBuilder($title, "update,$table", 'Update', $_PHP_SELF, [join("<br>\n", $inputs)]);
-}
-
-function get_update_type($post)
-{
-    foreach (array_keys($post) as $post_key) {
-        $split_post = preg_split('/,/', $post_key);
-        if (count($split_post) === 2 && $split_post[0] === 'update') {
-            return $split_post[1];
-
-        }
-    }
-    return null;
-}
-
-function interpret_post($post)
-{
-    $update_table = get_update_type($post);
-    if ($update_table === null) {
-        return '<h1>No update table</h1>';
-    }
-
-    $all_settings = [TableSettings::adminProfile(), TableSettings::priceLevels(),
-        TableSettings::distanceTitles(), TableSettings::questions()];
-
-    $all_settings = array_map(function ($settings) {
-        return new TableSettings($settings);
-    }, $all_settings);
-
-    /** @var TableSettings $settings */
-    $settings = (function ($settings, $table) {
-        foreach ($settings as $setting) {
-            if ($setting->getTable() === $table) {
-                return $setting;
-            }
-        }
-        return null;
-    })($all_settings, $update_table);
-
-    if ($settings === null) {
-        return '<h1>No matching settings</h1>';
-    }
-
-    $update_rows = (function ($post) {
-        $rows = [];
-        foreach (array_keys($post) as $full_key) {
-            if (preg_match('/^__update__,/', $full_key) === 1) {
-                $filtered_entry = preg_replace('/^__update__,/', '', $full_key);
-                [$id, $column] = preg_split('/,/', $filtered_entry);
-
-                if (!key_exists($id, $rows)) {
-                    $rows[$id] = [];
-                }
-
-                $rows[$id][$column] = $post[$full_key];
-            }
-        }
-        return $rows;
-    })($post);
-
-
-    $update_columns = $settings->getUpdateColumns();
-
-
-    foreach ($update_rows as $row) {
-        $update_query_builder = new UpdateQueryBuilder($settings->getTable(), $settings->getColumnTypeMap(), [], []);
-        $values = array_map(function ($each) use ($row) {
-            return $row[$each];
-        }, $update_columns);
-        $values []= $row['id'];
-        $query = $update_query_builder->buildWpdb($update_columns, 'id');
-        global $wpdb;
-        $wpdb->query($wpdb->prepare($query, $values));
-    }
-    return '';
+    // Prepare and bind
+    $wpdb->update('meta', [
+        'telephone' => $_POST['telephone'], "email" => $_POST['email'], "city" => $_POST['city'],
+        "postcode" => $_POST['postcode'], "street_address" => $_POST['street_address']],
+        ['id' => $ID],
+        ['%s', '%s', '%s', '%s', '%s'],
+        ['%d']);
 
 }
 
-interpret_post($_POST);
+if ($row = $wpdb->get_row($wpdb->prepare('SELECT telephone, email, city, postcode, street_address FROM meta WHERE id=%d', $ID), ARRAY_A)) {
+    $telephone = $row['telephone'];
+    $email = $row['email'];
+    $city = $row['city'];
+    $postcode = $row['postcode'];
+    $street_address = $row['street_address'];
+}; ?>
 
-showSchoolProfile(TableSettings::adminProfile(), 1);
-echo '<br>';
-showSchoolProfile(TableSettings::priceLevels());
-echo '<br>';
-showSchoolProfile(TableSettings::distanceTitles());
-echo '<br>';
-showSchoolProfile(TableSettings::questions());
+<div class="school-form | card px-space py-space w-max-theme mx-auto">
+    <form class="grid gap-space-half" method="post" action="">
+        <h2 class="mb-space-half">Contact Information</h2>
+        <div>
+            <label for="telephone">Telephone</label>
+            <input type="tel" name="telephone" id="telephone" value="<?php esc_attr_e($telephone, 'subteach'); ?>">
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="<?php esc_attr_e($email, 'subteach'); ?>">
+        </div>
+
+        <div>
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" value="<?php esc_attr_e($city, 'subteach'); ?>">
+        </div>
+
+        <div>
+            <label for="postcode">Postcode</label>
+            <input type="text" name="postcode" id="postcode" value="<?php esc_attr_e($postcode, 'subteach'); ?>">
+        </div>
+
+        <div>
+            <label for="street_address">Street Address</label>
+            <input type="text" name="street_address" id="street_address"
+                   value="<?php esc_attr_e($street_address, 'subteach'); ?>">
+        </div>
+
+        <input class="justify-self-start" type="submit" value="Update" name="update" id="update">
+
+    </form>
+</div>

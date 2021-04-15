@@ -81,7 +81,7 @@ class TableSettings
         return LispReader::from(<<<EOF
             (table-admin "meta" :title "Contact Information"
                 (fields
-                    (int "id" :id ())
+                    (int "id" :id () :hidden ())
                     (string "telephone" :label "Telephone" :type "tel")
                     (string "email" :label "Email" :type "email")
                     (string "city" :label "City")
