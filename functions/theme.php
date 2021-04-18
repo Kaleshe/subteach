@@ -162,6 +162,9 @@ function subteach_scripts() {
 	wp_enqueue_script( 'display_user_profile_script', get_template_directory_uri() . '/js/display_user_profile.js', array('jquery') );
 	wp_localize_script( 'display_user_profile_script', 'display_user_profile_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
 
+	wp_enqueue_script( 'deactivate_user_script', get_template_directory_uri() . '/js/deactivate_user.js', array('jquery') );
+	wp_localize_script( 'deactivate_user_script', 'deactivate_user_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
+
 }
 add_action( 'wp_enqueue_scripts', 'subteach_scripts' );
 
@@ -190,4 +193,20 @@ require get_template_directory() . '/inc/customizer.php';
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
+}
+
+/**
+ * Redirect users to Dashboard after logging in
+ */
+add_filter( 'login_redirect', function( $url, $query, $user ) {
+	return home_url();
+}, 10, 3 );
+
+/**
+ * Echoes print_r data within pre tags for easier viewing
+ */
+function dump($data) {
+  echo '<pre>';
+  print_r($data);
+  echo '</pre>';
 }

@@ -12,8 +12,25 @@ jQuery(document).ready(function($) {
       success:function(data) {
         let parsedData = JSON.parse(data);
         $('body').append(modal(parsedData));
-        console.log(parsedData);
         MicroModal.show('profile-modal-' + parsedData.ID);
+
+        jQuery("button.deactivate__user__btn").click(function(){
+      
+          $.ajax({
+            url: deactivate_user_obj.ajaxurl,
+            data: {
+              'action': 'deactivate_user',
+              'user_id': $(this).data("user-id"),
+              'method': 'POST'
+            },
+            success:function(data) {
+              console.log(data);
+            },
+            error:function(errorThrown) {
+              console.log(errorThrown);
+            }
+          });
+        });
       },
       error:function(errorThrown) {
         console.log(errorThrown);
@@ -51,7 +68,7 @@ return `<div class="modal micromodal-slide" id="profile-modal-${parsedData.ID}" 
           </div>
         </div>
       </main>
-      <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Deactivate User</button>
+      <button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>
     </div>
   </div>
 </div>`;

@@ -4,6 +4,7 @@
  *
  * @package Subteach
  */
+
 $subjects = get_subjects();
 
 if ( isset($_POST['submit'] ) ) {
@@ -28,7 +29,7 @@ if ( isset($_POST['submit'] ) ) {
               <input id="subjectsList" list="subjects" placeholder="Subject" class="w-full" name="subject">
               <datalist id="subjects">
                 <?php foreach ( $subjects as $subject ) {
-                  echo '<option data-subject-id="'. $subject['id'] .'" value="' . $subject['title'] . ' - ' . get_subject_level_title( $subject['levelID'] ) . '" />';
+                  echo '<option data-subject-id="'. $subject['ID'] .'" value="' . $subject['title'] . ' - ' . get_subject_level_title( $subject['levelID'] ) . '" />';
                 }
                 ?>
               </datalist>

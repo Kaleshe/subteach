@@ -100,9 +100,9 @@ class TableSettings
                     (int "id" :id () :type "hidden")
                     (string "telephone" :label "Telephone" :type "tel")
                     (string "email" :label "Email" :type "email")
-                    (string "city" :label "City")
-                    (string "postcode" :label "Postcode")
-                    (string "street_address" :label "Street Address")
+                    (string "city" :label "City" :type "text")
+                    (string "postcode" :label "Postcode" :type "text")
+                    (string "street_address" :label "Street Address" :type "text")
                     )
                 (view-query
                     :columns ("id" "telephone" "email" "city" "postcode" "street_address")
@@ -123,10 +123,10 @@ EOF
             (table-admin "price_levels" :title "Price Levels"
                 (fields
                     (int "id" :id () :type "hidden")
-                    (int "month" :label "Month")
-                    (string "teachers" :label "Teachers" :readonly () )
-                    (int "annual" :label "Annual")
-                    (string "title" :label "Title")
+                    (int "month" :label "Month" :type "number")
+                    (string "teachers" :label "Teachers" :type "text" )
+                    (int "annual" :label "Annual" :type "number")
+                    (string "title" :label "Title" :type "text")
                     )
                 (view-query
                     :columns ("id" "month" "annual" "title")
@@ -147,8 +147,8 @@ EOF
                 (fields
                     (int "id" :id () :type "hidden")
                     (int "typeID" :label "Type ID" :type "hidden")
-                    (string "question" :label "Question")
-                    (string "answer" :label "Answer")
+                    (string "question" :label "Question" :type "text")
+                    (string "answer" :label "Answer" :type "text")
                     )
                 (view-query
                     :columns ("id" "typeID" "question" "answer")
@@ -168,7 +168,7 @@ EOF
             (table-admin "distances" :title "Distances"
                 (fields
                     (int "id" :id () :type "hidden")
-                    (string "title" :label "Title")
+                    (string "title" :label "Title" :type "text")
                     )
                 (view-query
                     :columns ("id" "title")

@@ -34,3 +34,32 @@ function is_school() {
         }
     }
 }
+
+/**
+ * Meta data to school users upon registration  
+ */
+add_action( 'user_register', function ( $user_id ) {
+    update_user_meta($user_id, 'is_active', true);
+    update_user_meta($user_id, 'school_id', wp_unique_id('school_'));
+} );
+
+/**
+ * Returns school events
+ */
+function get_school_events($school_id) {
+    global $wpdb;
+
+    // TODO: Check the wp_users table 
+    $events = $wpdb->get_results( "SELECT * FROM events WHERE schoolID = %d", $user_id );
+
+    return $events;
+}
+
+/**
+ * Returns school ID
+ */
+function get_school_id($user_id) {
+    get_user_meta( $user_id )['school_id'][0];
+}
+
+print_r(get_school_id(25));  

@@ -1,8 +1,8 @@
 <?php
 $roots_includes = array(
+  '/functions/logic.php',
   '/functions/theme.php',
   '/functions/school.php',
-  '/functions/logic.php',
   '/functions/components/dataCard.php',
   '/functions/components/profileCard.php',
   '/functions/login.php',

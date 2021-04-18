@@ -81,13 +81,6 @@ function get_total_teachers() {
 }
 
 /**
- * Adds the is_active meta data to registered users
- */
-add_action( 'user_register', function ( $user_id ) {
-    update_user_meta($user_id, 'is_active',true);
-} );
-
-/**
  * Returns subject level title using the level ID
  */
 function get_subject_level_title($subject_level) {
@@ -104,7 +97,7 @@ function get_subject_level_title($subject_level) {
 function get_subjects() {
     global $wpdb;
 
-    $results = $wpdb->get_results( "SELECT id, title, levelID FROM subjects" );
+    $results = $wpdb->get_results( "SELECT * FROM subjects");
 
     return json_decode(json_encode($results), true);
 }
@@ -116,7 +109,7 @@ function get_subject( $subject_id ) {
     $subjects = get_subjects();
 
     foreach ( $subjects as $subject ) {
-        if ( $subject['id'] == $subject_id ) {
+        if ( $subject['ID'] == $subject_id ) {
             return $subject['title'];
         }
     }
@@ -144,11 +137,11 @@ function create_event() {
     global $wpdb;
 
     $user_id = get_current_user_id();
-    $school_id = maybe_unserialize( get_user_meta( $user_id, 'school_id', true )[0] );
+    $school_id = get_user_meta( $user_id )['school_id'][0];
 
     $wpdb->insert('events', array(
-    'subject_id'      => $_POST['subject_id'],
-    'subjectLiteral' => get_subject( $_POST['subject_id'] ),
+    'subjectID'      => $_POST['subjectID'],
+    'subjectLiteral' => get_subject( $_POST['subjectID'] ),
     'schoolID'       => $school_id,
     'note'           => $_POST['note'],
     'timestamp'      => $_POST['date'] . ' ' . $_POST['time']
