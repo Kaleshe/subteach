@@ -7,67 +7,71 @@
  * @package Subteach
  */
 
-function get_user($user_id){
+function get_user($user_id)
+{
     global $wpdb;
 
     // TODO: Check the wp_users table 
-    $user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM user WHERE ID = %d", $user_id ) );
-    
+    $user = $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE ID = %d", $user_id));
+
     return $user;
 }
 
 /**
  * Returns most reent user based on $user_type
  */
-function get_most_recent_user($user_type){
+function get_most_recent_user($user_type)
+{
     global $wpdb;
 
     // TODO: Check the wp_users table 
-    $user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type ) );
-    
+    $user = $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
+
     return $user;
 }
 
 /**
  * Returns the current user type as a string
  */
-function get_user_type_as_string(){
-    if ( is_school() ) {
+function get_user_type_as_string()
+{
+    if (is_school()) {
         return 'school';
     } else {
         return 'admin';
     }
- }
+}
 
 /**
  * Returns total value of app and wp users
  */
-function get_total_app_users($user_type) {
+function get_total_app_users($user_type)
+{
     global $wpdb;
+    return $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM user WHERE type=%s', $user_type));
+}
 
-    $results = $wpdb->get_results( "SELECT id, type FROM user" );
-    $app_users = [];
-
-    if ( $results ) {
-
-        foreach ( $results as $result ) {
-            if ( $result->type === $user_type ) {
-
-                // Push each user from the subteach db that matches the $user_type to $app_users
-                array_push($app_users, $result->id);
-            }
-        }
+function ratio_to_string($left, $right, $simplify_ratio=false)
+{
+    if($simplify_ratio) {
+        $min_value = max(min($left, $right), 0.001);
+        $left = round($left / $min_value);
+        $right = round($right / $min_value);
     }
+    return sprintf("%d:%d", $left, $right);
+}
 
-return count($app_users);
-
+function get_school_teacher_ratio($adjust_output = false)
+{
+    return ratio_to_string(get_total_schools(), get_total_teachers(), $adjust_output);
 }
 
 /**
  * Returns total schools
  */
-function get_total_schools() {
-    $wp_school_total = count( get_users( array( 'role' => 'school' ) ) );
+function get_total_schools()
+{
+    $wp_school_total = count(get_users(array('role' => 'school')));
     $app_school_total = get_total_app_users('school');
 
     return $app_school_total + $wp_school_total;
@@ -76,85 +80,99 @@ function get_total_schools() {
 /**
  * Returns total teachers
  */
-function get_total_teachers() {
+function get_total_teachers()
+{
     return get_total_app_users('teacher');
 }
 
 /**
  * Returns subject level title using the level ID
  */
-function get_subject_level_title($subject_level) {
+function get_subject_level_title($subject_level)
+{
     global $wpdb;
 
-    $subject_title = $wpdb->get_var( $wpdb->prepare( "SELECT title FROM subject_levels WHERE ID = %d", $subject_level ) );
-    
+    $subject_title = $wpdb->get_var($wpdb->prepare("SELECT title FROM subject_levels WHERE ID = %d", $subject_level));
+
     return $subject_title;
 }
 
 /**
  * Return array of each subject and its ID
  */
-function get_subjects() {
+function get_subjects()
+{
     global $wpdb;
 
-    $results = $wpdb->get_results( "SELECT * FROM subjects");
+    $results = $wpdb->get_results("SELECT * FROM subjects");
 
     return json_decode(json_encode($results), true);
 }
 
 /**
  * Return subject using its ID
-*/
-function get_subject( $subject_id ) {
+ */
+function get_subject($subject_id)
+{
     $subjects = get_subjects();
 
-    foreach ( $subjects as $subject ) {
-        if ( $subject['ID'] == $subject_id ) {
+    foreach ($subjects as $subject) {
+        if ($subject['ID'] == $subject_id) {
             return $subject['title'];
         }
     }
+
+    // Could throw an exception instead
+    return null;
 }
 
 /**
  * Return subject ID using its string
  */
-function get_subject_id( $subject_title, $subject_level ) {
+function get_subject_id($subject_title, $subject_level)
+{
     $subjects = get_subjects();
 
-    foreach ( $subjects as $subject ) {
-        if ( mb_strtolower( $subject['title'] ) == mb_strtolower( $subject_title ) ) {
-            if ( $subject_level == $subject['levelID'] ) {
+    foreach ($subjects as $subject) {
+        if (mb_strtolower($subject['title']) == mb_strtolower($subject_title)) {
+            if ($subject_level == $subject['levelID']) {
                 return $subject['id'];
             }
         }
     }
+
+    // Could throw exception instead.
+    return null;
 }
 
 /**
  * Adds a new event to the database
-*/
-function create_event() {
+ */
+function create_event()
+{
     global $wpdb;
 
     $user_id = get_current_user_id();
-    $school_id = get_user_meta( $user_id )['school_id'][0];
+    $school_id = get_user_meta($user_id)['school_id'][0];
 
     $wpdb->insert('events', array(
-    'subjectID'      => $_POST['subjectID'],
-    'subjectLiteral' => get_subject( $_POST['subjectID'] ),
-    'schoolID'       => $school_id,
-    'note'           => $_POST['note'],
-    'timestamp'      => $_POST['date'] . ' ' . $_POST['time']
+        'subjectID' => $_POST['subjectID'],
+        'subjectLiteral' => get_subject($_POST['subjectID']),
+        'schoolID' => $school_id,
+        'note' => $_POST['note'],
+        'timestamp' => $_POST['date'] . ' ' . $_POST['time']
     ));
 }
 
 /**
  * Returns last booked profile by current user
  */
-function get_last_booked_profile() {
-    
+function get_last_booked_profile()
+{
+
 }
 
-function get_user_total_placements( ) {
+function get_user_total_placements()
+{
 
 }

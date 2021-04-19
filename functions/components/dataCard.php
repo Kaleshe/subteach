@@ -1,6 +1,9 @@
 <?php
 
-function dataCard( $text, $data ) { ?>
+function dataCard($text, $data)
+{
+    ob_start();
+    ?>
 
     <div class="card text-center py-space-2">
         <div class="cardData">
@@ -9,4 +12,6 @@ function dataCard( $text, $data ) { ?>
         <p class="cardText"><?= $text; ?></p>
     </div>
 
-<?php }
+    <?php
+    return ob_get_clean();
+}
