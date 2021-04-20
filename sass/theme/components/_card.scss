@@ -8,7 +8,12 @@
     0 100px 80px rgba(0, 0, 0, 0.02)
     ;
     border-radius: 10px;
+    color: $color__text-title;
     background-color: #FFF;
+
+    img {
+        height: 150px;
+    }
 
     a {
         text-decoration: none

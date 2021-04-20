@@ -61,5 +61,3 @@ function get_school_events($school_id) {
 function get_school_id($user_id) {
     get_user_meta( $user_id )['school_id'][0];
 }
-
-print_r(get_school_id(25));  

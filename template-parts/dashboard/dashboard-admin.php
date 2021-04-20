@@ -8,7 +8,7 @@
  * @package Subteach
  */
 
-;?>
+?>
 
 <div class="admin-dashboard">
     <div class="cards grid gap-space sm:cols-2 md:cols-3">

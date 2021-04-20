@@ -95,6 +95,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 }
 
 .font-bold, button,
+.um input.um-button[type=submit],
 .modal__btn,
 input[type="button"],
 input[type="reset"],
@@ -355,10 +356,19 @@ input,
 select,
 optgroup,
 textarea {
-	color: #404040;
+	color: #666;
 	font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	font-size: 1rem;
 	line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #404040;
 }
 
 h1,
@@ -415,6 +425,7 @@ a:hover, a:active {
 /* Forms
 --------------------------------------------- */
 button,
+.um input[type=submit].um-button,
 .modal__btn,
 input[type="button"],
 input[type="reset"],
@@ -422,13 +433,14 @@ input[type="submit"] {
 	border: 1px solid;
 	border-color: #0076d6;
 	border-radius: 3px;
-	background: #0076d6;
+	background: #0076d6 !important;
 	color: #FFF;
 	line-height: 1;
 	padding: .75rem 2rem;
 }
 
 button:hover,
+.um input[type=submit].um-button:hover,
 .modal__btn:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
@@ -437,6 +449,8 @@ input[type="submit"]:hover {
 }
 
 button:active, button:focus,
+.um input[type=submit].um-button:active,
+.um input[type=submit].um-button:focus,
 .modal__btn:active,
 .modal__btn:focus,
 input[type="button"]:active,
@@ -597,7 +611,12 @@ form label {
 .card {
 	box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.006), 0 6.7px 5.3px rgba(0, 0, 0, 0.008), 0 12.5px 10px rgba(0, 0, 0, 0.01), 0 22.3px 17.9px rgba(0, 0, 0, 0.012), 0 41.8px 33.4px rgba(0, 0, 0, 0.014), 0 100px 80px rgba(0, 0, 0, 0.02);
 	border-radius: 10px;
+	color: #404040;
 	background-color: #FFF;
+}
+
+.card img {
+	height: 150px;
 }
 
 .card a {

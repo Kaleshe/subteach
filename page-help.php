@@ -23,7 +23,7 @@ get_header();
                 
             } else {
 
-                esc_html_e( 'Sorry you do not have access to this page.', 'subteach' );
+                get_template_part( 'template-parts/content/content-page-restricted' );
 
             }
             

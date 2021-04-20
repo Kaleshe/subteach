@@ -13,7 +13,7 @@ get_header();
 
             <?php
             
-            if ( is_user_logged_in() && current_user_can( 'read' ) ) {
+            if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 
                 // Load different dashboard for admins and schools
                 $dashboard = !is_school() ? 'admin' : 'school';
@@ -22,7 +22,7 @@ get_header();
 
             } else {
 
-                esc_html_e( 'Sorry you do not have access to this page.', 'subteach' );
+                auth_redirect();
 
             }
             

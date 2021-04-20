@@ -8,9 +8,7 @@
  * @package Subteach
  */
 
-$school_id = 88;
-
-;?>
+?>
 
 <div class="school-dashboard">
     <div class="cards grid md:cols-3 gap-space">
