@@ -211,15 +211,29 @@ function dump($data) {
   echo '</pre>';
 }
 
-add_filter( 'gettext', 'ps_change_activation_message', 20, 3 );
-
-function ps_change_activation_message( $translated_text, $text, $domain ) {
-
-    switch ( $translated_text ) {
-        case 'You have successfully created your account! To begin using this site you will need to activate your account via the email we have just sent to your address.' :
-            $translated_text = __( 'Your membership account is awaiting approval by the site administrator.', 'buddypress' );
-            break;
-    }
-
-    return $translated_text;
+add_action( 'admin_init', 'redirect_non_admin_users' );
+/**
+* Redirect non-admin users to home page
+*
+* This function is attached to the ‘admin_init’ action hook.
+*/
+function redirect_non_admin_users() {
+	if ( ! current_user_can( 'manage_options' ) && ('/wp-admin/admin-ajax.php' != $_SERVER['PHP_SELF']) ) {
+	wp_redirect( home_url() );
+	exit;
+	}
 }
+
+/**
+ * Hide admin bar from certain user roles
+ */
+function hide_admin_bar( $show ) {
+
+	if ( current_user_can( 'read' ) ) :
+		return false;
+	endif;
+
+	return $show;
+
+}
+add_filter( 'show_admin_bar', 'hide_admin_bar' );

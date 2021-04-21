@@ -37,6 +37,19 @@ function subteach_login_logo() { ?>
     #loginform .wp-submit {
         background-color: #0076d6;
     }
+
+    .login-action-register #login {
+      max-width: 100% !important;
+      width: 600px !important;
+    }
+
+    .login #nav {
+      padding: 0 0 2rem !important;
+    }
+
+    .acf-tab-wrap.-top {
+      margin-bottom: 1rem;
+    }
   </style>
 <?php }
 add_action( 'login_enqueue_scripts', 'subteach_login_logo' );

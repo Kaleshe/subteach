@@ -20,7 +20,7 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
 
     </div>
 <?php } ?>
-<div class="school-dashboard p-space">
+<div class="school-dashboard py-space-2 px-space">
     <div class="container">
         <div class="cards grid md:cols-3 gap-space">
             <?php

@@ -524,6 +524,10 @@ form input:not(:last-of-type), form textarea {
 	margin-bottom: .5rem !important;
 }
 
+form input[type="color"] {
+	padding: 0;
+}
+
 form div > * {
 	width: 100%;
 	display: block;
