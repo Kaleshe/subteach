@@ -15,7 +15,7 @@ get_header();
 
             <?php
             
-            if ( is_user_logged_in() && current_user_can( 'read' ) ) {
+            if ( is_user_logged_in() && current_user_can( 'read' ) && is_active_user() ) {
 
                 // Load different dashboard for admins and schools
                 $form = !is_school() ? 'admin' : 'school';

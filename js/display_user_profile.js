@@ -24,6 +24,7 @@ jQuery(document).ready(function($) {
               'method': 'POST'
             },
             success:function(data) {
+              console.log(data);
               },
             error:function(errorThrown) {
               console.log(errorThrown);

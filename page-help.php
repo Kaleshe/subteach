@@ -15,7 +15,7 @@ get_header();
 
             <?php
             
-            if ( is_user_logged_in() && current_user_can( 'read' ) ) {
+            if ( is_user_logged_in() && current_user_can( 'read' ) && is_active_user() ) {
 
                 if ( is_school() ) {
                   get_template_part( 'template-parts/faq' );

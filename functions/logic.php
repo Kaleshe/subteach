@@ -176,3 +176,19 @@ function get_user_total_placements()
 {
 
 }
+
+/**
+ * Checks if a user is active
+ */
+function is_active_user( $user_id = null ) {
+    if (  is_user_logged_in() && $user_id == null ) {
+        $user_id = get_current_user_id();
+    }
+
+    if ( !get_user_meta( $user_id, 'is_active' ) || !is_school() ) {
+        return true;
+    }
+
+    return get_user_meta( $user_id, 'is_active', false )[0];
+    
+}

@@ -20,14 +20,16 @@ function display_user_profile() {
 }
 
 /**
- * 
+ * Deactivate user
  */
 add_action( 'wp_ajax_deactivate_user', 'deactivate_user' );
 add_action('wp_ajax_nopriv_deactivate_user', 'deactivate_user');
 
 function deactivate_user() {
   $user_id = $_REQUEST['user_id'];
-  update_user_meta($user_id, 'is_active', false);
-  echo get_user_meta( 22 )['is_active'][0];
+  update_user_meta($user_id, 'is_active', 0);
+  update_user_meta(38, 'is_active', 1);
+
+  echo 'user deactivated';
 	die();
 }
