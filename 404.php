@@ -10,7 +10,7 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main text-center">
+	<main id="primary" class="site-main text-center mt-space-2">
 		<div class="container">
 
 			<section class="error-404 not-found">

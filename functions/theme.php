@@ -210,3 +210,16 @@ function dump($data) {
   print_r($data);
   echo '</pre>';
 }
+
+add_filter( 'gettext', 'ps_change_activation_message', 20, 3 );
+
+function ps_change_activation_message( $translated_text, $text, $domain ) {
+
+    switch ( $translated_text ) {
+        case 'You have successfully created your account! To begin using this site you will need to activate your account via the email we have just sent to your address.' :
+            $translated_text = __( 'Your membership account is awaiting approval by the site administrator.', 'buddypress' );
+            break;
+    }
+
+    return $translated_text;
+}

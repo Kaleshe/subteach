@@ -71,11 +71,6 @@
   backface-visibility: hidden;
 }
 
-.modal__btn-primary {
-  background-color: #00449e;
-  color: #fff;
-}
-
 button[data-micromodal-trigger="modal-1"] {
   position: fixed;
   right: $space;

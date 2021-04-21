@@ -3,22 +3,23 @@ $color__brand: #0076d6;
 $color__background-body: #f8f9fa;
 $color__background-screen: #f1f1f1;
 $color__background-hr: #ccc;
-$color__background-button: $color__brand;
 $color__background-pre: #eee;
 $color__background-ins: #fff9c0;
 
-$color__text-screen: #0076d6;
 $color__text-subtext: #4e5057;
 $color__text-input: #666;
 $color__text-input-focus: #111;
 $color__link: #1d1f24; //royalblue
 $color__link-visited: $color__link;
-$color__link-hover: $color__brand;
 $color__text-title: #404040;
 $color__text-main: #666;
 
-$color__border-button: $color__brand;
 $color__border-button-hover: #ccc #bbb #aaa;
 $color__border-button-focus: #aaa #bbb #bbb;
 $color__border-input: #ccc;
 $color__border-abbr: #666;
+
+:root {
+  --primary-colour: #{$color__brand};
+  --secondary-colour: #{$color__background-body};
+}

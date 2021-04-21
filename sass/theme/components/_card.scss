@@ -27,14 +27,14 @@
 .cardText {
     display: inline-block;
     border-radius: 20px;
-    background-color: $color__brand;
+    background-color: var(--primary-colour);
     padding: calc(#{$space} / 4 ) $space;
-    color: #FFF;
     @extend .capitalize, .text-sm, .font-bold;
+    color: #FFF;
 }
 
-.card-blue {
-    background-color: $color__brand;
+.school-dashboard {
+    background-color: var(--primary-colour);
     color: #FFF;
 
     a {

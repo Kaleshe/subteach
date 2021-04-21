@@ -9,7 +9,7 @@
  * @package Subteach
  */
 
-$user = get_current_user_id(); 
+$user_id = get_current_user_id(); 
 
 ?>
 <!doctype html>
@@ -19,7 +19,21 @@ $user = get_current_user_id();
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-	<?php wp_head(); ?>
+	<?php 
+	wp_head(); 
+	if ( is_school() ) {
+		$primaryColour = get_user_meta( $user_id )['primary_colour'][0];
+		$secondaryColour = get_user_meta( $user_id )['secondary_colour'][0];
+	?>
+
+	<style>
+		body {
+			--primary-colour: <?= $primaryColour ? $primaryColour : '#0076d6'; ?>;
+			--secondary-colour: <?= $secondaryColour ? $secondaryColour : '#FFF'; ?>;
+		}
+	</style>
+
+	<?php } ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -31,9 +45,9 @@ $user = get_current_user_id();
 				<?php
 				the_custom_logo();
 				
-				if ( $user ): ?>
+				if ( $user_id ): ?>
 
-					 <p class="font-medium"><?php esc_html_e( 'Welcome, ' . get_userdata($user)->first_name , 'subteach' ); ?></p>
+					 <p class="font-medium"><?php esc_html_e( 'Welcome, ' . get_userdata($user_id)->first_name , 'subteach' ); ?></p>
 
 				<?php endif; ?>
 

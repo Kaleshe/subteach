@@ -9,26 +9,24 @@ get_header();
 ?>
 
 	<main id="primary" class="site-main">
-        <div class="container">
 
-            <?php
+        <?php
+        
+        if ( is_user_logged_in() && current_user_can( 'read' ) ) {
+
+            // Load different dashboard for admins and schools
+            $dashboard = !is_school() ? 'admin' : 'school';
             
-            if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
+            get_template_part( 'template-parts/dashboard/dashboard', $dashboard );
 
-                // Load different dashboard for admins and schools
-                $dashboard = !is_school() ? 'admin' : 'school';
-                
-                get_template_part( 'template-parts/dashboard/dashboard', $dashboard );
+        } else {
 
-            } else {
+            get_template_part( 'template-parts/content/content-page-restricted' );
 
-                auth_redirect();
+        }
+        
+        ?>
 
-            }
-            
-            ?>
-
-        </div>
 	</main><!-- #main -->
 
 <?php

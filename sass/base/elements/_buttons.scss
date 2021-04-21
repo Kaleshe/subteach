@@ -1,26 +1,16 @@
 button,
-.um input[type=submit].um-button,
 .modal__btn,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
 	border: 1px solid;
-	border-color: $color__border-button;
+	border-color: var(--primary-colour);
 	border-radius: 3px;
-	background: $color__background-button !important;
+	background: var(--primary-colour);
 	color: #FFF;
 	line-height: 1;
 	padding: .75rem 2rem;
 	@extend .font-bold;
-
-	&:hover {
-		border-color: $color__border-button-hover;
-	}
-
-	&:active,
-	&:focus {
-		border-color: $color__border-button-focus;
-	}
 }
 
 button, 
@@ -31,7 +21,7 @@ input[type="submit"] {
 	transition: opacity .25s ease-out,-webkit-opacity .25s ease-out;
 
 	&:hover {
-		opacity: .8;
+		opacity: .7;
 		cursor: pointer;
 	}
 }
@@ -39,12 +29,7 @@ input[type="submit"] {
 .profile-card button {
 	@extend .cardText, .font-medium;	
 	background: transparent !important;
-	color: $color__brand !important;
-	border: 3px solid $color__brand;
-	padding: .5rem;
-
-	&:hover {
-		border-color: #6b7075;
-		color: #6b7075 !important;
-	}
+	color: var(--primary-colour) !important;
+	border: 3px solid var(--primary-colour);
+	padding: .5rem;	
 }

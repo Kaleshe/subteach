@@ -22,7 +22,7 @@
  
 <?php 
 
-	if ( is_school() && ( is_page(8) || is_front_page() ) ) {
+	if ( is_school() && ( is_page(8) ) ) {
 		include( get_template_directory() . '/event-modal.php' );
 		echo '<button data-micromodal-trigger="modal-1">New Event</button>';
 	}

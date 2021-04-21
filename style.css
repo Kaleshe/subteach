@@ -21,6 +21,11 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 Normalizing styles have been helped along thanks to the fine work of
 Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 */
+:root {
+	--primary-colour: #0076d6;
+	--secondary-colour: #f8f9fa;
+}
+
 /*--------------------------------------------------------------
 # Utilities
 --------------------------------------------------------------*/
@@ -95,7 +100,6 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 }
 
 .font-bold, button,
-.um input.um-button[type=submit],
 .modal__btn,
 input[type="button"],
 input[type="reset"],
@@ -328,7 +332,8 @@ h6 {
 }
 
 .border-rounded {
-	border: 3px solid #FFF;
+	border: 3px solid var(--primary-colour);
+	color: var(--primary-colour);
 	border-radius: 20px;
 	padding: .25rem 1rem;
 	display: block;
@@ -397,6 +402,7 @@ h6 {
 }
 
 body {
+	margin: 0;
 	background: #f8f9fa;
 }
 
@@ -411,7 +417,7 @@ a:visited {
 }
 
 a:hover, a:focus, a:active {
-	color: #0076d6;
+	color: var(--primary-colour);
 }
 
 a:focus {
@@ -425,41 +431,17 @@ a:hover, a:active {
 /* Forms
 --------------------------------------------- */
 button,
-.um input[type=submit].um-button,
 .modal__btn,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
 	border: 1px solid;
-	border-color: #0076d6;
+	border-color: var(--primary-colour);
 	border-radius: 3px;
-	background: #0076d6 !important;
+	background: var(--primary-colour);
 	color: #FFF;
 	line-height: 1;
 	padding: .75rem 2rem;
-}
-
-button:hover,
-.um input[type=submit].um-button:hover,
-.modal__btn:hover,
-input[type="button"]:hover,
-input[type="reset"]:hover,
-input[type="submit"]:hover {
-	border-color: #ccc #bbb #aaa;
-}
-
-button:active, button:focus,
-.um input[type=submit].um-button:active,
-.um input[type=submit].um-button:focus,
-.modal__btn:active,
-.modal__btn:focus,
-input[type="button"]:active,
-input[type="button"]:focus,
-input[type="reset"]:active,
-input[type="reset"]:focus,
-input[type="submit"]:active,
-input[type="submit"]:focus {
-	border-color: #aaa #bbb #bbb;
 }
 
 button,
@@ -472,20 +454,15 @@ input[type="submit"] {
 
 button:hover,
 input[type="submit"]:hover {
-	opacity: .8;
+	opacity: .7;
 	cursor: pointer;
 }
 
 .profile-card button {
 	background: transparent !important;
-	color: #0076d6 !important;
-	border: 3px solid #0076d6;
+	color: var(--primary-colour) !important;
+	border: 3px solid var(--primary-colour);
 	padding: .5rem;
-}
-
-.profile-card button:hover {
-	border-color: #6b7075;
-	color: #6b7075 !important;
 }
 
 input[type="text"],
@@ -569,7 +546,6 @@ form label {
 .site-header {
 	padding: calc(2rem / 2) 2rem;
 	border-bottom: 1px solid #e3eaef;
-	margin-bottom: calc(2rem * 2);
 }
 
 .site-header .container, .site-branding {
@@ -580,11 +556,6 @@ form label {
 
 .custom-logo-link {
 	margin-right: 1rem;
-}
-
-.site-main {
-	padding-left: 2rem;
-	padding-right: 2rem;
 }
 
 .container {
@@ -626,17 +597,17 @@ form label {
 .cardText, .profile-card button {
 	display: inline-block;
 	border-radius: 20px;
-	background-color: #0076d6;
+	background-color: var(--primary-colour);
 	padding: calc(2rem / 4) 2rem;
 	color: #FFF;
 }
 
-.card-blue {
-	background-color: #0076d6;
+.school-dashboard {
+	background-color: var(--primary-colour);
 	color: #FFF;
 }
 
-.card-blue a {
+.school-dashboard a {
 	color: currentColor;
 }
 
@@ -769,11 +740,6 @@ form label {
 	backface-visibility: hidden;
 }
 
-.modal__btn-primary {
-	background-color: #00449e;
-	color: #fff;
-}
-
 button[data-micromodal-trigger="modal-1"] {
 	position: fixed;
 	right: 2rem;
@@ -886,7 +852,7 @@ button[data-micromodal-trigger="modal-1"] {
 # Navigation
 --------------------------------------------------------------*/
 .sub-menu {
-	background-color: #0076d6;
+	background-color: var(--primary-colour);
 }
 
 .sub-menu a {

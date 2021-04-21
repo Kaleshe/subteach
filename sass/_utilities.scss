@@ -301,7 +301,8 @@
 }
 
 .border-rounded {
-  border: 3px solid #FFF;
+  border: 3px solid var(--primary-colour);
+  color: var(--primary-colour); 
   border-radius: 20px;
   padding: .25rem 1rem;
   display: block;
