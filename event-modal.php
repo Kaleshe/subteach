@@ -7,10 +7,9 @@
 
 $subjects = get_subjects();
 
-if ( isset($_POST['submit'] ) ) {
+if ( isset($_POST['submit_event'] ) ) {
   create_event();
 }
-
 ?>
 
 <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
@@ -41,7 +40,7 @@ if ( isset($_POST['submit'] ) ) {
               <label for="note">Note</label>
               <textarea name="note" id="note" cols="20" rows="5"></textarea>
               <footer class="modal__footer">
-                <input type="submit" name="submit" value="Create Event">
+                <input type="submit" name="submit_event" value="Create Event">
                 <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Cancel</button>
             </footer>
           </form>

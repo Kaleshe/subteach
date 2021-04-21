@@ -22,9 +22,11 @@
  
 <?php 
 
-	if ( is_school() && ( is_page(8) ) ) {
+	if ( is_school() && !is_page('dashboard') ) {
 		include( get_template_directory() . '/event-modal.php' );
+		echo '<div>';
 		echo '<button data-micromodal-trigger="modal-1">New Event</button>';
+		echo '</div>';
 	}
 
 	wp_footer(); 

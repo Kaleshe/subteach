@@ -3,3 +3,27 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.tribe-common .tribe-common-c-btn, 
+.tribe-events .tribe-events-c-ical__link:hover,
+.tribe-events .tribe-events-c-ical__link:active,
+.tribe-events .tribe-events-c-ical__link:focus {
+	background-color: var(--primary-colour);
+}
+
+.tribe-common .tribe-common-c-svgicon,
+.tribe-events-cal-links .tribe-events-gcal,
+.tribe-events-cal-links .tribe-events-ical,
+.tribe-events .tribe-events-c-ical__link, 
+.tribe-events .tribe-events-calendar-month__day--current .tribe-events-calendar-month__day-date-link {
+	color: var(--primary-colour);
+}
+
+.tribe-events .tribe-events-c-ical__link {
+	border: 1px solid var(--primary-colour);
+}
+
+.tribe-common .tribe-common-c-btn:hover {
+	background-color: var(--primary-colour);
+	opacity: .8;
+}

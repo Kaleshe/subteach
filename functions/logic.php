@@ -146,25 +146,6 @@ function get_subject_id($subject_title, $subject_level)
 }
 
 /**
- * Adds a new event to the database
- */
-function create_event()
-{
-    global $wpdb;
-
-    $user_id = get_current_user_id();
-    $school_id = get_user_meta($user_id)['school_id'][0];
-
-    $wpdb->insert('events', array(
-        'subjectID' => $_POST['subjectID'],
-        'subjectLiteral' => get_subject($_POST['subjectID']),
-        'schoolID' => $school_id,
-        'note' => $_POST['note'],
-        'timestamp' => $_POST['date'] . ' ' . $_POST['time']
-    ));
-}
-
-/**
  * Returns last booked profile by current user
  */
 function get_last_booked_profile()
@@ -189,6 +170,37 @@ function is_active_user( $user_id = null ) {
         return true;
     }
 
-    return get_user_meta( $user_id, 'is_active', false )[0];
-    
+    return get_user_meta( $user_id, 'is_active', false )[0];   
+}
+
+/**
+ * Adds a new event to the database
+ */
+function create_event()
+{
+    global $wpdb;
+
+    $user_id = get_current_user_id();
+    $school_id = get_user_meta($user_id)['school_id'][0];
+
+    $wpdb->insert('events', array(
+        'subjectID' => $_POST['subjectID'],
+        'subjectLiteral' => get_subject($_POST['subjectID']),
+        'schoolID' => $school_id,
+        'note' => $_POST['note'],
+        'timestamp' => $_POST['date'] . ' ' . $_POST['time']
+    ));
+
+    $args = array(
+        'post_title' => get_subject($_POST['subjectID']),
+        'post_status' => 'publish',
+        'post_content' => $_POST['note'],
+        'post_type' => 'tribe_events',
+        'EventStartDate' => $_POST['date'],
+        'EventEndDate' => $_POST['date'],
+        'post_author'  => $user_id
+    );
+
+    tribe_create_event($args);
+
 }

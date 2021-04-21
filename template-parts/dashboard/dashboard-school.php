@@ -20,21 +20,27 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
 
     </div>
 <?php } ?>
-<div class="school-dashboard py-space-2 px-space">
-    <div class="container">
-        <div class="cards grid md:cols-3 gap-space">
-            <?php
-                echo dataCard( esc_html( 'Number of Placements' ), 0 );
-            ?>
-            <div class="card p-space text-center flex justify-center items-center">
-                <div>
-                    <p class="text-lg font-bold">Last Search</p>
-                    <a href="">Duplicate</a>
+<div class="school-dashboard">
+    <div class="school-dashboard-cards coloured-bg py-space-2 px-space">
+        <div class="container">
+            <div class="cards grid md:cols-3 gap-space">
+                <?php
+                    echo dataCard( esc_html( 'Number of Placements' ), 0 );
+                ?>
+                <div class="card p-space text-center flex justify-center items-center">
+                    <div>
+                        <p class="text-lg font-bold">Last Search</p>
+                        <a href="">Duplicate</a>
+                    </div>
                 </div>
+                <?php
+                    echo profileCard( 'Last booked profile', 2 );
+                ?>
             </div>
-            <?php
-                echo profileCard( 'Last booked profile', 2 );
-            ?>
         </div>
+    </div>
+
+    <div class="container mt-space">
+        <h2><?= esc_html( 'Liked Profiles' ); ?></h2>
     </div>
 </div>
