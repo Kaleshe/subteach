@@ -21,17 +21,24 @@ add_action( 'init', 'update_school_roles' );
 /**
  * Check if the current logged in user is a school
  */
-function is_school() {
-    if (  is_user_logged_in() ) {
+function is_school( $user_id = null ) {
+    if (  is_user_logged_in() && $user_id == null ) {
         $user_id = get_current_user_id();
-        $user_meta = get_userdata($user_id);
+    }
+
+    $user_meta = get_userdata($user_id);
+
+    if ( $user_meta ) {
         $user_roles = $user_meta->roles;
+    } else {
+        return false;
+    }
+
     
-        if (in_array( 'school', $user_roles )) {
-            return true;
-        } else {
-            return false;
-        }
+    if (in_array( 'school', $user_roles )) {
+        return true;
+    } else {
+        return false;
     }
 }
 

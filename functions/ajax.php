@@ -8,13 +8,12 @@
  */
 
  /**
- * Get user ID to display user profile
+ * Display a users profile using an ID
  */
 add_action( 'wp_ajax_display_user_profile', 'display_user_profile' );
 add_action('wp_ajax_nopriv_display_user_profile', 'display_user_profile');
 
 function display_user_profile() {
-   // Expected data Bio, Street Address, Postcode, City, Telephone, Email, Sign Up Date
   $user_id = $_REQUEST['user_id'];
   echo json_encode( get_user( $user_id ) );
 	die();
