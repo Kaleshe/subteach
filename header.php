@@ -61,7 +61,7 @@ if ( !is_user_logged_in() ) {
 			</div><!-- .site-branding -->
 
 			<nav id="site-navigation" class="main-navigation">
-				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'subteach' ); ?></button>
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'subteach' ); ?></button>
 				<?php
 
 				if ( is_user_logged_in() ) {
