@@ -479,7 +479,7 @@ input[type="submit"]:hover {
 .profile-card button {
 	background: transparent !important;
 	color: var(--primary-colour) !important;
-	border: 3px solid var(--primary-colour);
+	border: 2px solid var(--primary-colour);
 	padding: .5rem;
 }
 

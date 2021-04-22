@@ -26,7 +26,7 @@
 		get_template_part( 'template-parts/event-modal' );
 	}
 
-	if ( is_school() && !is_page('dashboard') ) { ?>
+	if ( is_school() && !is_page('profile') && !is_page('help') && !is_page('dashboard') ) { ?>
 		<button class="fixed" data-micromodal-trigger="event-modal">New Event</button>';
 	<? }
 
