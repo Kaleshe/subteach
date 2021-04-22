@@ -10,6 +10,11 @@
  */
 
 $user_id = get_current_user_id(); 
+$profileImage = null;	
+if ( isset(get_user_meta( $user_id )['profile_image']) ) {
+	$profileImageID = get_user_meta( $user_id )['profile_image'][0];
+	$profileImage = $profileImageID ? wp_get_attachment_image_src( $profileImageID, 'thumbnail' ) : false;
+}
 
 /**
  * Redirect logged out users to the login page
@@ -49,13 +54,12 @@ if ( !is_user_logged_in() ) {
 	<header id="masthead" class="site-header">
 		<div class="container">
 			<div class="site-branding">
-				<?php
-				the_custom_logo();
+				<a href=<?= home_url(); ?>><?= $profileImage ?  '<img class="user-logo" src="' . $profileImage[0] . '" />' : get_custom_logo(); ?></a>
 				
-				if ( $user_id ): ?>
+				<?php if ( $user_id ): $username = get_userdata($user_id)->first_name ? get_userdata($user_id)->first_name : get_userdata($user_id)->display_name; ?>
 
-					 <h4 class="font-medium"><?php esc_html_e( 'Welcome, ' . get_userdata($user_id)->first_name , 'subteach' ); ?></h4>
-
+					 <h4 class="welcome-user font-medium"><?php esc_html_e( 'Welcome, ' . $username , 'subteach' ); ?></h4>
+					 
 				<?php endif; ?>
 
 			</div><!-- .site-branding -->

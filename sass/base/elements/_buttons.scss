@@ -9,12 +9,13 @@ input[type="submit"] {
 	background: var(--primary-colour);
 	color: #FFF;
 	line-height: 1;
-	padding: .75rem 2rem;
+	padding: .5rem 1.5rem;
 	@extend .font-bold;
 }
 
 button, 
 input[type="submit"] {
+	font-size: 14px;
 	opacity: 1;
 	transition: -webkit-opacity .25s ease-out;
 	transition: opacity .25s ease-out;
@@ -31,7 +32,7 @@ input[type="submit"] {
 	background: transparent !important;
 	color: var(--primary-colour) !important;
 	border: 2px solid var(--primary-colour);
-	padding: .5rem;	
+	padding: .5rem 1.5rem;	
 }
 
 .wpdt-c button {

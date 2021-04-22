@@ -12,6 +12,7 @@ input[type="week"],
 input[type="time"],
 input[type="datetime"],
 input[type="datetime-local"],
+input[name="subject"],
 input[type="color"],
 select,
 textarea {
@@ -23,10 +24,6 @@ textarea {
 	&:focus {
 		color: $color__text-input-focus;
 	}
-}
-
-input[type="submit"] {
-	padding: .75rem 2rem;
 }
 
 select {

@@ -156,6 +156,10 @@ h6 {
 	margin-top: calc(1.75rem / 2);
 }
 
+.my-space {
+	margin: 1.75rem 0;
+}
+
 .mx-auto {
 	margin-left: auto;
 	margin-right: auto;
@@ -306,6 +310,14 @@ h6 {
 	display: flex;
 }
 
+.inline-flex {
+	display: inline-flex;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
 .space-between {
 	justify-content: space-between;
 }
@@ -428,6 +440,7 @@ body {
 --------------------------------------------- */
 a {
 	color: #1d1f24;
+	transition: .3s ease;
 }
 
 a:visited {
@@ -459,11 +472,12 @@ input[type="submit"] {
 	background: var(--primary-colour);
 	color: #FFF;
 	line-height: 1;
-	padding: .75rem 2rem;
+	padding: .5rem 1.5rem;
 }
 
 button,
 input[type="submit"] {
+	font-size: 14px;
 	opacity: 1;
 	transition: -webkit-opacity .25s ease-out;
 	transition: opacity .25s ease-out;
@@ -480,7 +494,7 @@ input[type="submit"]:hover {
 	background: transparent !important;
 	color: var(--primary-colour) !important;
 	border: 2px solid var(--primary-colour);
-	padding: .5rem;
+	padding: .5rem 1.5rem;
 }
 
 .wpdt-c button {
@@ -501,6 +515,7 @@ input[type="week"],
 input[type="time"],
 input[type="datetime"],
 input[type="datetime-local"],
+input[name="subject"],
 input[type="color"],
 select,
 textarea {
@@ -524,14 +539,11 @@ input[type="week"]:focus,
 input[type="time"]:focus,
 input[type="datetime"]:focus,
 input[type="datetime-local"]:focus,
+input[name="subject"]:focus,
 input[type="color"]:focus,
 select:focus,
 textarea:focus {
 	color: #111;
-}
-
-input[type="submit"] {
-	padding: .75rem 2rem;
 }
 
 select {
@@ -583,8 +595,13 @@ form label {
 	justify-content: space-between;
 }
 
-.custom-logo-link {
-	margin-right: 1rem;
+.welcome-user {
+	margin-left: .75em;
+}
+
+.user-logo {
+	max-height: 50px;
+	object-fit: cover;
 }
 
 .container {
@@ -634,6 +651,7 @@ form label {
 }
 
 .card {
+	min-height: 200px;
 	box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.006), 0 6.7px 5.3px rgba(0, 0, 0, 0.008), 0 12.5px 10px rgba(0, 0, 0, 0.01), 0 22.3px 17.9px rgba(0, 0, 0, 0.012), 0 41.8px 33.4px rgba(0, 0, 0, 0.014), 0 100px 80px rgba(0, 0, 0, 0.02);
 	border-radius: 10px;
 	color: #404040;
@@ -797,7 +815,7 @@ form label {
 .card button[data-micromodal-trigger="event-modal"] {
 	background: transparent;
 	color: var(--primary-colour);
-	padding: .5rem 2rem;
+	padding: .5rem 1.5rem;
 	border-width: 2px;
 }
 

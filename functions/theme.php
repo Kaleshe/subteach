@@ -229,7 +229,7 @@ function redirect_non_admin_users() {
  */
 function hide_admin_bar( $show ) {
 
-	if ( current_user_can( 'read' ) ) :
+	if ( !current_user_can( 'edit_others_pages' ) ) :
 		return false;
 	endif;
 
@@ -237,3 +237,15 @@ function hide_admin_bar( $show ) {
 
 }
 add_filter( 'show_admin_bar', 'hide_admin_bar' );
+
+/**
+ * Add logout to the end of the menu
+ */
+function new_nav_menu_items($items) 
+{
+    $homelink = '<li class="home"><a href="' . wp_logout_url() . '">' . __('Logout') . '</a></li>';
+    $items = $items . $homelink;
+
+    return $items;
+}
+add_filter( 'wp_nav_menu_items', 'new_nav_menu_items' );

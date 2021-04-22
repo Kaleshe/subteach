@@ -16,7 +16,7 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
 ?>
 
 <?php if ($coverImage) { ?>
-    <div class="cover-imag" style="height: 35vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 60%; background-size: cover;">
+    <div class="cover-image" style="height: 35vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 60%; background-size: cover;">
 
     </div>
 <?php } ?>
@@ -40,7 +40,17 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
         </div>
     </div>
 
-    <div class="container mt-space">
-        <h2><?= esc_html( 'Liked Profiles' ); ?></h2>
+    <div class="px-space">
+        <div class="container">
+            <h2 class="my-space"><?= esc_html( 'Liked Profiles' ); ?></h2>
+            <?php
+
+            // Loop through liked users and assign their user id as the second argument
+                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
+                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
+                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
+                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
+            ?>
+        </div>
     </div>
 </div>

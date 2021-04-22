@@ -121,6 +121,10 @@
   margin-top: calc(#{$space} / 2);
 }
 
+.my-space {
+  margin: $space 0;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -277,6 +281,14 @@
 
 .flex {
   display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .space-between {

@@ -43,7 +43,7 @@ function is_school( $user_id = null ) {
 }
 
 /**
- * Meta data to school users upon registration  
+ * Add is_active school_id and likes user_meta
  */
 add_action( 'user_register', function ( $user_id ) {
     update_user_meta($user_id, 'is_active', 1);

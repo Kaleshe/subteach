@@ -8,6 +8,11 @@
     justify-content: space-between;
 }
 
-.custom-logo-link {
-    margin-right: 1rem;
+.welcome-user {
+    margin-left: .75em;
+}
+
+.user-logo {
+    max-height: 50px;
+    object-fit: cover;
 }
