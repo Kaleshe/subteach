@@ -12,7 +12,7 @@ get_header();
 
         <?php
   
-        if ( is_user_logged_in() && current_user_can( 'read' ) && is_active_user() ) {
+        if ( current_user_can( 'read' ) && is_active_user() ) {
 
             // Load different dashboard for admins and schools
             $dashboard = !is_school() ? 'admin' : 'school';

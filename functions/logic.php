@@ -196,7 +196,7 @@ function create_event()
         'post_status' => 'publish',
         'post_content' => $_POST['note'],
         'post_type' => 'tribe_events',
-        'EventStartDate' => $_POST['date'],
+        'EventStartDate' => date( $_POST['date'] ),
         'EventEndDate' => $_POST['date'],
         'post_author'  => $user_id
     );

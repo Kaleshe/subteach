@@ -12,17 +12,17 @@ if ( isset($_POST['submit_event'] ) ) {
 }
 ?>
 
-<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+<div class="modal micromodal-slide" id="event-modal" aria-hidden="true">
   <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
       <header class="modal__header">
-        <h2 class="modal__title text-lg" id="modal-1-title">
+        <h2 class="modal__title text-lg" id="event-modal-title">
           Create Event
         </h2>
         <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
       </header>
-      <main class="modal__content" id="modal-1-content">
-      <div id="modal-1-content">
+      <main class="modal__content" id="event-modal-content">
+      <div id="event-modal-content">
           <form action="" class="create-event-form" method="post" action="<?php $_PHP_SELF; ?>">
               <label for="subject">Subject</label>
               <input id="subjectsList" list="subjects" placeholder="Subject" class="w-full" name="subject">

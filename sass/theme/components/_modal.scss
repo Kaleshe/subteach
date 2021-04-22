@@ -71,7 +71,14 @@
   backface-visibility: hidden;
 }
 
-button[data-micromodal-trigger="modal-1"] {
+.card button[data-micromodal-trigger="event-modal"] {
+  background: transparent;
+  color: var(--primary-colour);
+  padding: .5rem 2rem;
+  border-width: 2px;
+}
+
+button[data-micromodal-trigger="event-modal"].fixed {
   position: fixed;
   right: $space;
   bottom: $space;

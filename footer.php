@@ -22,12 +22,13 @@
  
 <?php 
 
-	if ( is_school() && !is_page('dashboard') ) {
-		include( get_template_directory() . '/event-modal.php' );
-		echo '<div>';
-		echo '<button data-micromodal-trigger="modal-1">New Event</button>';
-		echo '</div>';
+	if ( is_school() ) {
+		get_template_part( 'template-parts/event-modal' );
 	}
+
+	if ( is_school() && !is_page('dashboard') ) { ?>
+		<button class="fixed" data-micromodal-trigger="event-modal">New Event</button>';
+	<? }
 
 	wp_footer(); 
 	

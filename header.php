@@ -10,6 +10,13 @@
  */
 
 $user_id = get_current_user_id(); 
+
+/**
+ * Redirect logged out users to the login page
+ */
+if ( !is_user_logged_in() ) {
+	auth_redirect();
+}
 ?>
 
 <!doctype html>
