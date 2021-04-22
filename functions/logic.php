@@ -174,19 +174,37 @@ function is_active_user( $user_id = null ) {
 }
 
 /**
- * Adds a new event to the database
+ * Returns a schools liked teachers
+ */
+function get_liked_teachers( $user_id = null ) 
+{
+
+    global $wpdb;
+
+    if ( is_user_logged_in() && $user_id == null ) {
+        $user_id = get_current_user_id();
+    }
+    
+    // Need to sort out why this won't allow the variable to be fed in, but works elsewhere
+    $liked_teachers = $wpdb->get_results( "SELECT * FROM liked_teachers WHERE schoolID = %d", $user_id );
+
+    return json_decode(json_encode($liked_teachers), true);
+
+}
+
+/**
+ * Adds a new event to the database and create a tribe events post simutaneously
  */
 function create_event()
 {
     global $wpdb;
 
     $user_id = get_current_user_id();
-    $school_id = get_user_meta($user_id)['school_id'][0];
 
     $wpdb->insert('events', array(
         'subjectID' => $_POST['subjectID'],
         'subjectLiteral' => get_subject($_POST['subjectID']),
-        'schoolID' => $school_id,
+        'schoolID' => $user_id,
         'note' => $_POST['note'],
         'timestamp' => $_POST['date'] . ' ' . $_POST['time']
     ));

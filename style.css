@@ -893,6 +893,10 @@ button[data-micromodal-trigger="event-modal"].fixed {
 	will-change: transform;
 }
 
+.heart {
+	height: 20px;
+}
+
 .accordion.is-closed .question button {
 	transform: rotate(90deg);
 }
@@ -942,6 +946,21 @@ button[data-micromodal-trigger="event-modal"].fixed {
 
 .menu a {
 	text-decoration: none;
+}
+
+.main-navigation.toggled #primary-menu {
+	position: fixed;
+	display: block;
+	left: 0;
+	top: 0;
+	background: var(--secondary-colour);
+	height: 100%;
+	padding: 2rem 0;
+	box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.006), 0 6.7px 5.3px rgba(0, 0, 0, 0.008), 0 12.5px 10px rgba(0, 0, 0, 0.01), 0 22.3px 17.9px rgba(0, 0, 0, 0.012), 0 41.8px 33.4px rgba(0, 0, 0, 0.014), 0 100px 80px rgba(0, 0, 0, 0.02);
+}
+
+.main-navigation.toggled #primary-menu li a {
+	padding: 1rem 5rem 1rem 2rem;
 }
 
 .main-navigation {

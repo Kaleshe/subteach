@@ -48,7 +48,7 @@ if ( !is_user_logged_in() ) {
 	<?php } ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> data-current-user-type=<?= get_user_type_as_string(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
 	<header id="masthead" class="site-header">

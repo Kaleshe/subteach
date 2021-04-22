@@ -1,36 +1,70 @@
 jQuery(document).ready(function($) {
 
+  // Gets the current user type
+  const currentUserType = $(document.body).data("current-user-type");
+
   jQuery(".profile-card button").click(function(){
+
+    const userID = $(this).data("user-id");
 
     $.ajax({
       url: display_user_profile_obj.ajaxurl,
       data: {
         'action': 'display_user_profile',
-        'user_id': $(this).data("user-id"),
+        'user_id': userID,
         'method': 'POST'
       },
+
+      // Populate modal with user data
       success:function(data) {
         let parsedData = JSON.parse(data);
         $('body').append(modal(parsedData));
-        MicroModal.show('profile-modal-' + parsedData.ID);
+        MicroModal.show('profile-modal-' + userID);
 
-        jQuery("button.deactivate__user__btn").click(function(){
-      
-          $.ajax({
-            url: deactivate_user_obj.ajaxurl,
-            data: {
-              'action': 'deactivate_user',
-              'user_id': $(this).data("user-id"),
-              'method': 'POST'
-            },
-            success:function(data) {
-              console.log(data);
+        // Onloy load for school users
+        if( currentUserType == 'school' ) {
+          // Like user
+          jQuery("span.like").click(function(){
+            $.ajax({
+              url: like_teacher_obj.ajaxurl,
+              data: {
+                'action': 'like_teacher',
+                'user_id': userID,
+                'method': 'POST'
               },
-            error:function(errorThrown) {
-              console.log(errorThrown);
-            }
+
+              // Alert the deactivated user 
+              success:function() {
+                alert('Liked!');
+                },
+              error:function(errorThrown) {
+                console.log(errorThrown);
+              }
+            });
           });
-        });
+        }
+
+        // Only load for admin users
+        if( currentUserType != 'school' ) {
+          jQuery("button.deactivate__user__btn").click(function(){
+            $.ajax({
+              url: deactivate_user_obj.ajaxurl,
+              data: {
+                'action': 'deactivate_user',
+                'user_id': userID,
+                'method': 'POST'
+              },
+  
+              // Alert the deactivated user 
+              success:function() {
+                alert(parsedData.schoolName + ' has been deactivated.');
+                },
+              error:function(errorThrown) {
+                console.log(errorThrown);
+              }
+            });
+          });
+        }
       },
       error:function(errorThrown) {
         console.log(errorThrown);
@@ -40,9 +74,15 @@ jQuery(document).ready(function($) {
 
 });
 
-const modal = (parsedData) => {
+const modal = (parsedData, currentUserType) => {
   let name = parsedData.schoolName ? parsedData.schoolName : parsedData.firstName + ' ' + parsedData.lastName;
-  
+
+  // Returns a like button if the current user is a school
+  let likeButton = ( currentUserType == 'school' ) ? '<button class="like inline-flex items-center">Like </button>' : '';
+
+  // Returns the deactivate button if the current user is an admin
+  let deactivateButton = ( currentUserType != 'school' ) ? '<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>' : '';
+
   if (parsedData.type == 'teacher') {
     return `<div class="modal micromodal-slide" id="profile-modal-${parsedData.ID}" aria-hidden="false">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -70,6 +110,8 @@ const modal = (parsedData) => {
                     </div>
                   </div>
                 </main>
+                ${likeButton}
+                </span>
               </div>
             </div>
           </div>`;
@@ -99,7 +141,7 @@ const modal = (parsedData) => {
                     </div>
                   </div>
                 </main>
-                <button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>
+                ${deactivateButton}
               </div>
             </div>
           </div>`;

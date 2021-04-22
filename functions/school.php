@@ -22,7 +22,7 @@ add_action( 'init', 'update_school_roles' );
  * Check if the current logged in user is a school
  */
 function is_school( $user_id = null ) {
-    if (  is_user_logged_in() && $user_id == null ) {
+    if ( is_user_logged_in() && $user_id == null ) {
         $user_id = get_current_user_id();
     }
 
@@ -43,11 +43,10 @@ function is_school( $user_id = null ) {
 }
 
 /**
- * Add is_active school_id and likes user_meta
+ * Add is_active user_meta
  */
 add_action( 'user_register', function ( $user_id ) {
     update_user_meta($user_id, 'is_active', 1);
-    update_user_meta($user_id, 'school_id', wp_unique_id('school_'));
 } );
 
 /**
