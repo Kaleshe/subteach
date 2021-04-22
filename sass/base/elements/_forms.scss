@@ -20,3 +20,7 @@ form {
         @extend .w-full;
     }
 }
+
+.school-form + .school-form {
+    margin-top: $space;
+}

@@ -36,7 +36,7 @@ if ( !is_user_logged_in() ) {
 	<style>
 		body {
 			--primary-colour: <?= $primaryColour ? $primaryColour : '#0076d6'; ?>;
-			--secondary-colour: <?= $secondaryColour ? $secondaryColour : '#FFF'; ?>;
+			--secondary-colour: <?= $secondaryColour ? $secondaryColour : '#e3eaef'; ?>;
 		}
 	</style>
 

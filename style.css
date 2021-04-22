@@ -421,7 +421,7 @@ h6 {
 
 body {
 	margin: 0;
-	background: #f8f9fa;
+	background: var(--secondary-colour);
 }
 
 /* Links
@@ -481,6 +481,10 @@ input[type="submit"]:hover {
 	color: var(--primary-colour) !important;
 	border: 2px solid var(--primary-colour);
 	padding: .5rem;
+}
+
+.wpdt-c button {
+	color: #FFF !important;
 }
 
 input[type="text"],
@@ -556,6 +560,10 @@ form label {
 	margin-bottom: .25rem;
 }
 
+.school-form + .school-form {
+	margin-top: 1.75rem;
+}
+
 .container {
 	max-width: 80rem;
 	margin-left: auto;
@@ -567,7 +575,6 @@ form label {
 --------------------------------------------------------------*/
 .site-header {
 	padding: calc(1.75rem / 2) 1.75rem;
-	border-bottom: 1px solid #e3eaef;
 }
 
 .site-header .container, .site-branding {

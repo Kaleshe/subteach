@@ -61,7 +61,7 @@ function showSchoolProfile(Lisp $settings, $search_id = null)
         }
         $inputs [] = join("\n", $input_group);
     }
-    echo new FormBuilder($title, "update,$table", 'Update', '', [join("<br>\n", $inputs)]);
+    echo new FormBuilder($title, "update,$table", 'Update', '', $inputs);
 }
 
 function get_update_type($post)
@@ -142,9 +142,6 @@ function interpret_post($post)
 interpret_post($_POST);
 
 showSchoolProfile(TableSettings::adminProfile(), 1);
-echo '<br>';
 showSchoolProfile(TableSettings::priceLevels());
-echo '<br>';
 showSchoolProfile(TableSettings::distanceTitles());
-echo '<br>';
 showSchoolProfile(TableSettings::questions());
