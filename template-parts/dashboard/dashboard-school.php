@@ -16,7 +16,7 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
 ?>
 
 <?php if ($coverImage) { ?>
-    <div class="cover-image" style="height: 35vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 60%; background-size: cover;">
+    <div class="cover-image" style="height: 37vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 60%; background-size: cover;">
 
     </div>
 <?php } ?>
@@ -31,10 +31,10 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
                     <div>
                         <p class="text-md font-bold"><?= esc_html( 'Last Search' ); ?></p>
                         <button class="mt-space-half" data-micromodal-trigger="event-modal" href=""><?= esc_html( 'Duplicate' ); ?></button>
-                    </div>
+                </div>
                 </div>
                 <?php
-                    echo profileCard( 'Last booked profile', 2 );
+                    echo profileCard( 'Last booked profile', 'teacher', 2 );
                 ?>
             </div>
         </div>
@@ -46,10 +46,10 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
             <?php
 
             // Loop through liked users and assign their user id as the second argument
-                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
-                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
-                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
-                echo profileCard( 'View Profile', 2, 'inline-flex flex-col' );
+                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
             ?>
         </div>
     </div>

@@ -7,14 +7,19 @@
  * @package Subteach
  */
 
-function get_user($user_id)
+ /**
+  * Returns a user using the user_id
+  */
+function get_user($user_id, $user_type)
 {
-    global $wpdb;
+    if ( $user_type != 'school') {
+        global $wpdb;
 
-    // TODO: Check the wp_users table 
-    $user = $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE ID = %d", $user_id));
-
-    return $user;
+        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE ID = %d", $user_id));
+    
+    } else {
+        return get_user_by( 'ID', $user_id );
+    }
 }
 
 /**
@@ -24,10 +29,12 @@ function get_most_recent_user($user_type)
 {
     global $wpdb;
 
-    // TODO: Check the wp_users table 
-    $user = $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
+    if( $user_type != 'school' ) {
+       return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
+    } else {
+        return $wpdb->get_row("SELECT * FROM $wpdb->users ORDER BY ID DESC LIMIT 0, 1");
+    }
 
-    return $user;
 }
 
 /**

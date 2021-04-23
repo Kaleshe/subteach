@@ -17,8 +17,8 @@
                 echo dataCard( esc_html( 'Total Schools' ), get_total_schools() );
                 echo dataCard( esc_html( 'Total Teachers' ), get_total_teachers() );
                 echo dataCard( esc_html( 'School/Teacher Ratio' ), get_school_teacher_ratio(true) );
-                echo profileCard( 'Most Recent (School)', get_most_recent_user('school')->ID, 'recent-user' );
-                echo profileCard( 'Most Recent (Teacher)', get_most_recent_user('teacher')->ID, 'recent-user' );
+                echo profileCard( 'Most Recent (School)', get_most_recent_user('school')->ID, 'school', 'recent-user' );
+                echo profileCard( 'Most Recent (Teacher)', get_most_recent_user('teacher')->ID, 'teacher', 'recent-user' );
                 echo dataCard( esc_html( 'Sign Up By Type' ), 3 );
             ?>
         </div>

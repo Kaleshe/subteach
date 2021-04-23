@@ -610,7 +610,14 @@ form label {
 	margin-right: auto;
 }
 
+.tribe-events .datepicker .month.active,
+.tribe-events .datepicker .day.active,
+.tribe-events .datepicker .month.active.focused {
+	background: var(--primary-colour);
+}
+
 .tribe-common .tribe-common-c-btn,
+.tribe-events .tribe-events-c-view-selector__button:before,
 .tribe-events .tribe-events-c-ical__link:hover,
 .tribe-events .tribe-events-c-ical__link:active,
 .tribe-events .tribe-events-c-ical__link:focus {
@@ -651,7 +658,6 @@ form label {
 }
 
 .card {
-	min-height: 200px;
 	box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.006), 0 6.7px 5.3px rgba(0, 0, 0, 0.008), 0 12.5px 10px rgba(0, 0, 0, 0.01), 0 22.3px 17.9px rgba(0, 0, 0, 0.012), 0 41.8px 33.4px rgba(0, 0, 0, 0.014), 0 100px 80px rgba(0, 0, 0, 0.02);
 	border-radius: 10px;
 	color: #404040;
@@ -664,6 +670,10 @@ form label {
 
 .card a {
 	text-decoration: none;
+}
+
+.card:not(.accordion) {
+	min-height: 200px;
 }
 
 .cardText, .profile-card button {

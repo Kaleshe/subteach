@@ -15,7 +15,12 @@ add_action('wp_ajax_nopriv_display_user_profile', 'display_user_profile');
 
 function display_user_profile() {
   $user_id = $_REQUEST['user_id'];
-  echo json_encode( get_user( $user_id ) );
+  $user_type = $_REQUEST['user_type'];
+  // if ( $user_type != 'school' ) {
+  //   $user[] = get_user_meta( $user_id );
+  //   $user[] = get_userdata( $user_id );
+  // }
+  echo json_encode( get_user( $user_id, $user_type ) );
 	die();
 }
 
@@ -28,6 +33,9 @@ add_action('wp_ajax_nopriv_deactivate_user', 'deactivate_user');
 function deactivate_user() {
   $user_id = $_REQUEST['user_id'];
   update_user_meta($user_id, 'is_active', 0);
+  $user[] = get_user_meta( $user_id );
+  $user[] = get_userdata( $user_id );
+  echo json_encode($user);
 	die();
 }
 

@@ -4,7 +4,14 @@
 	margin-right: auto;
 }
 
+.tribe-events .datepicker .month.active, 
+.tribe-events .datepicker .day.active,
+.tribe-events .datepicker .month.active.focused {
+	background: var(--primary-colour);
+}
+
 .tribe-common .tribe-common-c-btn, 
+.tribe-events .tribe-events-c-view-selector__button:before, 
 .tribe-events .tribe-events-c-ical__link:hover,
 .tribe-events .tribe-events-c-ical__link:active,
 .tribe-events .tribe-events-c-ical__link:focus {
