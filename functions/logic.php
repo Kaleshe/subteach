@@ -162,7 +162,7 @@ function get_last_booked_profile()
 
 function get_user_total_placements()
 {
-
+    return '...';
 }
 
 /**

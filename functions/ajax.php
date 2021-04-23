@@ -7,45 +7,63 @@
  * @package Subteach
  */
 
- /**
+/**
  * Display a users profile using an ID
  */
-add_action( 'wp_ajax_display_user_profile', 'display_user_profile' );
+add_action('wp_ajax_display_user_profile', 'display_user_profile');
 add_action('wp_ajax_nopriv_display_user_profile', 'display_user_profile');
 
-function display_user_profile() {
+function filter_array($array)
+{
+  return array_filter($array, function ($value, $key) {
+    return !in_array($key, ['comment_shortcuts', 'user_pass']);
+  }, ARRAY_FILTER_USE_BOTH);
+}
+
+function display_user_profile()
+{
+
+
   $user_id = $_REQUEST['user_id'];
   $user_type = $_REQUEST['user_type'];
-  // if ( $user_type != 'school' ) {
-  //   $user[] = get_user_meta( $user_id );
-  //   $user[] = get_userdata( $user_id );
-  // }
-  echo json_encode( get_user( $user_id, $user_type ) );
-	die();
+
+  $user = (array)get_user($user_id, $user_type);
+  if ($user_type == 'school') {
+    $user = array_merge($user, (array)get_user_meta($user_id));
+    $user = array_merge($user, (array)get_userdata($user_id));
+    $user['logo'] = wp_get_original_image_url($user['profile_image'][0]);
+  }
+  $user['total_placements'] = get_user_total_placements();
+  $user['data'] = filter_array((array)$user['data']);
+  $user = filter_array($user);
+  echo json_encode($user);
+  die();
 }
 
 /**
  * Deactivate user
  */
-add_action( 'wp_ajax_deactivate_user', 'deactivate_user' );
+add_action('wp_ajax_deactivate_user', 'deactivate_user');
 add_action('wp_ajax_nopriv_deactivate_user', 'deactivate_user');
 
-function deactivate_user() {
+function deactivate_user()
+{
   $user_id = $_REQUEST['user_id'];
   update_user_meta($user_id, 'is_active', 0);
-  $user[] = get_user_meta( $user_id );
-  $user[] = get_userdata( $user_id );
+  $user[] = get_user_meta($user_id);
+  $user[] = get_userdata($user_id);
   echo json_encode($user);
-	die();
+  die();
 }
 
 /**
  * Like a teacher
  */
-add_action( 'wp_ajax_like_teacher', 'like_teacher' );
+add_action('wp_ajax_like_teacher', 'like_teacher');
 add_action('wp_ajax_nopriv_like_teacher', 'like_teacher');
 
-function like_teacher() {
+function like_teacher()
+{
   global $wpdb;
   $teacher_id = $_REQUEST['user_id'];
   $current_user_id = get_current_user_id();
@@ -61,5 +79,5 @@ function like_teacher() {
     'like' => 'true'
   ));
   die();
-  
+
 }

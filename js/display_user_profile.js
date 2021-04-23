@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
         MicroModal.show('profile-modal-' + userID);
 
         // Only load for school users
-        if( loggedInUserType == 'school' ) {
+        if( loggedInUserType === 'school' ) {
           jQuery("span.like").click(function(){
             $.ajax({
               url: like_teacher_obj.ajaxurl,
@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
         }
 
         // Only load for admin users
-        if( loggedInUserType != 'school' ) {
+        if( loggedInUserType !== 'school' ) {
           jQuery("button.deactivate__user__btn").click(function(){
             $.ajax({
               url: deactivate_user_obj.ajaxurl,
@@ -79,10 +79,10 @@ jQuery(document).ready(function($) {
 const modal = (parsedData, loggedInUserType) => {
 
   // Returns a like button if the current user is a school
-  let likeButton = ( loggedInUserType == 'school' ) ? '<button class="like inline-flex items-center">Like </button>' : '';
+  let likeButton = ( loggedInUserType === 'school' ) ? '<button class="like inline-flex items-center">Like </button>' : '';
 
   // Returns the deactivate button if the current user is an admin
-  let deactivateButton = ( loggedInUserType != 'school' ) ? '<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>' : '';
+  let deactivateButton = ( loggedInUserType !== 'school' ) ? '<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>' : '';
 
   if (parsedData.type === 'teacher') {
     let teacherName = parsedData.firstName + ' ' + parsedData.lastName;
@@ -119,8 +119,8 @@ const modal = (parsedData, loggedInUserType) => {
             </div>
           </div>`;
   } else {
-    let schoolName = parsedData.data.display_name;
 
+    let schoolName = parsedData.data.display_name;
     return `<div class="modal micromodal-slide" id="profile-modal-${parsedData.ID}" aria-hidden="false">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
@@ -132,16 +132,19 @@ const modal = (parsedData, loggedInUserType) => {
                   <div id="profile-modal-content">
                     <div class="user-profile-info">
                       <div class="mb-space-2 flex items-center">
-                        <img class="user-profile-photo" src="http://subteach.local/wp-content/uploads/2021/04/default-profile-image.jpg">
+                        <img class="user-profile-photo" src="${parsedData.logo}">
                         <div class="ml-space">
-                          <p class="text-sm">[insert] Placements</p>
+                          <p class="text-sm">${parsedData.total_placements} Placements</p>
                         </div>
                       </div>
                       <div class="meta grid cols-2 gap text-sm">
                         <p class="email">Email</p> <p class="font-medium">${parsedData.data.user_email}</p>
+                        <p class="">School Name</p> <p>${parsedData.name}</p>
+                        <p>Street Address</p><p>${parsedData.street_address}</p>
+                        <p>City</p><p>${parsedData.city}</p>
                         <p class="telephone">Telephone</p> <p class="font-medium">${parsedData.telephone}</p>
                         <p class="postcode">Postcode</p> <p class="font-medium">${parsedData.postcode}</p>
-                        <p class="address">Address</p> <p class="font-medium">${parsedData.schoolAddress}</p>
+                        <p>Sign up date</p><p>${new Date(parsedData.data.user_registered).toDateString()}</p>
                       </div>
                     </div>
                   </div>
