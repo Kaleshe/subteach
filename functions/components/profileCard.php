@@ -1,7 +1,6 @@
 <?php
 
 function profileCard( $text, $user_id, $user_type, $classes = null) {
-    $profileImage = null;
     if ( $user_type == 'school' && get_user_meta($user_id, 'profile_image') ) {
         $profileImageID = get_user_meta($user_id)['profile_image'][0];
         $profileImage = wp_get_attachment_image_src( $profileImageID, 'medium' )[0];

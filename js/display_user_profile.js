@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
       success: function (data) {
         let parsedData = JSON.parse(data);
         $('body').append(createModal(parsedData));
-        MicroModal.show('profile-modal-' + userID);
+        MicroModal.show('profile-modal-' + parsedData.ID);
 
         // Only load for school users
         if (loggedInUserType === 'school') {
@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
               url: like_teacher_obj.ajaxurl,
               data: {
                 'action': 'like_teacher',
-                'user_id': userID,
+                'user_id': parsedData.ID,
                 'method': 'POST'
               },
 
@@ -52,14 +52,14 @@ jQuery(document).ready(function ($) {
               url: deactivate_user_obj.ajaxurl,
               data: {
                 'action': 'deactivate_user',
-                'user_id': userID,
+                'user_id': parsedData.ID,
                 'method': 'POST'
               },
 
               // Alert which user was deactivated, will change later
               success: function () {
                 alert(parsedData.name + ' has been deactivated.');
-                MicroModal.close('profile-modal-' + userID);
+                MicroModal.close('profile-modal-' + parsedData.ID);
               },
               error: function (errorThrown) {
                 console.log(errorThrown);
