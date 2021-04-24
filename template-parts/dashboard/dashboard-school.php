@@ -43,14 +43,16 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
     <div class="px-space">
         <div class="container">
             <h2 class="my-space"><?= esc_html( 'Liked Profiles' ); ?></h2>
-            <?php
+            <div class="liked-profiles grid gap-space-half">
+                <?php
 
-            // Loop through liked users and assign their user id as the second argument
-                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
-                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
-                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
-                echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
-            ?>
+                // Loop through liked users and assign their user id as the second argument
+                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                ?>
+            </div>
         </div>
     </div>
 </div>

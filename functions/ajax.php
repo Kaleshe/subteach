@@ -23,15 +23,14 @@ function filter_array($array)
 function display_user_profile()
 {
 
-
   $user_id = $_REQUEST['user_id'];
   $user_type = $_REQUEST['user_type'];
 
   $user = (array)get_user($user_id, $user_type);
-  if ($user_type == 'school') {
+  if ($user_type === 'school') {
     $user = array_merge($user, (array)get_user_meta($user_id));
     $user = array_merge($user, (array)get_userdata($user_id));
-    $user['logo'] = wp_get_original_image_url($user['profile_image'][0]);
+    $user['logo'] = wp_get_original_image_url($user['profile_image'][0]) ? wp_get_original_image_url($user['profile_image'][0]) : get_template_directory_uri() . '/img/default-profile-image.png';
   }
   $user['total_placements'] = get_user_total_placements();
   $user['data'] = filter_array((array)$user['data']);

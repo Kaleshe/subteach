@@ -11,10 +11,15 @@
 	text-decoration: none;
 }
 
+.menu > .current-menu-item > a {
+	color: var(--primary-colour);
+}
+
 .main-navigation.toggled  #primary-menu {
 	position: fixed;
 	display: block;
 	left: 0;
+	z-index: 5;
 	top: 0;
 	background: var(--secondary-colour);
 	height: 100%;
@@ -29,7 +34,7 @@
 	;
 
 	li a {
-		padding: 1rem 5rem 1rem 2rem;
+		padding: .7rem 5rem .7rem 2rem;
 	}
 }
 

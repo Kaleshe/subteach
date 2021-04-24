@@ -150,6 +150,10 @@ function subteach_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	if ( is_page('users') ) {
+		wp_enqueue_script( 'users-script', get_template_directory_uri() . '/js/users.js', array(), _S_VERSION, true);
+	}
 	
 	if ( is_page('dashboard') || is_school() ) {
 		wp_enqueue_script( 'micromodal', 'https://unpkg.com/micromodal/dist/micromodal.min.js', array(), _S_VERSION, true );

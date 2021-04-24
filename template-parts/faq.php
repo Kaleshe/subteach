@@ -15,7 +15,7 @@ $phone = $wpdb->get_var( $wpdb->prepare( "SELECT telephone FROM meta WHERE ID = 
 
 ?>
 
-<div class="faq">
+<div class="faq px-space">
   <?php foreach ( $faq as $qa ) { ?>
   <article class="accordion card mb-space-half p-space is-closed w-max-md mx-auto">
    <div class="question font-bold flex space-between">

@@ -15,7 +15,7 @@ function get_user($user_id, $user_type)
     if ( $user_type != 'school') {
         global $wpdb;
 
-        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE ID = %d", $user_id));
+        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE userID = %d", $user_id));
     
     } else {
         return get_user_by( 'ID', $user_id );
@@ -32,7 +32,15 @@ function get_most_recent_user($user_type)
     if( $user_type != 'school' ) {
        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
     } else {
-        return $wpdb->get_row("SELECT * FROM $wpdb->users ORDER BY ID DESC LIMIT 0, 1");
+        $users = get_users( array( 'role__in' => array( 'school') ) );
+        $activeUsers = [];
+        foreach ( $users as $user ) {
+            is_active_user( $user->ID ) ? $activeUsers[] = $user : '';
+        }
+
+        arsort($activeUsers);
+
+        return empty($activeUsers) ? null :  $activeUsers[0];
     }
 
 }
@@ -157,12 +165,17 @@ function get_subject_id($subject_title, $subject_level)
  */
 function get_last_booked_profile()
 {
+    global $wpdb;
 
+    $user_id = get_current_user_id();
+    
+    return $wpdb->get_var($wpdb->prepare('SELECT teacherID FROM events WHERE schoolID = %d,'));
+    return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
 }
 
 function get_user_total_placements()
 {
-    return '...';
+    return '0';
 }
 
 /**
@@ -173,11 +186,11 @@ function is_active_user( $user_id = null ) {
         $user_id = get_current_user_id();
     }
 
-    if ( !get_user_meta( $user_id, 'is_active' ) || !is_school() ) {
+    if ( (get_user_meta( $user_id, 'is_active', true)) != 0 || !is_school($user_id)) {
         return true;
+    } else {
+        return false;
     }
-
-    return get_user_meta( $user_id, 'is_active', false )[0];   
 }
 
 /**
@@ -197,6 +210,14 @@ function get_liked_teachers( $user_id = null )
 
     return json_decode(json_encode($liked_teachers), true);
 
+}
+
+/**
+ * Returns total paying members
+ */
+function get_total_paying_teachers() {
+    global $wpdb;
+    return $wpdb->get_var('SELECT COUNT(*) FROM user WHERE priceID >= 1');
 }
 
 /**

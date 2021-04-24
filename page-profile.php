@@ -8,30 +8,30 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main mt-space-2">
-        <div class="container">
+<main id="primary" class="site-main mt-space-2 px-space">
+    <div class="container">
 
-        <?php the_title('<h1 class="mb-space-half text-center text mb-space">', '</h1>'); ?>
+    <?php the_title('<h1 class="mb-space-half text-center text mb-space">', '</h1>'); ?>
 
-            <?php
+        <?php
+        
+        if ( current_user_can( 'read' ) && is_active_user() ) {
+
+            // Load different dashboard for admins and schools
+            $form = !is_school() ? 'admin' : 'school';
             
-            if ( current_user_can( 'read' ) && is_active_user() ) {
+            get_template_part( 'template-parts/profile/profile-form', $form );
 
-                // Load different dashboard for admins and schools
-                $form = !is_school() ? 'admin' : 'school';
-                
-                get_template_part( 'template-parts/profile/profile-form', $form );
+        } else {
 
-            } else {
+            get_template_part( 'template-parts/content/content-page-restricted' );
 
-                get_template_part( 'template-parts/content/content-page-restricted' );
+        }
+        
+        ?>
 
-            }
-            
-            ?>
-
-        </div>
-	</main><!-- #main -->
+    </div>
+</main><!-- #main -->
 
 <?php
 get_footer();

@@ -11,6 +11,7 @@
 }
 
 .tribe-common .tribe-common-c-btn, 
+.tribe-common .tribe-common-c-btn:focus,
 .tribe-events .tribe-events-c-view-selector__button:before, 
 .tribe-events .tribe-events-c-ical__link:hover,
 .tribe-events .tribe-events-c-ical__link:active,
@@ -35,3 +36,14 @@
 	background-color: var(--primary-colour);
 	opacity: .8;
 }
+
+.wpdt-c[data-current='true'],
+.wpdt-c[data-current='true'] + div {
+	display: block;
+}
+
+.wpdt-c[data-current='false'],
+.wpdt-c[data-current='false'] + div {
+	display: none;
+}
+

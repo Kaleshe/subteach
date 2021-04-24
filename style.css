@@ -152,6 +152,10 @@ h6 {
 	margin-bottom: calc(1.75rem / 2);
 }
 
+.mt {
+	margin-top: .25rem;
+}
+
 .mt-space-half {
 	margin-top: calc(1.75rem / 2);
 }
@@ -617,6 +621,7 @@ form label {
 }
 
 .tribe-common .tribe-common-c-btn,
+.tribe-common .tribe-common-c-btn:focus,
 .tribe-events .tribe-events-c-view-selector__button:before,
 .tribe-events .tribe-events-c-ical__link:hover,
 .tribe-events .tribe-events-c-ical__link:active,
@@ -640,6 +645,16 @@ form label {
 .tribe-common .tribe-common-c-btn:hover {
 	background-color: var(--primary-colour);
 	opacity: .8;
+}
+
+.wpdt-c[data-current='true'],
+.wpdt-c[data-current='true'] + div {
+	display: block;
+}
+
+.wpdt-c[data-current='false'],
+.wpdt-c[data-current='false'] + div {
+	display: none;
 }
 
 .user-profile-info img {
@@ -691,6 +706,28 @@ form label {
 
 .school-dashboard-cards.coloured-bg a {
 	color: currentColor;
+}
+
+.liked-profiles {
+	text-align: center;
+}
+
+@media (min-width: 445px) {
+	.liked-profiles {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 600px) {
+	.liked-profiles {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (min-width: 900px) {
+	.liked-profiles {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }
 
 /* roboto-300 - latin */
@@ -767,7 +804,8 @@ form label {
 .modal__container {
 	background-color: #fff;
 	padding: 30px;
-	max-width: 500px;
+	max-width: 100%;
+	width: 450px;
 	max-height: 100vh;
 	border-radius: 4px;
 	overflow-y: auto;
@@ -903,6 +941,10 @@ button[data-micromodal-trigger="event-modal"].fixed {
 	will-change: transform;
 }
 
+.profile-modal .cardText, .profile-modal .profile-card button, .profile-card .profile-modal button {
+	font-size: 12px;
+}
+
 .heart {
 	height: 20px;
 }
@@ -958,10 +1000,15 @@ button[data-micromodal-trigger="event-modal"].fixed {
 	text-decoration: none;
 }
 
+.menu > .current-menu-item > a {
+	color: var(--primary-colour);
+}
+
 .main-navigation.toggled #primary-menu {
 	position: fixed;
 	display: block;
 	left: 0;
+	z-index: 5;
 	top: 0;
 	background: var(--secondary-colour);
 	height: 100%;
@@ -970,7 +1017,7 @@ button[data-micromodal-trigger="event-modal"].fixed {
 }
 
 .main-navigation.toggled #primary-menu li a {
-	padding: 1rem 5rem 1rem 2rem;
+	padding: .7rem 5rem .7rem 2rem;
 }
 
 .main-navigation {

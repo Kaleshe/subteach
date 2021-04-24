@@ -20,7 +20,6 @@ jQuery(document).ready(function($) {
       // Populate modal with user data
       success:function(data) {
         let parsedData = JSON.parse(data);
-        console.log(parsedData);
         $('body').append(modal(parsedData));
         MicroModal.show('profile-modal-' + userID);
 
@@ -59,7 +58,8 @@ jQuery(document).ready(function($) {
   
               // Alert which user was deactivated, will change later
               success:function() {
-                alert(parsedData.schoolName + ' has been deactivated.');
+                alert(parsedData.name + ' has been deactivated.');
+                MicroModal.close('profile-modal-' + userID);
                 },
               error:function(errorThrown) {
                 console.log(errorThrown);
@@ -81,27 +81,29 @@ const modal = (parsedData, loggedInUserType) => {
   // Returns a like button if the current user is a school
   let likeButton = ( loggedInUserType === 'school' ) ? '<button class="like inline-flex items-center">Like </button>' : '';
 
+  let priceLevel = ( loggedInUserType == 'admin' ) ? '<p class="price-level">Price Level</p> <p class="font-medium">ab 50 Lehrpersonen</p>' : '' ;
+
   // Returns the deactivate button if the current user is an admin
   let deactivateButton = ( loggedInUserType !== 'school' ) ? '<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>' : '';
 
   if (parsedData.type === 'teacher') {
     let teacherName = parsedData.firstName + ' ' + parsedData.lastName;
 
-    return `<div class="modal micromodal-slide" id="profile-modal-${parsedData.ID}" aria-hidden="false">
+    return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.userID}" aria-hidden="false">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
                 <header class="modal__header">
-                  <h3 class="modal__title" id="profile-modal-title">${teacherName}</h3>
+                  <h3 class="modal__title text-lg" id="profile-modal-title">${teacherName}</h3>
                   <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                 </header>
                 <main class="modal__content" id="profile-modal-content">
                   <div id="profile-modal-content">
                     <div class="user-profile-info">
                       <div class="mb-space-2 flex items-center">
-                        <img class="user-profile-photo" src="http://subteach.local/wp-content/uploads/2021/04/default-profile-image.jpg">
+                        <img class="user-profile-photo" height="110" src="http://subteach.kaleshe.co.uk/wp-content/uploads/2021/04/default-profile-image.jpg">
                         <div class="ml-space">
-                          <p class="text-sm">[insert] Placements</p>
-                          <p class="text-sm">[insert] Documents</p>
+                          <p class="font-bold cardText">${parsedData.total_placements} Placements</p>
+                          <p class="font-bold cardText mt">0 Documents</p>
                         </div>
                       </div>
                       <div class="meta grid cols-2 gap text-sm">
@@ -120,30 +122,31 @@ const modal = (parsedData, loggedInUserType) => {
           </div>`;
   } else {
 
-    let schoolName = parsedData.data.display_name;
-    return `<div class="modal micromodal-slide" id="profile-modal-${parsedData.ID}" aria-hidden="false">
+    let schoolName = parsedData.name;
+    return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.ID}" aria-hidden="false">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
                 <header class="modal__header">
-                  <h3 class="modal__title" id="profile-modal-title">${schoolName}</h3>
+                  <h3 class="modal__title text-lg" id="profile-modal-title">${schoolName}</h3>
                   <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                 </header>
                 <main class="modal__content" id="profile-modal-content">
                   <div id="profile-modal-content">
                     <div class="user-profile-info">
                       <div class="mb-space-2 flex items-center">
-                        <img class="user-profile-photo" src="${parsedData.logo}">
+                        <img class="user-profile-photo" height="110" src="${parsedData.logo}">
                         <div class="ml-space">
-                          <p class="text-sm">${parsedData.total_placements} Placements</p>
+                          <p style="background-color:${parsedData.primary_colour}" class="cardText text-base font-bold">${parsedData.total_placements} Placements</p>
                         </div>
                       </div>
                       <div class="meta grid cols-2 gap text-sm">
                         <p class="email">Email</p> <p class="font-medium">${parsedData.data.user_email}</p>
-                        <p class="">School Name</p> <p>${parsedData.name}</p>
+                        <p class="">School Name</p> <p>${schoolName}</p>
                         <p>Street Address</p><p>${parsedData.street_address}</p>
                         <p>City</p><p>${parsedData.city}</p>
                         <p class="telephone">Telephone</p> <p class="font-medium">${parsedData.telephone}</p>
                         <p class="postcode">Postcode</p> <p class="font-medium">${parsedData.postcode}</p>
+                        ${priceLevel}
                         <p>Sign up date</p><p>${new Date(parsedData.data.user_registered).toDateString()}</p>
                       </div>
                     </div>

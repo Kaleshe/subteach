@@ -18,7 +18,8 @@
 .modal__container {
   background-color: #fff;
   padding: 30px;
-  max-width: 500px;
+  max-width: 100%;
+  width: 450px;
   max-height: 100vh;
   border-radius: 4px;
   overflow-y: auto;
@@ -134,6 +135,10 @@ button[data-micromodal-trigger="event-modal"].fixed {
 .micromodal-slide .modal__container,
 .micromodal-slide .modal__overlay {
   will-change: transform;
+}
+
+.profile-modal .cardText {
+  font-size: 12px;
 }
 
 .heart {
