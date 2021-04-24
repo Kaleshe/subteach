@@ -7,6 +7,9 @@
  * @package Subteach
  */
 
+/**
+ * Adds school role
+ */
 function update_school_roles() {
     if ( get_option( 'school_roles_version' ) < 1 ) {
 
@@ -43,7 +46,7 @@ function is_school( $user_id = null ) {
 }
 
 /**
- * Add is_active user_meta
+ * Add the is_active user_meta to registered users
  */
 add_action( 'user_register', function ( $user_id ) {
     update_user_meta($user_id, 'is_active', 1);
@@ -62,7 +65,7 @@ function get_school_events($school_id) {
 }
 
 /**
- * Returns school ID
+ * Returns school id
  */
 function get_school_id($user_id) {
     get_user_meta( $user_id )['school_id'][0];

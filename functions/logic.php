@@ -8,7 +8,7 @@
  */
 
  /**
-  * Returns a user using the user_id
+  * Returns a user
   */
 function get_user($user_id, $user_type)
 {
@@ -18,12 +18,14 @@ function get_user($user_id, $user_type)
         return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE userID = %d", $user_id));
     
     } else {
-        return get_user_by( 'ID', $user_id );
+
+        return get_user_by( 'ID', $user_id ) ? get_user_by( 'ID', $user_id ) : null;
+        
     }
 }
 
 /**
- * Returns most reent user based on $user_type
+ * Returns most recent user
  */
 function get_most_recent_user($user_type)
 {
@@ -40,9 +42,20 @@ function get_most_recent_user($user_type)
 
         arsort($activeUsers);
 
-        return empty($activeUsers) ? null :  $activeUsers[0];
+        return $activeUsers ? $activeUsers[0] :  null;
     }
 
+}
+
+/**
+ * Returns the id of the most recent user
+ */
+function get_most_recent_user_id($user_type) {
+    if( $user_type != 'school' ) {
+        return get_most_recent_user($user_type)->userID;
+    } else {
+        return get_most_recent_user($user_type)->ID;
+    }
 }
 
 /**
@@ -113,7 +126,7 @@ function get_subject_level_title($subject_level)
 }
 
 /**
- * Return array of each subject and its ID
+ * Returns array of each subject and its ID
  */
 function get_subjects()
 {
@@ -125,7 +138,7 @@ function get_subjects()
 }
 
 /**
- * Return subject using its ID
+ * Returns subject using its ID
  */
 function get_subject($subject_id)
 {
@@ -142,7 +155,7 @@ function get_subject($subject_id)
 }
 
 /**
- * Return subject ID using its string
+ * Returns subject ID using its string
  */
 function get_subject_id($subject_title, $subject_level)
 {
@@ -252,10 +265,9 @@ function create_event()
 }
 
 /**
- * Returns the ID of a users liked profiles
+ * Returns the id of a users liked profiles
  */
-
 function liked_profiles() {
-    $profiles = [27, 32];
+    $profiles = [27, 32, 54];
     return $profiles ? $profiles : false;
 }

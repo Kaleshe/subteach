@@ -205,16 +205,8 @@ add_filter( 'login_redirect', function( $url, $query, $user ) {
 	return home_url();
 }, 10, 3 );
 
-/**
- * Echoes print_r data within pre tags for easier viewing
- */
-function dump($data) {
-  echo '<pre>';
-  print_r($data);
-  echo '</pre>';
-}
-
 add_action( 'admin_init', 'redirect_non_admin_users' );
+
 /**
 * Redirect non-admin users to home page
 *
