@@ -284,3 +284,14 @@ function liked_profiles() {
     $profiles = [27, 32, 54];
     return $profiles ? $profiles : false;
 }
+
+/**
+ * Returns an array of teachers ids that have shown interest in an event
+ */
+// TODO: ??
+//function get_interested_teachers($postID) {
+//    global $wpdb;
+//    return $wpdb->get_results($wpdb->("SELECT teacherID FROM events WHERE schoolid", $postID));
+//}
+
+//($wpdb->prepare("SELECT * FROM user WHERE userID = %d", $user_id));

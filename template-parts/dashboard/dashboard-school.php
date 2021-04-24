@@ -29,7 +29,11 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
                 ?>
                 <div class="card p-space text-center flex justify-center items-center">
                     <div>
-                        <p class="text-md font-bold"><?= esc_html( 'Last Search' ); ?></p>
+                        <div>
+                            <p class="text-md font-bold mb"><?= esc_html( 'Last Search' ); ?></p>
+                            <p class="text-xs"><?= esc_html( 'Maths @ 10:00' ); ?></p>
+                            <p class="text-xs"><?= esc_html( '24th Nov 21' ); ?></p>
+                        </div>
                         <button class="mt-space-half" data-micromodal-trigger="event-modal" href=""><?= esc_html( 'Duplicate' ); ?></button>
                 </div>
                 </div>

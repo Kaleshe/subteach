@@ -120,6 +120,10 @@ h6 {
 	text-transform: capitalize;
 }
 
+.text-left {
+	text-align: left;
+}
+
 .text-center {
 	text-align: center;
 }
@@ -154,6 +158,10 @@ h6 {
 
 .mt {
 	margin-top: .25rem;
+}
+
+.mb {
+	margin-bottom: .25rem;
 }
 
 .mt-space-half {
