@@ -23,7 +23,8 @@ if ( isset($_POST['submit_event'] ) ) {
       </header>
       <main class="modal__content" id="event-modal-content">
       <div id="event-modal-content">
-          <form action="" class="create-event-form" method="post" action="<?php $_PHP_SELF; ?>">
+          <form class="create-event-form" method="post" action="<?= admin_url('admin-post.php'); ?>">
+              <input type="hidden" name="action" value="create_event">
               <label for="subject">Subject</label>
               <input id="subjectsList" list="subjects" placeholder="Subject" class="w-full" name="subject">
               <datalist id="subjects">

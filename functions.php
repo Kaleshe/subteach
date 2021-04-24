@@ -7,7 +7,8 @@ $roots_includes = array(
   '/functions/components/profileCard.php',
   '/functions/login.php',
   '/functions/db-ui-lib/db-ui-lib.php',
-  'functions/ajax.php'
+  '/functions/subteach-post.php',
+  '/functions/ajax.php'
 );
 
 /**

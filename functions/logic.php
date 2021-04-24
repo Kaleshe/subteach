@@ -250,13 +250,22 @@ function create_event()
         'timestamp' => $_POST['date'] . ' ' . $_POST['time']
     ));
 
+    $date = $_REQUEST['date'];
+    $time = $_REQUEST['time'];
+    [$hours,$minutes] = preg_split('/:/', $time);
+
+
     $args = array(
         'post_title' => get_subject($_POST['subjectID']),
         'post_status' => 'publish',
         'post_content' => $_POST['note'],
         'post_type' => 'tribe_events',
-        'EventStartDate' => date( $_POST['date'] ),
-        'EventEndDate' => $_POST['date'],
+        'EventStartDate' => $date,
+        'EventEndDate' => $date,
+        'EventStartHour' => $hours,
+        'EventStartMinute' => $minutes,
+        'EventEndHour' => 23,
+        'EventEndMinute' => 59,
         'post_author'  => $user_id
     );
 

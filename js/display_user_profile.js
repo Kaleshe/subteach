@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
       // Populate modal with user data
       success:function(data) {
         let parsedData = JSON.parse(data);
-        $('body').append(modal(parsedData));
+        $('body').append(createModal(parsedData));
         MicroModal.show('profile-modal-' + userID);
 
         // Only load for school users
@@ -76,20 +76,8 @@ jQuery(document).ready(function($) {
 
 });
 
-const modal = (parsedData, loggedInUserType) => {
-
-  // Returns a like button if the current user is a school
-  let likeButton = ( loggedInUserType === 'school' ) ? '<button class="like inline-flex items-center">Like </button>' : '';
-
-  let priceLevel = ( loggedInUserType == 'admin' ) ? '<p class="price-level">Price Level</p> <p class="font-medium">ab 50 Lehrpersonen</p>' : '' ;
-
-  // Returns the deactivate button if the current user is an admin
-  let deactivateButton = ( loggedInUserType !== 'school' ) ? '<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>' : '';
-
-  if (parsedData.type === 'teacher') {
-    let teacherName = parsedData.firstName + ' ' + parsedData.lastName;
-
-    return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.userID}" aria-hidden="false">
+function createTeacherModal(parsedData, teacherName, likeButton) {
+  return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.userID}" aria-hidden="false">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
                 <header class="modal__header">
@@ -120,10 +108,10 @@ const modal = (parsedData, loggedInUserType) => {
               </div>
             </div>
           </div>`;
-  } else {
+}
 
-    let schoolName = parsedData.name;
-    return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.ID}" aria-hidden="false">
+function createSchoolModal(parsedData, schoolName, priceLevel, deactivateButton) {
+  return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.ID}" aria-hidden="false">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
                 <header class="modal__header">
@@ -156,6 +144,26 @@ const modal = (parsedData, loggedInUserType) => {
               </div>
             </div>
           </div>`;
+}
+
+const createModal = (parsedData, loggedInUserType) => {
+
+  // Returns a like button if the current user is a school
+  let likeButton = ( loggedInUserType === 'school' ) ? '<button class="like inline-flex items-center">Like </button>' : '';
+
+  let priceLevel = ( loggedInUserType == 'admin' ) ? '<p class="price-level">Price Level</p> <p class="font-medium">ab 50 Lehrpersonen</p>' : '' ;
+
+  // Returns the deactivate button if the current user is an admin
+  let deactivateButton = ( loggedInUserType !== 'school' ) ? '<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>' : '';
+
+  if (parsedData.type === 'teacher') {
+    let teacherName = parsedData.firstName + ' ' + parsedData.lastName;
+
+    return createTeacherModal(parsedData, teacherName, likeButton);
+  } else {
+
+    let schoolName = parsedData.name;
+    return createSchoolModal(parsedData, schoolName, priceLevel, deactivateButton);
   }
 
 

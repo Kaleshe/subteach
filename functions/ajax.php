@@ -7,6 +7,33 @@
  * @package Subteach
  */
 
+add_action('wp_ajax_test', 'ajax_test');
+add_action('wp_ajax_nopriv_test', 'ajax_test');
+function ajax_test()
+{
+  ?>
+  <!DOCTYPE html>
+  <html><head><title>!</title></head>
+<body>
+  <form action="" method="get">
+    <input type="hidden" name="action" value="test">
+    <input type="date" name="the_date">
+    <input type="submit" value="Submit">
+  </form>
+  <pre>Date = <?php
+    /** @var date $date */
+    $date = date('2020-11-02 14:00');
+    if(isset($_REQUEST['the_date'])) {
+      $date = $_REQUEST['the_date'];
+    }
+    $date = new DateTime($date);
+    $date_str = strval($date);
+    echo $date_str?></pre>
+</body></html>
+<?php
+  die();
+}
+
 /**
  * Display a users profile using an ID
  */

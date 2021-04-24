@@ -8,7 +8,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../twentynineteen" />
       <excludeFolder url="file://$MODULE_DIR$/../twentytwenty" />
       <excludeFolder url="file://$MODULE_DIR$/../twentytwentyone" />
-      <excludeFolder url="file://$MODULE_DIR$/../../plugins" />
       <excludeFolder url="file://$MODULE_DIR$/../../uploads" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
     </content>

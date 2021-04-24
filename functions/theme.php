@@ -213,7 +213,9 @@ add_action( 'admin_init', 'redirect_non_admin_users' );
 * This function is attached to the ‘admin_init’ action hook.
 */
 function redirect_non_admin_users() {
-	if ( ! current_user_can( 'manage_options' ) && ('/wp-admin/admin-ajax.php' != $_SERVER['PHP_SELF']) ) {
+	if ( ! current_user_can( 'manage_options' )
+    && ('/wp-admin/admin-post.php' !== $_SERVER['PHP_SELF'])
+    && ('/wp-admin/admin-ajax.php' !== $_SERVER['PHP_SELF']) ) {
 	wp_redirect( home_url() );
 	exit;
 	}
