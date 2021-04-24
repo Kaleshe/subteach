@@ -258,12 +258,6 @@ function create_event()
         'post_status' => 'publish',
         'post_content' => $_POST['note'],
         'post_type' => 'tribe_events',
-<<<<<<< Updated upstream
-        'EventStartDate' => $_POST['date'],
-        'EventEndDate' => $_POST['date'],
-        'post_author'  => $user_id,
-        'meta_input' => array(array('postID' => $unique_id))
-=======
         'EventStartDate' => $date,
         'EventEndDate' => $date,
         'EventStartHour' => $hours,
@@ -272,7 +266,6 @@ function create_event()
         'EventEndMinute' => 59,
         'post_author'  => $user_id,
         'meta_input' => array( 'postID' => $unique_id )
->>>>>>> Stashed changes
     );
 
     tribe_create_event($args);
@@ -286,3 +279,13 @@ function liked_profiles() {
     $profiles = [27, 32, 54];
     return $profiles ? $profiles : false;
 }
+
+/**
+ * Returns an array of teachers ids that have shown interest in an event
+ */
+function get_interested_teachers($postID) {
+    global $wpdb;
+    return $wpdb->get_results($wpdb->("SELECT teacherID FROM events WHERE schoolid", $postID));
+}
+
+($wpdb->prepare("SELECT * FROM user WHERE userID = %d", $user_id));
