@@ -242,12 +242,15 @@ function create_event()
 
     $user_id = get_current_user_id();
 
+    $unique_id = wp_unique_id( 'postID_' );
+
     $wpdb->insert('events', array(
         'subjectID' => $_POST['subjectID'],
         'subjectLiteral' => get_subject($_POST['subjectID']),
         'schoolID' => $user_id,
         'note' => $_POST['note'],
-        'timestamp' => $_POST['date'] . ' ' . $_POST['time']
+        'timestamp' => $_POST['date'] . ' ' . $_POST['time'],
+        'postID' => $unique_id
     ));
 
     $args = array(
@@ -255,9 +258,10 @@ function create_event()
         'post_status' => 'publish',
         'post_content' => $_POST['note'],
         'post_type' => 'tribe_events',
-        'EventStartDate' => date( $_POST['date'] ),
+        'EventStartDate' => $_POST['date'],
         'EventEndDate' => $_POST['date'],
-        'post_author'  => $user_id
+        'post_author'  => $user_id,
+        'meta_input' => array(array('postID' => $unique_id))
     );
 
     tribe_create_event($args);

@@ -160,6 +160,10 @@ h6 {
 	margin-top: .25rem;
 }
 
+.mb {
+	margin-bottom: .25rem;
+}
+
 .mt-space-half {
 	margin-top: calc(1.75rem / 2);
 }
