@@ -258,10 +258,21 @@ function create_event()
         'post_status' => 'publish',
         'post_content' => $_POST['note'],
         'post_type' => 'tribe_events',
+<<<<<<< Updated upstream
         'EventStartDate' => $_POST['date'],
         'EventEndDate' => $_POST['date'],
         'post_author'  => $user_id,
         'meta_input' => array(array('postID' => $unique_id))
+=======
+        'EventStartDate' => $date,
+        'EventEndDate' => $date,
+        'EventStartHour' => $hours,
+        'EventStartMinute' => $minutes,
+        'EventEndHour' => 23,
+        'EventEndMinute' => 59,
+        'post_author'  => $user_id,
+        'meta_input' => array( 'postID' => $unique_id )
+>>>>>>> Stashed changes
     );
 
     tribe_create_event($args);
