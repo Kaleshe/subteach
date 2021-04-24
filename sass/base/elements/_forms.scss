@@ -12,12 +12,14 @@ form {
     label {
         font-size: .9rem;
         margin-bottom: .25rem;
+        font-weight: 600;
     }
 }
 
 .create-event-form {
     > *:not(input[type="submit"]) {
         @extend .w-full;
+        margin-bottom: .5rem;
     }
 }
 

@@ -526,7 +526,7 @@ textarea {
 	color: #666;
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	padding: 7px .75rem;
+	padding: 5px .75rem;
 }
 
 input[type="text"]:focus,
@@ -574,6 +574,11 @@ form div > * {
 form label {
 	font-size: .9rem;
 	margin-bottom: .25rem;
+	font-weight: 600;
+}
+
+.create-event-form > *:not(input[type="submit"]) {
+	margin-bottom: .5rem;
 }
 
 .school-form + .school-form {

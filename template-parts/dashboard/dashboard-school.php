@@ -42,17 +42,24 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
 
     <div class="px-space">
         <div class="container">
-            <h2 class="my-space"><?= esc_html( 'Liked Profiles' ); ?></h2>
-            <div class="liked-profiles grid gap-space-half">
+            <h2 class="mt-space"><?= esc_html( 'Liked Profiles' ); ?></h2>
                 <?php
 
-                // Loop through liked users and assign their user id as the second argument
-                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
-                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
-                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
-                    echo profileCard( 'View Profile', 2, 'teacher', 'inline-flex flex-col' );
+                if ( liked_profiles() ) { $profiles = liked_profiles(); ?>
+                    <div class="liked-profiles mt-space grid gap-space-half">
+                        <?php
+
+                            foreach( $profiles as $profile ) {
+                                echo profileCard( 'View Profile', $profile, 'teacher', 'inline-flex flex-col' );
+                            }
+
+                        ?>
+                    </div>
+                <?php } else { ?>
+                    <p class="mt"><?php _e('You haven\'t liked any profiles'); ?></p>
+                <?php }
+
                 ?>
-            </div>
         </div>
     </div>
 </div>

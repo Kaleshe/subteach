@@ -250,3 +250,12 @@ function create_event()
     tribe_create_event($args);
 
 }
+
+/**
+ * 
+ */
+
+function liked_profiles() {
+    $profiles = [27, 32];
+    return $profiles ? $profiles : false;
+}
