@@ -1,9 +1,9 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
 
   // Gets the current user type of the logged in user
   const loggedInUserType = $(document.body).data("current-user-type");
 
-  jQuery(".profile-card button").click(function(){
+  jQuery(".profile-card button").click(function () {
 
     const userID = $(this).data("user-id");
     const userType = $(this).data("user-type");
@@ -18,14 +18,14 @@ jQuery(document).ready(function($) {
       },
 
       // Populate modal with user data
-      success:function(data) {
+      success: function (data) {
         let parsedData = JSON.parse(data);
         $('body').append(createModal(parsedData));
         MicroModal.show('profile-modal-' + userID);
 
         // Only load for school users
-        if( loggedInUserType === 'school' ) {
-          jQuery("span.like").click(function(){
+        if (loggedInUserType === 'school') {
+          jQuery("span.like").click(function () {
             $.ajax({
               url: like_teacher_obj.ajaxurl,
               data: {
@@ -35,10 +35,10 @@ jQuery(document).ready(function($) {
               },
 
               // Alert the like, will be changed later
-              success:function() {
+              success: function () {
                 alert('Liked!');
-                },
-              error:function(errorThrown) {
+              },
+              error: function (errorThrown) {
                 console.log(errorThrown);
               }
             });
@@ -46,8 +46,8 @@ jQuery(document).ready(function($) {
         }
 
         // Only load for admin users
-        if( loggedInUserType !== 'school' ) {
-          jQuery("button.deactivate__user__btn").click(function(){
+        if (loggedInUserType !== 'school') {
+          jQuery("button.deactivate__user__btn").click(function () {
             $.ajax({
               url: deactivate_user_obj.ajaxurl,
               data: {
@@ -55,26 +55,64 @@ jQuery(document).ready(function($) {
                 'user_id': userID,
                 'method': 'POST'
               },
-  
+
               // Alert which user was deactivated, will change later
-              success:function() {
+              success: function () {
                 alert(parsedData.name + ' has been deactivated.');
                 MicroModal.close('profile-modal-' + userID);
-                },
-              error:function(errorThrown) {
+              },
+              error: function (errorThrown) {
                 console.log(errorThrown);
               }
             });
           });
         }
       },
-      error:function(errorThrown) {
+      error: function (errorThrown) {
         console.log(errorThrown);
       }
     });
   });
 
 });
+
+function renderTextSection(props) {
+  return ``;
+}
+
+function renderGridSection(props) {
+  return ``;
+}
+
+function modalFromTemplate(props) {
+  return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${props.id}" aria-hidden="false">
+            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+              <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+                <header class="modal__header">
+                  <h3 class="modal__title text-lg" id="profile-modal-title">${props.name}</h3>
+                  <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content" id="profile-modal-content">
+                  <div id="profile-modal-content">
+                    <div class="user-profile-info">
+                      <div class="mb-space-2 flex items-center">
+                        <img alt="User photo" class="user-profile-photo" height="110" src="${props.image}">
+                        <div class="ml-space">
+                          ${renderTextSection(props)}
+                        </div>
+                      </div>
+                      <div class="meta grid cols-2 gap text-sm">
+                        ${renderGridSection(props)}
+                      </div>
+                    </div>
+                  </div>
+                </main>
+                ${props.button}
+                </span>
+              </div>
+            </div>
+          </div>`;
+}
 
 function createTeacherModal(parsedData, teacherName, likeButton) {
   return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.userID}" aria-hidden="false">
@@ -88,7 +126,7 @@ function createTeacherModal(parsedData, teacherName, likeButton) {
                   <div id="profile-modal-content">
                     <div class="user-profile-info">
                       <div class="mb-space-2 flex items-center">
-                        <img class="user-profile-photo" height="110" src="http://subteach.kaleshe.co.uk/wp-content/uploads/2021/04/default-profile-image.jpg">
+                        <img class="user-profile-photo" height="110" src="/wp-content/uploads/2021/04/default-profile-image.jpg">
                         <div class="ml-space">
                           <p class="font-bold cardText">${parsedData.total_placements} Placements</p>
                           <p class="font-bold cardText mt">0 Documents</p>
@@ -148,24 +186,36 @@ function createSchoolModal(parsedData, schoolName, priceLevel, deactivateButton)
 
 const createModal = (parsedData, loggedInUserType) => {
 
-  // Returns a like button if the current user is a school
-  let likeButton = ( loggedInUserType === 'school' ) ? '<button class="like inline-flex items-center">Like </button>' : '';
+  const isTeacher = parsedData.type === 'teacher';
 
-  let priceLevel = ( loggedInUserType == 'admin' ) ? '<p class="price-level">Price Level</p> <p class="font-medium">ab 50 Lehrpersonen</p>' : '' ;
+  const id = isTeacher ? parsedData.userID : parsedData.ID;
+  const name = isTeacher ? `${parsedData.firstName} ${parsedData.lastName}` : parsedData.name;
+  const image = isTeacher ? "/wp-content/uploads/2021/04/default-profile-image.jpg" : parsedData.logo;
+  const button = isTeacher ?
+    '<button class="like inline-flex items-center">Like</button>'
+    : `<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>`;
 
-  // Returns the deactivate button if the current user is an admin
-  let deactivateButton = ( loggedInUserType !== 'school' ) ? '<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>' : '';
+  return modalFromTemplate({
+    id: id,
+    name: name,
+    image: image,
+    button: button
+  });
 
-  if (parsedData.type === 'teacher') {
-    let teacherName = parsedData.firstName + ' ' + parsedData.lastName;
-
-    return createTeacherModal(parsedData, teacherName, likeButton);
-  } else {
-
-    let schoolName = parsedData.name;
-    return createSchoolModal(parsedData, schoolName, priceLevel, deactivateButton);
-  }
-
-
+  // // Returns a like button if the current user is a school
+  // let likeButton = (loggedInUserType === 'school') ? '<button class="like inline-flex items-center">Like </button>' : '';
+  //
+  // let priceLevel = (loggedInUserType == 'admin') ? '<p class="price-level">Price Level</p> <p class="font-medium">ab 50 Lehrpersonen</p>' : '';
+  //
+  // // Returns the deactivate button if the current user is an admin
+  // let deactivateButton = (loggedInUserType !== 'school') ? `<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>` : '';
+  //
+  // if (parsedData.type === 'teacher') {
+  //   let teacherName = parsedData.firstName + ' ' + parsedData.lastName;
+  //   return createTeacherModal(parsedData, teacherName, likeButton);
+  // } else {
+  //   let schoolName = parsedData.name;
+  //   return createSchoolModal(parsedData, schoolName, priceLevel, deactivateButton);
+  // }
 }
 
