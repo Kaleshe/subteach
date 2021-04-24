@@ -252,7 +252,7 @@ function create_event()
 }
 
 /**
- * 
+ * Returns the ID of a users liked profiles
  */
 
 function liked_profiles() {
