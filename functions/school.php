@@ -8,7 +8,7 @@
  */
 
 /**
- * Adds school role
+ * Adds school role on init
  */
 function update_school_roles() {
     if ( get_option( 'school_roles_version' ) < 1 ) {
@@ -62,11 +62,4 @@ function get_school_events($school_id) {
     $events = $wpdb->get_results( "SELECT * FROM events WHERE schoolID = %d", $user_id );
 
     return $events;
-}
-
-/**
- * Returns school id
- */
-function get_school_id($user_id) {
-    get_user_meta( $user_id )['school_id'][0];
 }

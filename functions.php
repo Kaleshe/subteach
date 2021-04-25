@@ -21,6 +21,24 @@ function dump($data) {
   echo '</pre>';
 }
 
+/**
+ * Returns a response to the substeach API
+ */
+function subteach_api_access($endpoint, $sendingVars = []) {
+	$sendingVarsString = '';
+	if ( $sendingVars ) {
+		$sendingVarsString = '&';
+		foreach( $sendingVars as $var ) {
+			$sendingVarsString .= $var;
+		}
+	}
+
+	$base = 'https://substeach.ch/app/php/v1/';
+	$response  = file_get_contents( $base . $endpoint . '.php?serverPass=3xmu5jyJppVmTKLX' . $sendingVarsString );
+	
+	return $response;
+}
+
 foreach($roots_includes as $file){
   if(!$filepath = locate_template($file)) {
     trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);

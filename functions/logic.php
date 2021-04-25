@@ -24,7 +24,7 @@ function get_user($user_id, $user_type)
     }
 }
 
-/**
+/*
  * Returns most recent user
  */
 function get_most_recent_user($user_type)
@@ -35,6 +35,7 @@ function get_most_recent_user($user_type)
        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
     } else {
         $users = get_users( array( 'role__in' => array( 'school') ) );
+
         $activeUsers = [];
         foreach ( $users as $user ) {
             is_active_user( $user->ID ) ? $activeUsers[] = $user : '';
@@ -42,10 +43,11 @@ function get_most_recent_user($user_type)
 
         arsort($activeUsers);
 
-        return $activeUsers ? $activeUsers[0] :  null;
-    }
+        $key = array_key_first($activeUsers);
 
-}
+        return $activeUsers ? $activeUsers[$key] :  null;
+    }
+}   
 
 /**
  * Returns the id of the most recent user
@@ -186,6 +188,9 @@ function get_last_booked_profile()
     return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
 }
 
+/**
+ * Returns users placements
+ */
 function get_user_total_placements($user_id, $user_type)
 {
   global $wpdb;
@@ -238,7 +243,7 @@ function get_liked_teachers( $user_id = null )
 }
 
 /**
- * Returns total paying members
+ * Returns total paying teachers
  */
 function get_total_paying_teachers() {
     global $wpdb;
