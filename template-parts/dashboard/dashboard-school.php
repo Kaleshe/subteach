@@ -16,7 +16,7 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
 ?>
 
 <?php if ($coverImage) { ?>
-    <div class="cover-image" style="height: 37vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 60%; background-size: cover;">
+    <div class="cover-image" style="height: 37vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 20%; background-size: cover;">
 
     </div>
 <?php } ?>
@@ -49,8 +49,8 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
             <h2 class="mt-space"><?= esc_html( 'Liked Profiles' ); ?></h2>
                 <?php
 
-                if ( liked_profiles() ) { $profiles = liked_profiles(); ?>
-                    <div class="liked-profiles mt-space grid gap-space-half">
+                if ( liked_teachers() ) { $profiles = liked_teachers(); ?>
+                    <div class="liked-profiles profiles mt-space grid gap-space-half">
                         <?php
 
                             foreach( $profiles as $profile ) {

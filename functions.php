@@ -5,6 +5,7 @@ $roots_includes = array(
   '/functions/school.php',
   '/functions/components/dataCard.php',
   '/functions/components/profileCard.php',
+  '/functions/components/profileDataCard.php',
   '/functions/login.php',
   '/functions/db-ui-lib/db-ui-lib.php',
   '/functions/subteach-post.php',

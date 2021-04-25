@@ -29,12 +29,21 @@ input[type="submit"] {
 
 .profile-card button {
 	@extend .cardText, .font-medium;	
-	background: transparent !important;
-	color: var(--primary-colour) !important;
-	border: 2px solid var(--primary-colour);
 	padding: .5rem 1.5rem;	
+
+
+	&:first-of-type {
+		background: transparent !important;
+		color: var(--primary-colour) !important;
+		border: 2px solid var(--primary-colour);
+	}
 }
 
 .wpdt-c button {
 	color: #FFF !important;
+}
+
+button.inverse {
+	background-color: var(--secondary-colour);
+	color: var(--primary-colour);
 }

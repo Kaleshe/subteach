@@ -81,16 +81,20 @@ function subteach_login_url() {
 add_filter( 'login_headerurl', 'subteach_login_url' );
 
 /**
- * Add first and last name to registration form
+ * Add first and last name and price levels to registration form
  */
 add_action( 'register_form', 'subteach_register_form' );
 function subteach_register_form() {
 
-$first_name = ( ! empty( $_POST['first_name'] ) ) ? trim( $_POST['first_name'] ) : '';
-$last_name = ( ! empty( $_POST['last_name'] ) ) ? trim( $_POST['last_name'] ) : '';
+  global $wpdb;
+
+  $price_levels = $wpdb->get_results('SELECT teachers from price_levels');
+
+  $first_name = ( ! empty( $_POST['first_name'] ) ) ? trim( $_POST['first_name'] ) : '';
+  $last_name = ( ! empty( $_POST['last_name'] ) ) ? trim( $_POST['last_name'] ) : '';
 
     ?>
-    <p style="display: flex; order: -1;">
+    <p>
         <label style="flex-grow: 1;" for="first_name"><?php _e( 'First Name', 'subteach' ) ?><br />
             <input type="text" name="first_name" id="first_name" class="input" value="<?php echo esc_attr( wp_unslash( $first_name ) ); ?>" size="25" /></label>
 
@@ -98,7 +102,20 @@ $last_name = ( ! empty( $_POST['last_name'] ) ) ? trim( $_POST['last_name'] ) : 
             <input type="text" name="last_name" id="last_name" class="input" value="<?php echo esc_attr( wp_unslash( $last_name ) ); ?>" size="25" /></label>
     </p>
 
-<?php
+    <p>
+      <label for="price_levels" style="display: block">Teachers</label>
+      <select name="pricel_levels" id="pricel_levels">
+        <?php 
+          foreach( $price_levels as $level ):
+        ?>
+        <option value=<?= $level->teachers; ?>><?= $level->teachers; ?></option>
+    </p>
+
+        <?php
+          endforeach;
+          ?>
+      </select> 
+<?php 
 }
 
 //2. Add validation. In this case, we make sure first_name is required.
@@ -121,6 +138,10 @@ function subteach_user_register( $user_id ) {
         update_user_meta( $user_id, 'first_name', trim( $_POST['first_name'] ) );
         update_user_meta( $user_id, 'last_name', trim( $_POST['last_name'] ) );
     }
+
+    if ( ! empty( $_POST['price_levels'] ) ) {
+      update_user_meta( $user_id, 'price_level', trim( $_POST['price_levels'] ) );
+  }
 }
 
  /**

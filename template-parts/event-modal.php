@@ -7,9 +7,6 @@
 
 $subjects = get_subjects();
 
-if ( isset($_POST['submit_event'] ) ) {
-  create_event();
-}
 ?>
 
 <div class="modal micromodal-slide" id="event-modal" aria-hidden="true">

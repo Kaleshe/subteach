@@ -75,6 +75,27 @@ $event_id = get_the_ID();
 		<?php if ( get_post_type() == Tribe__Events__Main::POSTTYPE && tribe_get_option( 'showComments', false ) ) comments_template() ?>
 	<?php endwhile; ?>
 
+		<div class="mt mb-space">
+				<h2 class="mt-space"><?= esc_html( 'Available Teachers' ); ?></h2>
+						<?php
+
+						if ( get_available_teachers() ) { $availableTeachers = get_available_teachers(); ?>
+								<div class="available-teachers profiles mt-space grid gap-space-half">
+										<?php
+
+												foreach( $availableTeachers as $teacher ) {
+														echo profileDataCard( 'View', $teacher, 'teacher', 'inline-flex flex-col' );
+												}
+
+										?>
+								</div>
+						<?php } else { ?>
+								<p class="mt"><?php _e('Sorry, there are no teachers available.'); ?></p>
+						<?php }
+
+						?>
+		</div>
+
 	<!-- Event footer -->
 	<div id="tribe-events-footer">
 		<!-- Navigation -->

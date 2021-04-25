@@ -46,7 +46,7 @@
     }
 }
 
-.liked-profiles {
+.profiles {
     text-align: center;
 
     @media (min-width: 445px) {
@@ -60,7 +60,4 @@
     @media (min-width: 900px) {
         grid-template-columns: repeat(4, 1fr);   
     }
-}
-
-.liked-profiles .card {
 }

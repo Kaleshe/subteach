@@ -373,6 +373,10 @@ h6 {
 	border-radius: 100%;
 }
 
+.text-underline {
+	text-decoration: underline;
+}
+
 .border-rounded {
 	border: 3px solid var(--primary-colour);
 	color: var(--primary-colour);
@@ -390,6 +394,10 @@ h6 {
 
 .self-center {
 	align-self: center;
+}
+
+.sm-data {
+	font-size: 12px;
 }
 
 /*--------------------------------------------------------------
@@ -503,14 +511,22 @@ input[type="submit"]:hover {
 }
 
 .profile-card button {
+	padding: .5rem 1.5rem;
+}
+
+.profile-card button:first-of-type {
 	background: transparent !important;
 	color: var(--primary-colour) !important;
 	border: 2px solid var(--primary-colour);
-	padding: .5rem 1.5rem;
 }
 
 .wpdt-c button {
 	color: #FFF !important;
+}
+
+button.inverse {
+	background-color: var(--secondary-colour);
+	color: var(--primary-colour);
 }
 
 input[type="text"],
@@ -721,24 +737,24 @@ form label {
 	color: currentColor;
 }
 
-.liked-profiles {
+.profiles {
 	text-align: center;
 }
 
 @media (min-width: 445px) {
-	.liked-profiles {
+	.profiles {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media (min-width: 600px) {
-	.liked-profiles {
+	.profiles {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
 @media (min-width: 900px) {
-	.liked-profiles {
+	.profiles {
 		grid-template-columns: repeat(4, 1fr);
 	}
 }

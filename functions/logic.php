@@ -257,6 +257,17 @@ function create_event()
     $time = $_REQUEST['time'];
     [$hours,$minutes] = preg_split('/:/', $time);
 
+    // Returns the time as a literal to use to get the available teachers
+    switch($time) {
+        case 'if time > 8am && time < 12pm':
+            $timeLiteral = 'morning';
+            break;
+        case 'if time > 12 pm && time < 6pm':
+            $timeLiteral = 'afternoon';
+            break;
+        default:
+            $timeLiteral = 'whole day';
+    }
 
     $args = array(
         'post_title' => get_subject($_POST['subjectID']),
@@ -270,7 +281,7 @@ function create_event()
         'EventEndHour' => 23,
         'EventEndMinute' => 59,
         'post_author'  => $user_id,
-        'meta_input' => array( 'postID' => $unique_id )
+        'meta_input' => array( 'postID' => $unique_id, 'timeLiteral' => $timeLiteral )
     );
 
     tribe_create_event($args);
@@ -278,20 +289,17 @@ function create_event()
 }
 
 /**
- * Returns the id of a users liked profiles
+ * Returns an array storing the ids of liked teachers
  */
-function liked_profiles() {
-    $profiles = [27, 32, 54];
-    return $profiles ? $profiles : false;
+function liked_teachers() {
+    $teachers = [27, 32, 54];
+    return $teachers ? $teachers : false;
 }
 
 /**
- * Returns an array of teachers ids that have shown interest in an event
+ * Returns an array storing the ids of teachers who are available
  */
-// TODO: ??
-//function get_interested_teachers($postID) {
-//    global $wpdb;
-//    return $wpdb->get_results($wpdb->("SELECT teacherID FROM events WHERE schoolid", $postID));
-//}
-
-//($wpdb->prepare("SELECT * FROM user WHERE userID = %d", $user_id));
+function get_available_teachers() {
+    $availableTeachers = [23, 12];
+    return $availableTeachers ? $availableTeachers : false;
+}

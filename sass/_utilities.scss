@@ -346,6 +346,10 @@
   border-radius: 100%;
 }
 
+.text-underline {
+  text-decoration: underline;
+}
+
 .border-rounded {
   border: 3px solid var(--primary-colour);
   color: var(--primary-colour); 
@@ -363,4 +367,8 @@
 
 .self-center {
   align-self: center;
+}
+
+.sm-data {
+  font-size: 12px;
 }
