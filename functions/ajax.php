@@ -60,7 +60,7 @@ function display_user_profile()
     $user['logo'] = wp_get_original_image_url($user['profile_image'][0]) ? wp_get_original_image_url($user['profile_image'][0]) : get_template_directory_uri() . '/img/default-profile-image.png';
     $user['data'] = filter_array((array)$user['data']);
   }
-  $user['total_placements'] = get_user_total_placements();
+  $user['total_placements'] = get_user_total_placements($user_id, $user_type);
 
   $user['__params__'] = ['user_id' => $user_id, 'type' => $user_type];
   $user = filter_array($user);
