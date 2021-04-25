@@ -84,7 +84,7 @@ jQuery(document).ready(function ($) {
 
 function renderTextSection(props) {
   function schoolHandler(props) {
-    return `<p style="background-color:${props.primaryColour}" class="cardText text-base font-bold">${props.placements} Placements</p>`;
+    return `<p style="background-color:${props.schoolData.primaryColour}" class="cardText text-base font-bold">${props.placements} Placements</p>`;
   }
 
   function teacherHandler(props) {
