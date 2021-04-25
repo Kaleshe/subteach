@@ -20,8 +20,14 @@ jQuery(document).ready(function ($) {
       // Populate modal with user data
       success: function (data) {
         let parsedData = JSON.parse(data);
+        const isTeacher = parsedData.type === 'teacher';
+        const userID = isTeacher ? parsedData.userID : parsedData.ID;
+
+        // ### LOGGING =======
+        // console.log(parsedData);
+
         $('body').append(createModal(parsedData));
-        MicroModal.show('profile-modal-' + parsedData.ID);
+        MicroModal.show('profile-modal-' + userID);
 
         // Only load for school users
         if (loggedInUserType === 'school') {
@@ -77,11 +83,41 @@ jQuery(document).ready(function ($) {
 });
 
 function renderTextSection(props) {
-  return ``;
+  function schoolHandler(props) {
+    return `<p style="background-color:${props.primaryColour}" class="cardText text-base font-bold">${props.placements} Placements</p>`;
+  }
+
+  function teacherHandler(props) {
+    return `
+      <p class="font-bold cardText">${props.placements} Placements</p>
+      <p class="font-bold cardText mt">0 Documents</p>`;
+  }
+
+  return props.isTeacher ? teacherHandler(props) : schoolHandler(props);
 }
 
 function renderGridSection(props) {
-  return ``;
+  function schoolHandler(props) {
+    return `
+      <p class="email">Email</p> <p class="font-medium">${props.email}</p>
+      <p class="">School Name</p> <p>${props.name}</p>
+      <p>Street Address</p><p>${props.schoolData.address}</p>
+      <p>City</p><p>${props.city}</p>
+      <p class="telephone">Telephone</p> <p class="font-medium">${props.telephone}</p>
+      <p class="postcode">Postcode</p> <p class="font-medium">${props.postcode}</p>
+      ${props.schoolData.priceLevel}
+      <p>Sign up date</p><p>${new Date(props.schoolData.userRegistered).toDateString()}</p>`;
+  }
+
+  function teacherHandler(props) {
+    return `
+      <p class="email">Email</p> <p class="font-medium">${props.email}</p>
+      <p class="city">City</p> <p class="font-medium">${props.city}</p>
+      <p class="telephone">Telephone</p> <p class="font-medium">${props.telephone}</p>
+      <p class="postcode">Postcode</p> <p class="font-medium">${props.postcode}</p>`;
+  }
+
+  return props.isTeacher ? teacherHandler(props) : schoolHandler(props);
 }
 
 function modalFromTemplate(props) {
@@ -187,35 +223,38 @@ function createSchoolModal(parsedData, schoolName, priceLevel, deactivateButton)
 const createModal = (parsedData, loggedInUserType) => {
 
   const isTeacher = parsedData.type === 'teacher';
+  const isSchool = !isTeacher;
 
   const id = isTeacher ? parsedData.userID : parsedData.ID;
+  const email = isTeacher ? parsedData.email : parsedData.data.user_email;
   const name = isTeacher ? `${parsedData.firstName} ${parsedData.lastName}` : parsedData.name;
   const image = isTeacher ? "/wp-content/uploads/2021/04/default-profile-image.jpg" : parsedData.logo;
   const button = isTeacher ?
     '<button class="like inline-flex items-center">Like</button>'
     : `<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>`;
 
+  const schoolData = isSchool ? {
+    primaryColour: parsedData.primary_colour,
+    schoolName: parsedData.name,
+    address: parsedData.address,
+    userRegistered: parsedData.data.user_registered,
+    priceLevel: (loggedInUserType === 'admin') ? '<p class="price-level">Price Level</p> <p class="font-medium">ab 50 Lehrpersonen</p>' : ''
+  } : {};
+
   return modalFromTemplate({
+    isTeacher: isTeacher,
     id: id,
     name: name,
     image: image,
-    button: button
+    email: email,
+    telephone: parsedData.telephone,
+    postcode: parsedData.postcode,
+    city: parsedData.city,
+    button: button,
+    placements: parsedData.total_placements,
+    schoolData: schoolData
   });
 
-  // // Returns a like button if the current user is a school
-  // let likeButton = (loggedInUserType === 'school') ? '<button class="like inline-flex items-center">Like </button>' : '';
-  //
   // let priceLevel = (loggedInUserType == 'admin') ? '<p class="price-level">Price Level</p> <p class="font-medium">ab 50 Lehrpersonen</p>' : '';
-  //
-  // // Returns the deactivate button if the current user is an admin
-  // let deactivateButton = (loggedInUserType !== 'school') ? `<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>` : '';
-  //
-  // if (parsedData.type === 'teacher') {
-  //   let teacherName = parsedData.firstName + ' ' + parsedData.lastName;
-  //   return createTeacherModal(parsedData, teacherName, likeButton);
-  // } else {
-  //   let schoolName = parsedData.name;
-  //   return createSchoolModal(parsedData, schoolName, priceLevel, deactivateButton);
-  // }
 }
 
