@@ -21,13 +21,18 @@ jQuery(document).ready(function ($) {
       success: function (data) {
         let parsedData = JSON.parse(data);
         const isTeacher = parsedData.type === 'teacher';
-        const userID = isTeacher ? parsedData.userID : parsedData.ID;
+        const currentUserID = isTeacher ? parsedData.userID : parsedData.ID;
 
         // ### LOGGING =======
-        // console.log(parsedData);
+        console.log(parsedData);
 
+        let elementID = 'profile-modal-' + currentUserID;
+        const foundElement = document.getElementById(elementID);
+        if(foundElement) {
+          foundElement.parentNode.removeChild(foundElement);
+        }
         $('body').append(createModal(parsedData));
-        MicroModal.show('profile-modal-' + userID);
+        MicroModal.show(elementID);
 
         // Only load for school users
         if (loggedInUserType === 'school') {
