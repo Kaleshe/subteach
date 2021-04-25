@@ -73,7 +73,6 @@ function display_user_profile()
  */
 add_action('wp_ajax_deactivate_user', 'deactivate_user');
 add_action('wp_ajax_nopriv_deactivate_user', 'deactivate_user');
-
 function deactivate_user()
 {
   $user_id = $_REQUEST['user_id'];
@@ -89,7 +88,6 @@ function deactivate_user()
  */
 add_action('wp_ajax_like_teacher', 'like_teacher');
 add_action('wp_ajax_nopriv_like_teacher', 'like_teacher');
-
 function like_teacher()
 {
   global $wpdb;

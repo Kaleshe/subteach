@@ -23,7 +23,7 @@ $phone = $wpdb->get_var( $wpdb->prepare( "SELECT telephone FROM meta WHERE ID = 
       <button></button>
     </div>
     <div class="answer">
-      <p><?= $qa['answer']; ?></p>
+      <p class="text-sm"><?= $qa['answer']; ?></p>
     </div>
   </article>
   <?php } ?>

@@ -29,28 +29,6 @@ jQuery(document).ready(function ($) {
         $('body').append(createModal(parsedData));
         MicroModal.show('profile-modal-' + userID);
 
-        // Only load for school users
-        if (loggedInUserType === 'school') {
-          jQuery("span.like").click(function () {
-            $.ajax({
-              url: like_teacher_obj.ajaxurl,
-              data: {
-                'action': 'like_teacher',
-                'user_id': parsedData.ID,
-                'method': 'POST'
-              },
-
-              // Alert the like, will be changed later
-              success: function () {
-                alert('Liked!');
-              },
-              error: function (errorThrown) {
-                console.log(errorThrown);
-              }
-            });
-          });
-        }
-
         // Only load for admin users
         if (loggedInUserType !== 'school') {
           jQuery("button.deactivate__user__btn").click(function () {
@@ -150,7 +128,7 @@ function modalFromTemplate(props) {
           </div>`;
 }
 
-function createTeacherModal(parsedData, teacherName, likeButton) {
+function createTeacherModal(parsedData, teacherName) {
   return `<div class="profile-modal modal micromodal-slide" id="profile-modal-${parsedData.userID}" aria-hidden="false">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
@@ -177,7 +155,6 @@ function createTeacherModal(parsedData, teacherName, likeButton) {
                     </div>
                   </div>
                 </main>
-                ${likeButton}
                 </span>
               </div>
             </div>
@@ -230,7 +207,7 @@ const createModal = (parsedData, loggedInUserType) => {
   const name = isTeacher ? `${parsedData.firstName} ${parsedData.lastName}` : parsedData.name;
   const image = isTeacher ? "/wp-content/uploads/2021/04/default-profile-image.jpg" : parsedData.logo;
   const button = isTeacher ?
-    '<button class="like inline-flex items-center">Like</button>'
+    ''
     : `<button data-user-id="${parsedData.ID}" class="deactivate__user__btn modal__btn" aria-label="Deactivate user">Deactivate User</button>`;
 
   const schoolData = isSchool ? {

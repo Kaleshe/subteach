@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main px-space">
+	<main id="primary" class="site-main px-space mt-space-2">
     <div class="container">
 
       <?php the_title('<h1 class="mb-space-half text-center mb-space">', '</h1>'); ?>
