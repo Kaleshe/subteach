@@ -12,10 +12,10 @@
   */
 function get_user($user_id, $user_type)
 {
-    if ( $user_type != 'school') {
+    if ( $user_type === 'teacher') {
         global $wpdb;
 
-        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE userID = %d", $user_id));
+        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE userID = %s", $user_id));
     
     } else {
 
@@ -31,7 +31,7 @@ function get_most_recent_user($user_type)
 {
     global $wpdb;
 
-    if( $user_type != 'school' ) {
+    if( $user_type !== 'school' ) {
        return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
     } else {
         $users = get_users( array( 'role__in' => array( 'school') ) );
@@ -51,7 +51,7 @@ function get_most_recent_user($user_type)
  * Returns the id of the most recent user
  */
 function get_most_recent_user_id($user_type) {
-    if( $user_type != 'school' ) {
+    if( $user_type !== 'school' ) {
         return get_most_recent_user($user_type)->userID;
     } else {
         return get_most_recent_user($user_type)->ID;
