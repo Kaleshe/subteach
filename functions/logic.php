@@ -186,9 +186,21 @@ function get_last_booked_profile()
     return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
 }
 
-function get_user_total_placements()
+function get_user_total_placements($user_id, $user_type)
 {
-    return '0';
+  global $wpdb;
+  if($user_type === 'school') {
+    $user_id = strval($user_id);
+  }
+  $column_for_my_type = ['teacher' => 'teacherID', 'school' => 'schoolID'][$user_type];
+  $placements = $wpdb->get_var($wpdb->prepare("
+        SELECT COUNT(*)
+        FROM matches
+        WHERE ${column_for_my_type} = %s
+            AND schoolInterest = 'true'
+            AND teacherInterest = 'true'",
+    $user_id));
+  return $placements;
 }
 
 /**
