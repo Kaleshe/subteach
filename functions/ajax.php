@@ -34,6 +34,25 @@ function ajax_test()
   die();
 }
 
+add_action('wp_ajax_last_search', 'ajax_last_search');
+add_action('wp_ajax_noprov_last_search', 'ajax_last_search');
+function ajax_last_search()
+{
+    $id = $_REQUEST['ID'];
+    $user_type = $_REQUEST['user_type'];
+    $last_search = get_last_search($id, $user_type);
+    if($last_search) {
+      $dateTime = new DateTime($last_search->timestamp);
+      $last_search->date = $dateTime->format('Y-m-d');
+      $last_search->hour = $dateTime->format('G');
+      $last_search->minute = $dateTime->format('i');
+    }
+    ?>
+        <pre><?=print_r($last_search, true)?></pre>
+<?php
+    die();
+}
+
 /**
  * Display a users profile using an ID
  */
@@ -95,10 +114,10 @@ function like_teacher()
   $current_user_id = get_current_user_id();
 
 
-  // Check if the current teacher exists in the same row as the current school
-  // Insert row to the database and set the like value to true if the row doesn't exist
+  // Check if the current teacher exists in the same row as the current school
+  // Insert row to the database and set the like value to true if the row doesn't exist
   // Update like value to false if the row exists and is set to true
-  // Update like value to true if the row exists and is set to false
+  // Update like value to true if the row exists and is set to false
   $wpdb->insert('liked_teachers', array(
     'teacherID' => $teacher_id,
     'schoolID' => $current_user_id,
