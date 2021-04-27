@@ -88,7 +88,7 @@ if ($last_search !== null) {
                     </div>
                 </div>
                 <?php
-                    echo profileCard( 'Last booked profile', 'teacher', 2 );
+                    echo profileCard( 'Last booked profile', 25, 'teacher' );
                 ?>
             </div>
         </div>

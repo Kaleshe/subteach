@@ -179,14 +179,28 @@ function get_subject_id($subject_title, $subject_level)
 /**
  * Returns last booked profile by current user
  */
-function get_last_booked_profile()
+function get_last_booked_profile($user_id, $user_type)
 {
   global $wpdb;
+  if($user_id === null) {
+    $user_id = get_current_user_id();
+  }
 
-  $user_id = get_current_user_id();
+  if(is_school($user_id)) {
+    $my_column = 'schoolID';
+    $other_column = 'teacherID';
+    echo '<h1>Is School!</h1>';
+  } else {
+    $my_column = 'teacherID';
+    $other_column = 'schoolID';
+  }
 
-  return $wpdb->get_var($wpdb->prepare('SELECT teacherID FROM events WHERE schoolID = %d,'));
-  return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
+  return $wpdb->get_var($wpdb->prepare("
+    SELECT %0s
+    FROM events
+    WHERE %1s = %s
+        AND %3s <> ''
+  ", $other_column, $my_column, $user_id, $other_column));
 }
 
 /**
@@ -202,10 +216,10 @@ function get_user_total_placements($user_id, $user_type)
   $placements = $wpdb->get_var($wpdb->prepare("
         SELECT COUNT(*)
         FROM matches
-        WHERE ${column_for_my_type} = %s
+        WHERE %0s = %s
             AND schoolInterest = 'true'
             AND teacherInterest = 'true'",
-    $user_id));
+    $column_for_my_type, $user_id));
   return $placements;
 }
 
