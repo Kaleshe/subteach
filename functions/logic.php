@@ -310,8 +310,8 @@ function create_event()
     $teacher_id = $user_id;
   }
 
-  // @Kaleshe: should events.matchID be set to postID_ ?
-  // I'm also assuming we're no longer using the matches table.
+  // TODO: Resolve - should events.matchID be set to postID_ ?
+  // Decide on utility of matches table (consult Subteach API to see what must remain).
 
   $wpdb->insert('events', array(
     'modify' => current_time('mysql'),
