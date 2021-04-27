@@ -4,19 +4,35 @@
  *
  * Displays the number of placements, last search, last booked profile
  * with meta data, links to a generated search with autofilled data from last search
- * 
+ *
  * @package Subteach
  */
 
- 
+
 $user_id = get_current_user_id();
-$coverImageID = get_user_meta( $user_id )['cover_image'][0];
-$coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full' ) : false;
+$coverImageID = get_user_meta($user_id)['cover_image'][0];
+$coverImage = $coverImageID ? wp_get_attachment_image_src($coverImageID, 'full') : false;
+
+$last_search = get_last_search($user_id, get_user_type_as_string());
+
+$last_search_line_1 = 'N/A';
+$last_search_line_2 = '';
+
+
+if ($last_search !== null) {
+    $last_subject = $last_search->subjectLiteral;
+    $last_time = "$last_search->hour:$last_search->minute";
+    $last_date = "$last_search->date";
+
+    $last_search_line_1 = "$last_subject @ $last_time";
+    $last_search_line_2 = $last_date;
+}
 
 ?>
 
 <?php if ($coverImage) { ?>
-    <div class="cover-image" style="height: 37vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 60%; background-size: cover;">
+    <div class="cover-image"
+         style="height: 37vmin; width: 100%; background: url(<?= $coverImage[0]; ?>); background-position-y: 60%; background-size: cover;">
 
     </div>
 <?php } ?>
@@ -24,46 +40,48 @@ $coverImage = $coverImageID ? wp_get_attachment_image_src( $coverImageID, 'full'
     <div class="school-dashboard-cards coloured-bg py-space-2 px-space">
         <div class="container">
             <div class="cards grid md:cols-3 gap-space">
-                <?php
-                    echo dataCard( esc_html( 'Number of Placements' ), 0 );
-                ?>
+              <?php
+              echo dataCard(esc_html('Number of Placements'), 0);
+              ?>
                 <div class="card p-space text-center flex justify-center items-center">
                     <div>
                         <div>
-                            <p class="text-md font-bold mb"><?= esc_html( 'Last Search' ); ?></p>
-                            <p class="text-xs"><?= esc_html( 'Maths @ 10:00' ); ?></p>
-                            <p class="text-xs"><?= esc_html( '24th Nov 21' ); ?></p>
+                            <p class="text-md font-bold mb"><?= esc_html('Last Search'); ?></p>
+                            <p class="text-xs"><?= esc_html("$last_search_line_1"); ?></p>
+                            <p class="text-xs"><?= esc_html( "$last_search_line_2"); ?></p>
                         </div>
-                        <button class="mt-space-half" data-micromodal-trigger="event-modal" href=""><?= esc_html( 'Duplicate' ); ?></button>
+                        <button class="mt-space-half" data-micromodal-trigger="event-modal"
+                                href=""><?= esc_html('Duplicate'); ?></button>
+                    </div>
                 </div>
-                </div>
-                <?php
-                    echo profileCard( 'Last booked profile', 'teacher', 2 );
-                ?>
+              <?php
+              echo profileCard('Last booked profile', 'teacher', 2);
+              ?>
             </div>
         </div>
     </div>
 
     <div class="px-space">
         <div class="container">
-            <h2 class="mt-space"><?= esc_html( 'Liked Profiles' ); ?></h2>
+            <h2 class="mt-space"><?= esc_html('Liked Profiles'); ?></h2>
+          <?php
+
+          if (liked_profiles()) {
+            $profiles = liked_profiles(); ?>
+              <div class="liked-profiles mt-space grid gap-space-half">
                 <?php
 
-                if ( liked_profiles() ) { $profiles = liked_profiles(); ?>
-                    <div class="liked-profiles mt-space grid gap-space-half">
-                        <?php
-
-                            foreach( $profiles as $profile ) {
-                                echo profileCard( 'View Profile', $profile, 'teacher', 'inline-flex flex-col' );
-                            }
-
-                        ?>
-                    </div>
-                <?php } else { ?>
-                    <p class="mt"><?php _e('You haven\'t liked any profiles'); ?></p>
-                <?php }
+                foreach ($profiles as $profile) {
+                  echo profileCard('View Profile', $profile, 'teacher', 'inline-flex flex-col');
+                }
 
                 ?>
+              </div>
+          <?php } else { ?>
+              <p class="mt"><?php _e('You haven\'t liked any profiles'); ?></p>
+          <?php }
+
+          ?>
         </div>
     </div>
 </div>

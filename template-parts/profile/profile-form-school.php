@@ -20,6 +20,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POS
 
     echo "<meta http-equiv='refresh' content='0'>";
 
+
     if ( !empty( $_POST['telephone']) )
         update_user_meta( $user_id, 'telephone', esc_attr( $_POST['telephone'] ) );
 

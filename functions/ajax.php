@@ -41,12 +41,6 @@ function ajax_last_search()
     $id = $_REQUEST['ID'];
     $user_type = $_REQUEST['user_type'];
     $last_search = get_last_search($id, $user_type);
-    if($last_search) {
-      $dateTime = new DateTime($last_search->timestamp);
-      $last_search->date = $dateTime->format('Y-m-d');
-      $last_search->hour = $dateTime->format('G');
-      $last_search->minute = $dateTime->format('i');
-    }
     ?>
         <pre><?=print_r($last_search, true)?></pre>
 <?php

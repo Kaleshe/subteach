@@ -25,7 +25,7 @@ if ( isset($_POST['submit_event'] ) ) {
       <div id="event-modal-content">
           <form class="create-event-form" method="post" action="<?= admin_url('admin-post.php'); ?>">
               <input type="hidden" name="action" value="create_event">
-              <label for="subject">Subject</label>
+              <label for="subjectsList">Subject</label>
               <input id="subjectsList" list="subjects" placeholder="Subject" class="w-full" name="subject">
               <datalist id="subjects">
                 <?php foreach ( $subjects as $subject ) {

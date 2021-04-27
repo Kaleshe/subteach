@@ -211,12 +211,21 @@ function get_last_search($user_id, $user_type)
 
   $id_type = ['school' => 'schoolID', 'teacher' => 'teacherID'][$user_type];
 
-  return $wpdb->get_row($wpdb->prepare("
+  $last_search = $wpdb->get_row($wpdb->prepare("
         SELECT *
         FROM events
         WHERE %0s = %s
         ORDER BY ID DESC LIMIT 0,1
     ", $id_type, $user_id));
+
+  if($last_search !== null) {
+    $dateTime = new DateTime($last_search->timestamp);
+    $last_search->date = $dateTime->format('Y-m-d');
+    $last_search->hour = $dateTime->format('G');
+    $last_search->minute = $dateTime->format('i');
+  }
+
+  return $last_search;
 }
 
 /**
