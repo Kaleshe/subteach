@@ -19,13 +19,19 @@ $last_search_line_1 = 'N/A';
 $last_search_line_2 = '';
 
 
-if ($last_search !== null) {
-    $last_subject = $last_search->subjectLiteral;
-    $last_time = "$last_search->hour:$last_search->minute";
-    $last_date = "$last_search->date";
+$last_subject_id = '';
+$last_subject = '';
+$last_time = '';
+$last_date = '';
 
-    $last_search_line_1 = "$last_subject @ $last_time";
-    $last_search_line_2 = $last_date;
+if ($last_search !== null) {
+  $last_subject_id = $last_search->subjectID;
+  $last_subject = $last_search->subjectLiteral;
+  $last_time = "$last_search->hour:$last_search->minute";
+  $last_date = "$last_search->date";
+
+  $last_search_line_1 = "$last_subject @ $last_time";
+  $last_search_line_2 = $last_date;
 }
 
 ?>
@@ -36,6 +42,34 @@ if ($last_search !== null) {
 
     </div>
 <?php } ?>
+<script type="text/javascript">
+  function setSubject(subjectID) {
+    const subjects = document.getElementById("subjects");
+    for (let i = 0; i < subjects.childElementCount; ++i) {
+      const child = subjects.children[i];
+      const id = child.getAttribute("data-subject-id");
+      if (id === subjectID) {
+        document.getElementById("subjectsList").value = child.value;
+        document.getElementById("subjectID").value = subjectID;
+        // alert(`Setting subject to ${child.value}`);
+        return;
+      }
+    }
+    // alert("Failed to find a match!");
+  }
+
+  function onDuplicateClicked() {
+    MicroModal.show('event-modal');
+    const lastSubjectID = "<?= $last_subject_id?>";
+    setSubject(lastSubjectID);
+    document.getElementById("date").value = "<?= $last_date ?>";
+    document.getElementById("time").value = "<?= $last_time ?>";
+  }
+
+  window.addEventListener('load', () => {
+    document.getElementById('duplicate-button').addEventListener('click', onDuplicateClicked);
+  });
+</script>
 <div class="school-dashboard">
     <div class="school-dashboard-cards coloured-bg py-space-2 px-space">
         <div class="container">
@@ -48,9 +82,9 @@ if ($last_search !== null) {
                         <div>
                             <p class="text-md font-bold mb"><?= esc_html('Last Search'); ?></p>
                             <p class="text-xs"><?= esc_html("$last_search_line_1"); ?></p>
-                            <p class="text-xs"><?= esc_html( "$last_search_line_2"); ?></p>
+                            <p class="text-xs"><?= esc_html("$last_search_line_2"); ?></p>
                         </div>
-                        <button class="mt-space-half" data-micromodal-trigger="event-modal"
+                        <button class="mt-space-half" id="duplicate-button"
                                 href=""><?= esc_html('Duplicate'); ?></button>
                     </div>
                 </div>

@@ -284,12 +284,14 @@ function create_event()
   $unique_id = wp_unique_id('postID_');
 
   $wpdb->insert('events', array(
+    'modify' => current_time('mysql'),
+    'timestamp' => $_POST['date'] . ' ' . $_POST['time'],
+    'note' => $_POST['note'],
     'subjectID' => $_POST['subjectID'],
     'subjectLiteral' => get_subject($_POST['subjectID']),
     'schoolID' => $user_id,
-    'note' => $_POST['note'],
-    'timestamp' => $_POST['date'] . ' ' . $_POST['time'],
-    'postID' => $unique_id
+    'teacherID' => '',
+    'matchID' => ''
   ));
 
   $date = $_REQUEST['date'];

@@ -33,7 +33,7 @@ if ( isset($_POST['submit_event'] ) ) {
                 }
                 ?>
               </datalist>
-              <input type="text" name="subjectID" hidden>
+              <input id="subjectID" type="text" name="subjectID" hidden>
               <label for="date">Date</label>
               <input type="date" name="date" id="date" required>
               <label for="time">Time</label>
