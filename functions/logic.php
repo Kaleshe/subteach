@@ -16,11 +16,11 @@ function get_user($user_id, $user_type)
         global $wpdb;
 
         return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE userID = %s", $user_id));
-    
+
     } else {
 
         return get_user_by( 'ID', $user_id ) ? get_user_by( 'ID', $user_id ) : null;
-        
+
     }
 }
 
@@ -47,7 +47,7 @@ function get_most_recent_user($user_type)
 
         return $activeUsers ? $activeUsers[$key] :  null;
     }
-}   
+}
 
 /**
  * Returns the id of the most recent user
@@ -144,7 +144,7 @@ function get_subjects()
  */
 function get_subject($subject_id)
 {
-    $subjects = get_subjects();
+  $subjects = get_subjects();
 
     foreach ($subjects as $subject) {
         if ($subject['ID'] == $subject_id) {
@@ -183,7 +183,7 @@ function get_last_booked_profile()
     global $wpdb;
 
     $user_id = get_current_user_id();
-    
+
     return $wpdb->get_var($wpdb->prepare('SELECT teacherID FROM events WHERE schoolID = %d,'));
     return $wpdb->get_row($wpdb->prepare("SELECT * FROM user WHERE type = %s ORDER BY ID DESC LIMIT 0,1", $user_type));
 }
@@ -208,6 +208,30 @@ function get_user_total_placements($user_id, $user_type)
   return $placements;
 }
 
+function get_last_search($user_id, $user_type)
+{
+
+  global $wpdb;
+
+  $id_type = ['school' => 'schoolID', 'teacher' => 'teacherID'][$user_type];
+
+  $last_search = $wpdb->get_row($wpdb->prepare("
+        SELECT *
+        FROM events
+        WHERE %0s = %s
+        ORDER BY ID DESC LIMIT 0,1
+    ", $id_type, $user_id));
+
+  if($last_search !== null) {
+    $dateTime = new DateTime($last_search->timestamp);
+    $last_search->date = $dateTime->format('Y-m-d');
+    $last_search->hour = $dateTime->format('G');
+    $last_search->minute = $dateTime->format('i');
+  }
+
+  return $last_search;
+}
+
 /**
  * Checks if a user is active
  */
@@ -226,7 +250,7 @@ function is_active_user( $user_id = null ) {
 /**
  * Returns a schools liked teachers
  */
-function get_liked_teachers( $user_id = null ) 
+function get_liked_teachers( $user_id = null )
 {
 
     global $wpdb;
@@ -234,7 +258,7 @@ function get_liked_teachers( $user_id = null )
     if ( is_user_logged_in() && $user_id == null ) {
         $user_id = get_current_user_id();
     }
-    
+
     // Need to sort out why this won't allow the variable to be fed in, but works elsewhere
     $liked_teachers = $wpdb->get_results( "SELECT * FROM liked_teachers WHERE schoolID = %d", $user_id );
 
@@ -261,14 +285,16 @@ function create_event()
 
     $unique_id = wp_unique_id( 'postID_' );
 
-    $wpdb->insert('events', array(
-        'subjectID' => $_POST['subjectID'],
-        'subjectLiteral' => get_subject($_POST['subjectID']),
-        'schoolID' => $user_id,
-        'note' => $_POST['note'],
-        'timestamp' => $_POST['date'] . ' ' . $_POST['time'],
-        'postID' => $unique_id
-    ));
+  $wpdb->insert('events', array(
+    'modify' => current_time('mysql'),
+    'timestamp' => $_POST['date'] . ' ' . $_POST['time'],
+    'note' => $_POST['note'],
+    'subjectID' => $_POST['subjectID'],
+    'subjectLiteral' => get_subject($_POST['subjectID']),
+    'schoolID' => $user_id,
+    'teacherID' => '',
+    'matchID' => ''
+  ));
 
     $date = $_REQUEST['date'];
     $time = $_REQUEST['time'];
