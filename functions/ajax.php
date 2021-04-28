@@ -12,25 +12,40 @@ add_action('wp_ajax_nopriv_test', 'ajax_test');
 function ajax_test()
 {
   ?>
-  <!DOCTYPE html>
-  <html><head><title>!</title></head>
-<body>
-  <form action="" method="get">
-    <input type="hidden" name="action" value="test">
-    <input type="date" name="the_date">
-    <input type="submit" value="Submit">
-  </form>
-  <pre>Date = <?php
-    /** @var date $date */
-    $date = date('2020-11-02 14:00');
-    if(isset($_REQUEST['the_date'])) {
-      $date = $_REQUEST['the_date'];
-    }
-    $date = new DateTime($date);
-    $date_str = strval($date);
-    echo $date_str?></pre>
-</body></html>
-<?php
+    <!DOCTYPE html>
+    <html>
+    <head><title>!</title></head>
+    <body>
+    <form action="" method="get">
+        <input type="hidden" name="action" value="test">
+        <input type="date" name="the_date">
+        <input type="submit" value="Submit">
+    </form>
+    <pre>Date = <?php
+      /** @var date $date */
+      $date = date('2020-11-02 14:00');
+      if (isset($_REQUEST['the_date'])) {
+        $date = $_REQUEST['the_date'];
+      }
+      $date = new DateTime($date);
+      $date_str = strval($date);
+      echo $date_str ?></pre>
+    </body>
+    </html>
+  <?php
+  die();
+}
+
+add_action('wp_ajax_test_last_booked', 'test_last_booked');
+add_action('wp_ajax_noprov_test_last_booked', 'test_last_booked');
+function test_last_booked()
+{
+  $id = 38;
+  $user_type = 'school';
+  $result = get_last_booked_profile($id, $user_type);
+  ?>
+    <pre>Last booked = <?= print_r($result, true) ?></pre>
+  <?php
   die();
 }
 
@@ -38,19 +53,13 @@ add_action('wp_ajax_last_search', 'ajax_last_search');
 add_action('wp_ajax_noprov_last_search', 'ajax_last_search');
 function ajax_last_search()
 {
-    $id = $_REQUEST['ID'];
-    $user_type = $_REQUEST['user_type'];
-    $last_search = get_last_search($id, $user_type);
-    if($last_search) {
-      $dateTime = new DateTime($last_search->timestamp);
-      $last_search->date = $dateTime->format('Y-m-d');
-      $last_search->hour = $dateTime->format('G');
-      $last_search->minute = $dateTime->format('i');
-    }
-    ?>
-        <pre><?=print_r($last_search, true)?></pre>
-<?php
-    die();
+  $id = $_REQUEST['ID'];
+  $user_type = $_REQUEST['user_type'];
+  $last_search = get_last_search($id, $user_type);
+  ?>
+    <pre><?= print_r($last_search, true) ?></pre>
+  <?php
+  die();
 }
 
 /**

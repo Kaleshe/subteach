@@ -22,7 +22,7 @@ $subjects = get_subjects();
       <div id="event-modal-content">
           <form class="create-event-form" method="post" action="<?= admin_url('admin-post.php'); ?>" autocomplete="off">
               <input type="hidden" name="action" value="create_event">
-              <label for="subject">Subject</label>
+              <label for="subjectsList">Subject</label>
               <input id="subjectsList" list="subjects" placeholder="Subject" class="w-full" name="subject">
               <datalist id="subjects">
                 <?php foreach ( $subjects as $subject ) {
@@ -30,7 +30,7 @@ $subjects = get_subjects();
                 }
                 ?>
               </datalist>
-              <input type="text" name="subjectID" hidden>
+              <input id="subjectID" type="text" name="subjectID" hidden>
               <label for="date">Date</label>
               <input type="date" name="date" id="date" required>
               <label for="time">Time</label>
