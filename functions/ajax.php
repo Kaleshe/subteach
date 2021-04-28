@@ -111,18 +111,23 @@ function like_teacher()
 {
   global $wpdb;
   $teacher_id = $_REQUEST['user_id'];
-  $current_user_id = get_current_user_id();
+  $school_id = get_current_user_id();
+  
+  if ( null !== $wpdb->get_row($wpdb->prepare("SELECT * FROM liked_teachers WHERE schoolID = %s AND teacherID = %d", array($school_id, $teacher_id))) ) {
+    $isLiked = is_liked($teacher_id);
+    $wpdb->update('liked_teachers', array(
+      'like' => $isLiked ? 'false' : 'true'
+    ));
+  } else {
 
+    // Inserts a new row if a user hasn't been liked before
+    $wpdb->insert('liked_teachers', array(
+      'teacherID' => $teacher_id,
+      'schoolID' => $current_user_id,
+      'like' => 'true'
+    ));
+  }
 
-  // Check if the current teacher exists in the same row as the current school
-  // Insert row to the database and set the like value to true if the row doesn't exist
-  // Update like value to false if the row exists and is set to true
-  // Update like value to true if the row exists and is set to false
-  $wpdb->insert('liked_teachers', array(
-    'teacherID' => $teacher_id,
-    'schoolID' => $current_user_id,
-    'like' => 'true'
-  ));
   die();
 
 }

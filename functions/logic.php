@@ -209,14 +209,14 @@ function get_user_total_placements($user_id, $user_type)
 }
 
 /**
- * Checks if a user is active
+ * Checks if a school is active
  */
-function is_active_user( $user_id = null ) {
-    if (  is_user_logged_in() && $user_id == null ) {
-        $user_id = get_current_user_id();
+function is_active_user( $school_id = null ) {
+    if (  is_user_logged_in() && $school_id == null ) {
+        $school_id = get_current_user_id();
     }
 
-    if ( (get_user_meta( $user_id, 'is_active', true)) != 0 || !is_school($user_id)) {
+    if ( (get_user_meta( $school_id, 'is_active', true)) != 0 || !is_school($school_id)) {
         return true;
     } else {
         return false;
@@ -226,17 +226,17 @@ function is_active_user( $user_id = null ) {
 /**
  * Returns a schools liked teachers
  */
-function get_liked_teachers( $user_id = null ) 
+function get_liked_teachers( $school_id = null ) 
 {
 
     global $wpdb;
 
-    if ( is_user_logged_in() && $user_id == null ) {
-        $user_id = get_current_user_id();
+    if ( is_user_logged_in() && $school_id == null ) {
+        $school_id = get_current_user_id();
     }
     
     // Need to sort out why this won't allow the variable to be fed in, but works elsewhere
-    $liked_teachers = $wpdb->get_results( "SELECT * FROM liked_teachers WHERE schoolID = %d", $user_id );
+    $liked_teachers = $wpdb->get_results( "SELECT * FROM liked_teachers WHERE schoolID = %d", $school_id );
 
     return json_decode(json_encode($liked_teachers), true);
 
@@ -309,7 +309,7 @@ function create_event()
  * Returns an array storing the ids of liked teachers
  */
 function liked_teachers() {
-    $teachers = [27, 32, 54];
+    $teachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
     return $teachers ? $teachers : false;
 }
 
@@ -317,6 +317,19 @@ function liked_teachers() {
  * Returns an array storing the ids of teachers who are available
  */
 function get_available_teachers() {
-    $availableTeachers = [23, 12];
+    $availableTeachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
     return $availableTeachers ? $availableTeachers : false;
+}
+
+/**
+ * Check if a teacher is liked by the current school, returns true or false
+ */
+function is_liked($teacher_id) {
+    global $wpdb;
+    $school_id = get_current_user_id();
+    if ( null !== $wpdb->get_var($wpdb->prepare("SELECT like FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
+        return $wpdb->get_var($wpdb->prepare("SELECT like FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id)));
+    } else {
+        return null;
+    }
 }

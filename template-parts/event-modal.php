@@ -20,7 +20,7 @@ $subjects = get_subjects();
       </header>
       <main class="modal__content" id="event-modal-content">
       <div id="event-modal-content">
-          <form class="create-event-form" method="post" action="<?= admin_url('admin-post.php'); ?>">
+          <form class="create-event-form" method="post" action="<?= admin_url('admin-post.php'); ?>" autocomplete="off">
               <input type="hidden" name="action" value="create_event">
               <label for="subject">Subject</label>
               <input id="subjectsList" list="subjects" placeholder="Subject" class="w-full" name="subject">
@@ -34,7 +34,7 @@ $subjects = get_subjects();
               <label for="date">Date</label>
               <input type="date" name="date" id="date" required>
               <label for="time">Time</label>
-              <input type="time" id="time" name="time" required>
+              <input type="time" id="time" name="time" required min="08:00" max="18:00">
               <label for="note">Note</label>
               <textarea name="note" id="note" cols="20" rows="5"></textarea>
               <footer class="modal__footer">

@@ -350,6 +350,10 @@ h6 {
 	justify-content: center;
 }
 
+.self-end {
+	align-self: flex-end;
+}
+
 .items-center {
 	align-items: center;
 }
@@ -449,6 +453,18 @@ h6 {
 --------------------------------------------- */
 * {
 	box-sizing: border-box;
+}
+
+html[data-status='inactive'] {
+	height: 100%;
+}
+
+html[data-status='inactive'] .site, html[data-status='inactive'] body {
+	height: 100%;
+}
+
+html[data-status='inactive'] .site {
+	display: grid;
 }
 
 body {
@@ -656,6 +672,14 @@ form label {
 .tribe-events .tribe-events-c-ical__link:active,
 .tribe-events .tribe-events-c-ical__link:focus {
 	background-color: var(--primary-colour);
+}
+
+.tribe-events-single-event-title {
+	line-height: .5;
+}
+
+.tribe-events-content p {
+	font-size: 14px;
 }
 
 .tribe-common .tribe-common-c-svgicon,

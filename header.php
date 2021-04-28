@@ -16,16 +16,26 @@ if ( isset(get_user_meta( $user_id )['profile_image']) ) {
 	$profileImage = $profileImageID ? wp_get_attachment_image_src( $profileImageID, 'thumbnail' ) : false;
 }
 
+$status = is_active_user( $user_id ) ? 'active' : 'inactive';
+
 /**
  * Redirect logged out users to the login page
  */
 if ( !is_user_logged_in() ) {
 	auth_redirect();
+
+/**
+ * Redirect inactive users to the dashboard
+ */
+} elseif( !is_active_user( $user_id ) && !is_page('dashboard') ) {
+
+	wp_safe_redirect( '/' );
+	exit;
 }
 ?>
 
 <!doctype html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> data-status=<?= $status; ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">

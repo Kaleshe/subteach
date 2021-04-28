@@ -2,6 +2,17 @@
 	box-sizing: border-box;
 }
 
+html[data-status='inactive'] {
+	height: 100%;
+	
+	.site, body {
+		height: 100%;
+	}
+
+	.site {
+		display: grid;
+	}
+}
 body {
 	margin: 0;
 	background: var(--secondary-colour); // Fallback for when there is no custom background color defined.

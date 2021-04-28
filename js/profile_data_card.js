@@ -4,7 +4,7 @@ jQuery(document).ready(function ($) {
       url: like_teacher_obj.ajaxurl,
       data: {
         'action': 'like_teacher',
-        'user_id': parsedData.ID,
+        'user_id': $(this).data("user-id"),
         'method': 'POST'
       },
 
