@@ -373,7 +373,7 @@ function get_available_teachers($event_id) {
   assert(is_int($event_id));
 
   global $wpdb;
-  $event = $wpdb->get_row($wpdb->prepare('SELECT * FROM events WHERE ID = %d', $event_id));
+  $event = $wpdb->get_row($wpdb->prepare('SELECT * FROM events WHERE ID = %d', $event_id), OBJECT);
   $date = (new DateTime($event->timestamp))->format('Y-m-d');
   $availableTeachers = $wpdb->get_col($wpdb->prepare("
     SELECT DISTINCT teacherID
