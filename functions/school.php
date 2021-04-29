@@ -25,6 +25,8 @@ add_action( 'init', 'update_school_roles' );
  * Check if the current logged in user is a school
  */
 function is_school( $user_id = null ) {
+  // TODO, what happens if $user_id === null, but user is not logged in?
+  //  Should return immediately on that case, maybe even throw an exception.
     if ( is_user_logged_in() && $user_id == null ) {
         $user_id = get_current_user_id();
     }

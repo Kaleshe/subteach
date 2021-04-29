@@ -36,6 +36,16 @@ function ajax_test()
   die();
 }
 
+add_action('wp_ajax_test_available_teachers', 'test_available_teachers');
+add_action('wp_ajax_nopriv_test_available_teachers', 'test_available_teachers');
+function test_available_teachers ()
+{
+    $event_id = 314;
+    $available = join('<br>', get_available_teachers($event_id));
+    echo "<h1>Available</h1><pre>$available</pre>";
+    die();
+}
+
 add_action('wp_ajax_test_last_booked', 'test_last_booked');
 add_action('wp_ajax_noprov_test_last_booked', 'test_last_booked');
 function test_last_booked()

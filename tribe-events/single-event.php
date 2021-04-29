@@ -70,13 +70,13 @@ $event_id = get_the_ID();
 		<div class="mb-space">
 				<h2 class="mt-space"><?= esc_html( 'Available Teachers' ); ?></h2>
 						<?php
-
-						if ( get_available_teachers() ) { $availableTeachers = get_available_teachers(); ?>
+                        $availableTeachers = get_available_teachers($event_id);
+						if ( count($availableTeachers) > 0 ) { ; ?>
 								<div class="available-teachers profiles mt-space grid gap-space-half">
 										<?php
 
 												foreach( $availableTeachers as $teacher ) {
-														echo profileDataCard( $teacher, 'teacher', 'inline-flex flex-col' );
+														echo profileDataCard( $teacher, 'teacher inline-flex flex-col' );
 												}
 
 										?>
