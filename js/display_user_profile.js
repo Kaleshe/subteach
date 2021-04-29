@@ -67,12 +67,12 @@ jQuery(document).ready(function ($) {
 
 function renderTextSection(props) {
   function schoolHandler(props) {
-    return `<p style="background-color:${props.schoolData.primaryColour}" class="cardText text-base font-bold">${props.placements} Placements</p>`;
+    return `<p style="background-color:${props.schoolData.primaryColour}" class="cardText text-base font-bold" style="text-transform: none">${props.placements} Placement(s)</p>`;
   }
 
   function teacherHandler(props) {
     return `
-      <p class="font-bold cardText">${props.placements} Placements</p>
+      <p class="font-bold cardText" style="text-transform: none">${props.placements} Placement(s)</p>
       <p class="font-bold cardText mt">0 Documents</p>`;
   }
 

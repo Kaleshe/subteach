@@ -22,5 +22,10 @@
                 echo dataCard( esc_html( 'Sign Up By Type' ), get_total_paying_teachers() );
             ?>
         </div>
+
+        <div class="search-table mt-space-2">
+            <?= do_shortcode( '[wpdatatable id=7]' ); ?>
+        </div>
+
     </div>
 </div>

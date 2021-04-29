@@ -17,7 +17,7 @@ get_header();
 
 	<main id="primary" class="site-main mt-space-2">
 
-		<?php if ( current_user_can( 'read' ) && is_active_user() ) { ?>
+		<?php if ( is_page('register') || current_user_can( 'read' ) && is_active_user() ) { ?>
 			
 		<div class="container">
 

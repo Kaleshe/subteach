@@ -273,9 +273,9 @@ function get_liked_teachers( $school_id = null )
     if ( is_user_logged_in() && $school_id == null ) {
         $school_id = get_current_user_id();
     }
-    
+
     // Need to sort out why this won't allow the variable to be fed in, but works elsewhere
-    $liked_teachers = $wpdb->get_results( "SELECT * FROM liked_teachers WHERE schoolID = %d", $school_id );
+    $liked_teachers = $wpdb->get_results($wpdb->prepare("SELECT * FROM liked_teachers WHERE schoolID = %d", $school_id ));
 
   return json_decode(json_encode($liked_teachers), true);
 
@@ -309,7 +309,6 @@ function create_event()
     $teacher_id = $user_id;
   }
 
-  // TODO: Resolve - should events.matchID be set to postID_ ?
   // Decide on utility of matches table (consult Subteach API to see what must remain).
 
   $wpdb->insert('events', array(
@@ -319,8 +318,7 @@ function create_event()
     'subjectID' => $_POST['subjectID'],
     'subjectLiteral' => get_subject($_POST['subjectID']),
     'schoolID' => $school_id,
-    'teacherID' => $teacher_id,
-    'matchID' => $unique_id
+    'teacherID' => $teacher_id
   ));
 
   $date = $_REQUEST['date'];
@@ -351,7 +349,7 @@ function create_event()
     'EventEndHour' => 23,
     'EventEndMinute' => 59,
     'post_author' => $user_id,
-    'meta_input' => array('postID' => $unique_id, 'timeLiteral' => $timeLiteral)
+    'meta_input' => array('eventID' => $wpdb->insert_id, 'timeLiteral' => $timeLiteral)
   );
 
   tribe_create_event($args);
@@ -370,7 +368,7 @@ function liked_teachers() {
  * Returns an array storing the ids of teachers who are available
  */
 function get_available_teachers() {
-    $availableTeachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
+    $availableTeachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799'];
     return $availableTeachers ? $availableTeachers : false;
 }
 
@@ -380,9 +378,9 @@ function get_available_teachers() {
 function is_liked($teacher_id) {
     global $wpdb;
     $school_id = get_current_user_id();
-    if ( null !== $wpdb->get_var($wpdb->prepare("SELECT like FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
-        return $wpdb->get_var($wpdb->prepare("SELECT like FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id)));
+    if ( null !== $wpdb->get_var($wpdb->prepare("SELECT `like` FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
+        return true
     } else {
-        return null;
+        return false;
     }
 }

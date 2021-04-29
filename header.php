@@ -21,7 +21,7 @@ $status = is_active_user( $user_id ) ? 'active' : 'inactive';
 /**
  * Redirect logged out users to the login page
  */
-if ( !is_user_logged_in() ) {
+if ( !is_user_logged_in() && !is_page('register') ) {
 	auth_redirect();
 
 /**
