@@ -1,7 +1,7 @@
 <?php
 
 function profileDataCard( $user_id, $classes = null) {
-    $isLiked = is_liked($user_id) ? 'true' : 'false';
+    $isLiked = is_liked($user_id);
 
     // Profile Data
     $user_data = get_user($user_id, 'teacher');
@@ -22,7 +22,7 @@ function profileDataCard( $user_id, $classes = null) {
     ?>
 
   <div class="profile-card card p-space text-center inline-flex flex-col items-center<?= $classes != null ? ' ' . $classes : ''; ?>">
-    <span class="like text-underline self-end text-sm font-bold" id="like-user-<?= $user_id; ?>" data-liked=<?= $isLiked; ?> data-user-id=<?= $user_id; ?>><?php _e( $isLiked ? 'Unlike' : 'Like', 'subteach' ); ?></span>
+    <span class="like text-underline self-end text-sm font-bold" id="like-user-<?= $user_id; ?>" data-user-id=<?= $user_id; ?>><?php _e( $isLiked ? 'Unlike' : 'Like', 'subteach' ); ?></span>
       <img alt="Profile photo" class="user-profile-photo radius-full self-center" src=<?= $profileImage; ?>>
       <p class="text-sm font-bold mt-space"><?= esc_html( $name ); ?></p>
       <p class="text-xs"><?= esc_html( $city ); ?></p>

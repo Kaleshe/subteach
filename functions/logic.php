@@ -379,7 +379,7 @@ function is_liked($teacher_id) {
     global $wpdb;
     $school_id = get_current_user_id();
     if ( null !== $wpdb->get_var($wpdb->prepare("SELECT `like` FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
-        return true
+        return true;
     } else {
         return false;
     }

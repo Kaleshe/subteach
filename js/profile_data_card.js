@@ -13,7 +13,6 @@ jQuery(document).ready(function ($) {
       success: function () {
         $('#like-user-' + userID).text('Unlike');
         console.log('liked!');
-        console.log(userID);
       },
       error: function (errorThrown) {
         console.log(errorThrown);

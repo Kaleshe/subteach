@@ -122,7 +122,7 @@ function like_teacher()
   $teacher_id = $_REQUEST['user_id'];
   $school_id = get_current_user_id();
   
-  if ( null !== $wpdb->get_row($wpdb->prepare("SELECT * FROM liked_teachers WHERE schoolID = %s AND teacherID = %d", array($school_id, $teacher_id))) ) {
+  if ( null !== $wpdb->get_row($wpdb->prepare("SELECT * FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
     $isLiked = is_liked($teacher_id);
     $wpdb->update('liked_teachers', array(
       'like' => $isLiked ? 'false' : 'true'
@@ -132,7 +132,7 @@ function like_teacher()
     // Inserts a new row if a user hasn't been liked before
     $wpdb->insert('liked_teachers', array(
       'teacherID' => $teacher_id,
-      'schoolID' => $current_user_id,
+      'schoolID' => $school_id,
       'like' => 'true'
     ));
   }
