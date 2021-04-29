@@ -64,9 +64,10 @@ function get_most_recent_user_id($user_type)
 /**
  * Returns the current user type as a string
  */
-function get_user_type_as_string()
+function get_user_type_as_string($optional_id = null)
 {
-  if (is_school()) {
+  $id = $optional_id === null ? get_current_user_id() : $optional_id;
+  if (is_school($id)) {
     return 'school';
   } else {
     return 'admin';
@@ -369,9 +370,25 @@ function liked_teachers() {
 /**
  * Returns an array storing the ids of teachers who are available
  */
-function get_available_teachers() {
-    $availableTeachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
-    return $availableTeachers ? $availableTeachers : false;
+function get_available_teachers($event_id) {
+  assert(is_int($event_id));
+
+  global $wpdb;
+  $event = $wpdb->get_row($wpdb->prepare('SELECT * FROM events WHERE ID = %d', $event_id));
+  $date = (new DateTime($event->timestamp))->format('Y-m-d');
+  $availableTeachers = $wpdb->get_col($wpdb->prepare("
+    SELECT DISTINCT teacherID
+    FROM matches
+    WHERE eventID in (
+        SELECT ID
+        FROM events
+        WHERE CONVERT(events.timestamp, DATE) <> %s)
+        AND (schoolInterest <> 'true' OR teacherInterest <> 'true');
+  ", $date), );
+  return $availableTeachers;
+
+//    $availableTeachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
+//    return $availableTeachers ? $availableTeachers : false;
 }
 
 /**
@@ -380,8 +397,8 @@ function get_available_teachers() {
 function is_liked($teacher_id) {
     global $wpdb;
     $school_id = get_current_user_id();
-    if ( null !== $wpdb->get_var($wpdb->prepare("SELECT like FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
-        return $wpdb->get_var($wpdb->prepare("SELECT like FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id)));
+    if ( null !== $wpdb->get_var($wpdb->prepare("SELECT `like` FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
+        return $wpdb->get_var($wpdb->prepare("SELECT `like` FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id)));
     } else {
         return null;
     }

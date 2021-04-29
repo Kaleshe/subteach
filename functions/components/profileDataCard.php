@@ -2,6 +2,9 @@
 
 function profileDataCard( $user_id, $classes = null) {
     $isLiked = is_liked($user_id);
+    // Assuming teacher.
+    $user = get_user($user_id, 'teacher');
+    $name = "$user->firstName $user->lastName";
     $profileImage = null;
     if ( get_user_meta($user_id, 'profile_image') ) {
         $profileImageID = get_user_meta($user_id)['profile_image'][0];
@@ -17,7 +20,7 @@ function profileDataCard( $user_id, $classes = null) {
   <div class="profile-card card p-space text-center inline-flex flex-col items-center<?= $classes != null ? ' ' . $classes : ''; ?>">
     <span class="like self-end" data-liked=<?= $isLiked; ?> data-user-id=<?= $user_id; ?>>Like</span>
       <img alt="Profile photo" class="user-profile-photo radius-full self-center" src=<?= $profileImage; ?>>
-      <p class="text-sm font-bold mt-space"><?= esc_html( 'Cheryl' ); ?></p>
+      <p class="text-sm font-bold mt-space"><?= esc_html( $name ); ?></p>
       <p class="text-xs"><?= esc_html( 'London' ); ?></p>
     <p class="text-xs mb"><?= esc_html( '0 Placements' ); ?></p>
       <button class="w-full border-rounded" data-user-id=<?= $user_id; ?>><?php _e('View'); ?></button>
