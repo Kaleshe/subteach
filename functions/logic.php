@@ -361,10 +361,13 @@ function create_event()
 /**
  * Returns an array storing the ids of liked teachers
  */
-function liked_teachers() {
-    $teachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
-    return $teachers ? $teachers : false;
-}
+// function liked_teachers() {
+//     global $wpdb;
+//     $school_id = get_current_user_id();
+//     $teachers = $wpdb->get_results($wpdb->prepare("SELECT `like` FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id)));
+//     // $teachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
+//     return $teachers ? $teachers : false;
+// }
 
 /**
  * Returns an array storing the ids of teachers who are available
