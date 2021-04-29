@@ -92,14 +92,30 @@ function subteach_register_form() {
 
   $first_name = ( ! empty( $_POST['first_name'] ) ) ? trim( $_POST['first_name'] ) : '';
   $last_name = ( ! empty( $_POST['last_name'] ) ) ? trim( $_POST['last_name'] ) : '';
+  $password = $pass1 = $wpdb->escape($_REQUEST['pass1']);
+$pass2 = $wpdb->escape($_REQUEST['pass2']);
+if ($pass1 != $pass2){
+    echo "<span style='color:#FF0000'><strong>Error..</strong></span><br /><br />please use a passwords don't match.";
+        exit();
+
+}
+$random_password = $pass1;
 
     ?>
     <p>
-        <label style="flex-grow: 1;" for="first_name"><?php _e( 'First Name', 'subteach' ) ?><br />
+        <label for="first_name"><?php _e( 'First Name', 'subteach' ) ?><br />
             <input type="text" name="first_name" id="first_name" class="input" value="<?php echo esc_attr( wp_unslash( $first_name ) ); ?>" size="25" /></label>
 
-        <label style="margin-left: 1rem; flex-grow: 1;" for="last_name"><?php _e( 'Last Name', 'subteach' ) ?><br />
+        <label for="last_name"><?php _e( 'Last Name', 'subteach' ) ?><br />
             <input type="text" name="last_name" id="last_name" class="input" value="<?php echo esc_attr( wp_unslash( $last_name ) ); ?>" size="25" /></label>
+    </p>
+
+    <p>
+      <label for="password"><?php _e( 'Password', 'subteach' ) ?></label>
+        <input type="password" name="pass1"><br />
+
+      <label for="confirm-password"><?php _e( 'Confirm Password', 'subteach' ) ?></label>
+        <input type="password" name="pass2"><br />
     </p>
 
     <p>
