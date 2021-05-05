@@ -163,14 +163,18 @@ function subteach_scripts() {
 		}, 100);
 	}
 
-	// Teacher profile ajax request
+	// Profile ajax request
 	wp_enqueue_script( 'display_user_profile_script', get_template_directory_uri() . '/js/display_user_profile.js', array('jquery') );
 	wp_localize_script( 'display_user_profile_script', 'display_user_profile_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
 	wp_localize_script( 'display_user_profile_script', 'deactivate_user_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
 
 	// Like a teacher ajax request
-	wp_enqueue_script( 'profile_data_card_script', get_template_directory_uri() . '/js/profile_data_card.js', array('jquery') );
-	wp_localize_script( 'profile_data_card_script', 'like_teacher_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
+	wp_enqueue_script( 'like_teacher_script', get_template_directory_uri() . '/js/like_teacher.js', array('jquery') );
+	wp_localize_script( 'like_teacher_script', 'like_teacher_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
+
+		// Show interest ajax request
+		wp_enqueue_script( 'show_interest_script', get_template_directory_uri() . '/js/show_interest.js', array('jquery') );
+		wp_localize_script( 'show_interest_script', 'show_interest_obj', array('ajaxurl' => admin_url('admin-ajax.php')) );
 
 }
 add_action( 'wp_enqueue_scripts', 'subteach_scripts' );

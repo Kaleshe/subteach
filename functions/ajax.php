@@ -136,7 +136,11 @@ function like_teacher()
     $isLiked = is_liked($teacher_id);
     $wpdb->update('liked_teachers', array(
       'like' => $isLiked ? 'false' : 'true'
+    ), array(
+      'schoolID' => $school_id,
+      'teacherID' => $teacher_id
     ));
+    echo('Liked');
   } else {
 
     // Inserts a new row if a user hasn't been liked before
@@ -145,8 +149,34 @@ function like_teacher()
       'schoolID' => $school_id,
       'like' => 'true'
     ));
+    echo('Like row added'); 
   }
 
   die();
 
+}
+
+/**
+ * Show interest
+ */
+add_action('wp_ajax_show_interest', 'show_interest');
+add_action('wp_ajax_nopriv_show_interest', 'show_interest');
+function show_interest() {
+  $event_id = $_REQUEST['event_id'];
+  $teacher_id = $_REQUEST['user_id'];
+  $school_id = get_current_user_id();
+
+  if ( !interest_shown($teacher_id) ) {
+    global $wpdb;
+
+    $wpdb->insert('matches', array(
+      'teacherID' => $teacher_id,
+      'schoolID' => $school_id,
+      'eventID' => $event_id,
+      'schoolInterest' => 'true',
+      'modify' => current_time('mysql')
+    ));
+
+    echo $teacher_id;
+  }
 }

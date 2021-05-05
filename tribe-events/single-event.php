@@ -72,7 +72,7 @@ $event_id = get_the_ID();
 						<?php
                         $availableTeachers = get_available_teachers($event_id);
 						if ( count($availableTeachers) > 0 ) { ; ?>
-								<div class="available-teachers profiles mt-space grid gap-space-half">
+								<div class="available-teachers profiles mt-space grid gap-space-half" id="available-teachers" data-event-id=<?= get_the_ID(); ?>>
 										<?php
 
 												foreach( $availableTeachers as $teacher ) {

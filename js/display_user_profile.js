@@ -3,10 +3,10 @@ jQuery(document).ready(function ($) {
   // Gets the current user type of the logged in user
   const loggedInUserType = $(document.body).data("current-user-type");
 
-  jQuery(".profile-card button").click(function () {
-
-    const userID = $(this).data("user-id");
-    const userType = $(this).data("user-type");
+  jQuery("button.display-profile, button.userID:parent").click(function (e) {
+    e.preventDefault();
+    const userID = $(this).closest('.profile-card').data("user-id") ? $(this).closest('.profile-card').data("user-id") : $(this).attr('href');
+    const userType = $(this).closest('.profile-card').data("user-type") ? $(this).closest('.profile-card').data("user-type") : 'school';
 
     $.ajax({
       url: display_user_profile_obj.ajaxurl,

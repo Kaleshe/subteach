@@ -256,7 +256,7 @@ function is_active_user( $school_id = null ) {
         $school_id = get_current_user_id();
     }
 
-    if ( (get_user_meta( $school_id, 'is_active', true)) != 0 || !is_school($school_id)) {
+    if ( (get_user_meta( $school_id, 'is_active', true)) != 0 || !is_school($school_id) ) {
         return true;
     } else {
         return false;
@@ -276,7 +276,7 @@ function get_liked_teachers( $school_id = null )
     }
 
     // Need to sort out why this won't allow the variable to be fed in, but works elsewhere
-    $liked_teachers = $wpdb->get_results($wpdb->prepare("SELECT * FROM liked_teachers WHERE schoolID = %d", $school_id ));
+    $liked_teachers = $wpdb->get_results($wpdb->prepare("SELECT * FROM liked_teachers WHERE schoolID = %d AND `like` = true", $school_id ));
 
   return json_decode(json_encode($liked_teachers), true);
 
@@ -364,10 +364,11 @@ function create_event()
 function liked_teachers() {
     global $wpdb;
     $school_id = get_current_user_id();
-    $teachers = $wpdb->get_results($wpdb->prepare("SELECT `teacherID` FROM liked_teachers WHERE schoolID = %d", $school_id));
-    // $teachers = ['05034f57-3184-485e-9c9f-b67f468c396b', '99cc8ce9-46b0-4669-a6cd-d2eb7245d799', '5b5bc55c-1c95-4aff-b6d7-da280bc105c1'];
+    $teachers = $wpdb->get_results($wpdb->prepare("SELECT `teacherID` FROM `liked_teachers` WHERE `schoolID` = %s AND `like` = 'true'", $school_id));
     return $teachers ? $teachers : false;
 }
+
+liked_teachers(); 
 
 /**
  * Returns an array storing the ids of teachers who are available
@@ -377,6 +378,9 @@ function get_available_teachers($event_id) {
 
   global $wpdb;
   $event = $wpdb->get_row($wpdb->prepare('SELECT * FROM events WHERE ID = %d', $event_id), OBJECT);
+  if($event === null) {
+    return [];
+  }
   $date = (new DateTime($event->timestamp))->format('Y-m-d');
   $availableTeachers = $wpdb->get_col($wpdb->prepare("
     SELECT DISTINCT teacherID
@@ -399,9 +403,24 @@ function get_available_teachers($event_id) {
 function is_liked($teacher_id) {
     global $wpdb;
     $school_id = get_current_user_id();
-    if ( null !== $wpdb->get_var($wpdb->prepare("SELECT `like` FROM liked_teachers WHERE schoolID = %d AND teacherID = %s", array($school_id, $teacher_id))) ) {
+    if ( null !== $wpdb->get_var($wpdb->prepare("SELECT `like` FROM liked_teachers WHERE schoolID = %d AND teacherID = %s AND `like` = 'true'", array($school_id, $teacher_id))) ) {
         return true;
     } else {
         return false;
     }
+}
+
+
+/**
+ * Check if interest has been shown by the current school, returns true or false
+ */
+function interest_shown($teacher_id) {
+  global $wpdb;
+  $event_id = get_the_ID();
+  $school_id = get_current_user_id();
+  if ( null !== $wpdb->get_var($wpdb->prepare("SELECT `schoolInterest` FROM matches WHERE schoolID = %d AND teacherID = %s AND eventID = %d AND `schoolInterest` = 'true'", array($school_id, $teacher_id, $event_id))) ) {
+      return true;
+  } else {
+      return false;
+  }
 }

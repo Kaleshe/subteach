@@ -1,9 +1,11 @@
 const userToggle = document.querySelector('#toggle-user');
+const schoolsTitle = document.querySelector('#wdt-table-title-4');
+const teachersTitle = document.querySelector('#wdt-table-title-3');
 
-const schoolsTitle = document.querySelector('#wdt-table-title-5');
+// const schoolsTitle = document.querySelector('#wdt-table-title-5');
 const schools = schoolsTitle.nextElementSibling;
 
-const teachersTitle = document.querySelector('#wdt-table-title-6');
+// const teachersTitle = document.querySelector('#wdt-table-title-6');
 const teachers = teachersTitle.nextElementSibling;
 
 teachersTitle.setAttribute('data-current', 'false');
@@ -21,4 +23,14 @@ userToggle.addEventListener('click', () => {
 
   }
 
+});
+
+// Prevent table links from redirecting
+let tableLinks = document.querySelectorAll('table a');
+
+tableLinks.forEach(item => () => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    return false;
+  })
 });

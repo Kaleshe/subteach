@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
   jQuery("span.like").click(function () {
-    const userID = $(this).data("user-id");
+    const userID = $(this).closest('.profile-card').data("user-id");
     $.ajax({
       url: like_teacher_obj.ajaxurl,
       data: {
@@ -10,9 +10,14 @@ jQuery(document).ready(function ($) {
       },
 
       // Alert the like, will be changed later
-      success: function () {
-        $('#like-user-' + userID).text('Unlike');
-        console.log('liked!');
+      success: function (data) {
+        if ($('#like-user-' + userID).text() === 'Unlike') {
+          $('#like-user-' + userID).text('Like');
+          console.log('liked!');
+        } else {
+          $('#like-user-' + userID).text('Unlike');
+        }
+        console.log(data);
       },
       error: function (errorThrown) {
         console.log(errorThrown);

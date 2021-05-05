@@ -104,7 +104,7 @@ if ($last_search !== null) {
                         <?php
 
                             foreach( $profiles as $profile ) {
-                                echo profileCard( 'View Profile', $profile, 'teacher', 'inline-flex flex-col' );
+                                echo profileCard( 'View Profile', $profile->teacherID, 'teacher', 'inline-flex flex-col' );
                             }
 
                         ?>
